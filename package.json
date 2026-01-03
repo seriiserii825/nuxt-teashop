@@ -3,15 +3,48 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
+    "build": "eslint . && vue-tsc --noEmit && nuxt build",
+    "dev": "eslint . && vue-tsc --noEmit && nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "start": "pm2 start ecosystem.config.cjs && pm2 save && pm2 startup",
+    "update": "git pull && bun install && bun run build && pm2 restart nuxt-teashop",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "type:check": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "nuxt": "^4.2.2",
-    "vue": "^3.5.26",
-    "vue-router": "^4.6.4"
+    "@fortawesome/fontawesome-svg-core": "^7.1.0",
+    "@fortawesome/free-brands-svg-icons": "^7.1.0",
+    "@fortawesome/free-solid-svg-icons": "^7.1.0",
+    "@fortawesome/vue-fontawesome": "^3.1.2",
+    "@nuxtjs/tailwindcss": "6.14.0",
+    "@pinia/nuxt": "0.11.3",
+    "@types/node": "^25.0.1",
+    "add": "^2.0.6",
+    "axios": "^1.13.2",
+    "chart.js": "^4.5.1",
+    "nuxt": "^4.2.1",
+    "pinia": "^3.0.4",
+    "sass": "^1.95.1",
+    "sweetalert2": "^11.26.10",
+    "vue": "^3.5.25",
+    "vue-chart-3": "^4.0.1",
+    "vue-router": "^4.6.3",
+    "vue-sweetalert2": "^5.0.11"
+  },
+  "engines": {
+    "node": "22.*"
+  },
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.5.10",
+    "@nuxt/eslint": "^1.12.1",
+    "eslint": "^9.39.2",
+    "eslint-plugin-vue": "^10.6.2",
+    "prettier": "^3.7.4",
+    "prettier-plugin-tailwindcss": "^0.7.2",
+    "typescript": "^5.9.3",
+    "vue-tsc": "^3.1.8"
   }
 }

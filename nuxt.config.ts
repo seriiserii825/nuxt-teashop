@@ -1,5 +1,40 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
-  devtools: { enabled: true }
+  runtimeConfig: {
+    public: {
+      apiBase: process.env.NUXT_PUBLIC_API_BASE,
+    },
+  },
+  devServer: {
+    port: Number(process.env.NUXT_PORT),
+  },
+  devtools: { enabled: true },
+  css: [
+    '~/assets/scss/tailwind.scss',
+    '@fortawesome/fontawesome-svg-core/styles.css',
+  ],
+  ssr: false,
+
+  app: {
+    head: {
+      link: [{ rel: 'stylesheet', href: '/css/fonts.css' }],
+    },
+    pageTransition: { name: 'page', mode: 'out-in' },
+    layoutTransition: { name: 'layout', mode: 'out-in' },
+  },
+
+  typescript: {
+    typeCheck: true,
+  },
+
+  pinia: {
+    storesDirs: ['./stores/**'],
+  },
+
+  experimental: {
+    typedPages: true,
+  },
+
+  modules: ['@pinia/nuxt', '@nuxtjs/tailwindcss', '@nuxt/eslint'],
 })
