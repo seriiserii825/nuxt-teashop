@@ -1,3 +1,6 @@
+import type { IProduct } from './IProduct'
+import type { IStore } from './IStore'
+
 export type IUser = {
   id: string
   createdAt: Date
@@ -6,4 +9,6 @@ export type IUser = {
   password: string
   name: string
   picture: string
+  stores: IStore[]
+  favorites: IProduct[]
 }
