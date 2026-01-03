@@ -10,10 +10,7 @@ export default defineNuxtConfig({
     port: Number(process.env.NUXT_PORT),
   },
   devtools: { enabled: true },
-  css: [
-    '~/assets/scss/tailwind.scss',
-    '@fortawesome/fontawesome-svg-core/styles.css',
-  ],
+  css: ['@fortawesome/fontawesome-svg-core/styles.css'],
   ssr: false,
 
   app: {
