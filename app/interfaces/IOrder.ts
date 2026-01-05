@@ -4,7 +4,7 @@ export interface IOrder {
   updatedAt: Date
   status: string
   userId: null
-  orderItems: OrderItem[]
+  items: OrderItem[]
   total: number
 }
 export interface OrderItem {
@@ -17,3 +17,5 @@ export interface OrderItem {
   productId: string
   storeId: string
 }
+
+export type IOrderCreate = Pick<IOrder, 'items'>
