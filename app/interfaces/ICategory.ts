@@ -8,4 +8,4 @@ export interface ICategory {
 }
 
 export type ICategoryCreate = Pick<ICategory, 'title' | 'description'>
-export type ICategoryEdit = Pick<ICategory, 'title' | 'description'>
+export type ICategoryUpdate = Pick<ICategory, 'title' | 'description'>
