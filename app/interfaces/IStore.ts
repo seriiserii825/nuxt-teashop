@@ -6,3 +6,6 @@ export interface IStore {
   description: null
   userId: string
 }
+
+export type IStoreCreate = Pick<IStore, 'title'>
+export type IStoreEdit = Pick<IStore, 'title' | 'description'>
