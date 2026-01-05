@@ -1,8 +1,10 @@
 import axios, { type CreateAxiosDefaults } from 'axios'
 
-import { getAccessToken } from './api_tokens'
+import { getAccessToken, removeAccessToken } from './api_tokens'
 
-const baseURL = import.meta.env.NUXT_PUBLIC_API_BASE
+const config = useRuntimeConfig()
+const baseURL = config.public.apiBase
+
 const options: CreateAxiosDefaults = {
   baseURL,
   headers: {
