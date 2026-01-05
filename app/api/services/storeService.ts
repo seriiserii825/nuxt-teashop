@@ -1,7 +1,7 @@
 import { API_URL } from '~/config/api_url.config'
 import type { IStore, IStoreCreate, IStoreUpdate } from '~/interfaces/IStore'
 
-import { axiosClassic } from '../axiosInstance'
+import { axiosClassic, axiosWithToken } from '../axiosInstance'
 
 export const storeService = {
   getAll: async () => {
@@ -12,21 +12,21 @@ export const storeService = {
     return data
   },
   getByStoreId: async (storeId: string) => {
-    const { data } = await axiosClassic<IStore[]>({
+    const { data } = await axiosWithToken<IStore[]>({
       url: API_URL.stores(`/store/${storeId}`),
       method: 'GET',
     })
     return data
   },
   getById: async (id: string) => {
-    const { data } = await axiosClassic<IStore>({
+    const { data } = await axiosWithToken<IStore>({
       url: API_URL.stores(`/${id}`),
       method: 'GET',
     })
     return data
   },
   create: async (data: IStoreCreate, storeId: string) => {
-    const response = await axiosClassic<IStore>({
+    const response = await axiosWithToken<IStore>({
       url: API_URL.stores(`/store/${storeId}`),
       method: 'POST',
       data,
@@ -34,7 +34,7 @@ export const storeService = {
     return response.data
   },
   update: async (id: string, data: IStoreUpdate) => {
-    const response = await axiosClassic<IStore>({
+    const response = await axiosWithToken<IStore>({
       url: API_URL.stores(`/${id}`),
       method: 'PATCH',
       data,
@@ -42,7 +42,7 @@ export const storeService = {
     return response.data
   },
   delete: async (id: string) => {
-    const response = await axiosClassic<IStore>({
+    const response = await axiosWithToken<IStore>({
       url: API_URL.stores(`/${id}`),
       method: 'DELETE',
     })

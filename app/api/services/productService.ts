@@ -5,7 +5,7 @@ import type {
   IProductUpdate,
 } from '~/interfaces/IProduct'
 
-import { axiosClassic } from '../axiosInstance'
+import { axiosClassic, axiosWithToken } from '../axiosInstance'
 
 export const productService = {
   getAll: async () => {
@@ -16,21 +16,21 @@ export const productService = {
     return data
   },
   getByStoreId: async (storeId: string) => {
-    const { data } = await axiosClassic<IProduct[]>({
+    const { data } = await axiosWithToken<IProduct[]>({
       url: API_URL.products(`/store/${storeId}`),
       method: 'GET',
     })
     return data
   },
   getByCategoryId: async (categoryId: string) => {
-    const { data } = await axiosClassic<IProduct[]>({
+    const { data } = await axiosWithToken<IProduct[]>({
       url: API_URL.products(`/category/${categoryId}`),
       method: 'GET',
     })
     return data
   },
   searchByTerm: async (term: string) => {
-    const { data } = await axiosClassic<IProduct[]>({
+    const { data } = await axiosWithToken<IProduct[]>({
       url: API_URL.products(`/search`),
       method: 'GET',
       params: term ? { term } : {},
@@ -38,14 +38,14 @@ export const productService = {
     return data || []
   },
   getById: async (id: string) => {
-    const { data } = await axiosClassic<IProduct>({
+    const { data } = await axiosWithToken<IProduct>({
       url: API_URL.products(`/${id}`),
       method: 'GET',
     })
     return data
   },
   create: async (data: IProductCreate, storeId: string) => {
-    const response = await axiosClassic<IProduct>({
+    const response = await axiosWithToken<IProduct>({
       url: API_URL.products(`/store/${storeId}`),
       method: 'POST',
       data,
@@ -53,7 +53,7 @@ export const productService = {
     return response.data
   },
   update: async (id: string, data: IProductUpdate) => {
-    const response = await axiosClassic<IProduct>({
+    const response = await axiosWithToken<IProduct>({
       url: API_URL.products(`/${id}`),
       method: 'PATCH',
       data,
@@ -61,7 +61,7 @@ export const productService = {
     return response.data
   },
   delete: async (id: string) => {
-    const response = await axiosClassic<IProduct>({
+    const response = await axiosWithToken<IProduct>({
       url: API_URL.products(`/${id}`),
       method: 'DELETE',
     })

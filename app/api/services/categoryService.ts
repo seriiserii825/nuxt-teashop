@@ -5,7 +5,7 @@ import type {
   ICategoryUpdate,
 } from '~/interfaces/ICategory'
 
-import { axiosClassic } from '../axiosInstance'
+import { axiosClassic, axiosWithToken } from '../axiosInstance'
 
 export const categoryService = {
   getAll: async () => {
@@ -16,21 +16,21 @@ export const categoryService = {
     return data
   },
   getByStoreId: async (storeId: string) => {
-    const { data } = await axiosClassic<ICategory[]>({
+    const { data } = await axiosWithToken<ICategory[]>({
       url: API_URL.categories(`/store/${storeId}`),
       method: 'GET',
     })
     return data
   },
   getById: async (id: string) => {
-    const { data } = await axiosClassic<ICategory>({
+    const { data } = await axiosWithToken<ICategory>({
       url: API_URL.categories(`/${id}`),
       method: 'GET',
     })
     return data
   },
   create: async (data: ICategoryCreate, storeId: string) => {
-    const response = await axiosClassic<ICategory>({
+    const response = await axiosWithToken<ICategory>({
       url: API_URL.categories(`/store/${storeId}`),
       method: 'POST',
       data,
@@ -38,7 +38,7 @@ export const categoryService = {
     return response.data
   },
   update: async (id: string, data: ICategoryUpdate) => {
-    const response = await axiosClassic<ICategory>({
+    const response = await axiosWithToken<ICategory>({
       url: API_URL.categories(`/${id}`),
       method: 'PATCH',
       data,
@@ -46,7 +46,7 @@ export const categoryService = {
     return response.data
   },
   delete: async (id: string) => {
-    const response = await axiosClassic<ICategory>({
+    const response = await axiosWithToken<ICategory>({
       url: API_URL.categories(`/${id}`),
       method: 'DELETE',
     })

@@ -1,7 +1,7 @@
 import { API_URL } from '~/config/api_url.config'
 import type { IColor, IColorCreate, IColorUpdate } from '~/interfaces/IColor'
 
-import { axiosClassic } from '../axiosInstance'
+import { axiosClassic, axiosWithToken } from '../axiosInstance'
 
 export const categoryService = {
   getAll: async () => {
@@ -12,21 +12,21 @@ export const categoryService = {
     return data
   },
   getByStoreId: async (storeId: string) => {
-    const { data } = await axiosClassic<IColor[]>({
+    const { data } = await axiosWithToken<IColor[]>({
       url: API_URL.colors(`/store/${storeId}`),
       method: 'GET',
     })
     return data
   },
   getById: async (id: string) => {
-    const { data } = await axiosClassic<IColor>({
+    const { data } = await axiosWithToken<IColor>({
       url: API_URL.colors(`/${id}`),
       method: 'GET',
     })
     return data
   },
   create: async (data: IColorCreate, storeId: string) => {
-    const response = await axiosClassic<IColor>({
+    const response = await axiosWithToken<IColor>({
       url: API_URL.colors(`/store/${storeId}`),
       method: 'POST',
       data,
@@ -34,7 +34,7 @@ export const categoryService = {
     return response.data
   },
   update: async (id: string, data: IColorUpdate) => {
-    const response = await axiosClassic<IColor>({
+    const response = await axiosWithToken<IColor>({
       url: API_URL.colors(`/${id}`),
       method: 'PATCH',
       data,
@@ -42,7 +42,7 @@ export const categoryService = {
     return response.data
   },
   delete: async (id: string) => {
-    const response = await axiosClassic<IColor>({
+    const response = await axiosWithToken<IColor>({
       url: API_URL.colors(`/${id}`),
       method: 'DELETE',
     })

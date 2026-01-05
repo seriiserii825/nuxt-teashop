@@ -5,7 +5,7 @@ import type {
   IReviewUpdate,
 } from '~/interfaces/IReview'
 
-import { axiosClassic } from '../axiosInstance'
+import { axiosClassic, axiosWithToken } from '../axiosInstance'
 
 export const reviewService = {
   getAll: async () => {
@@ -16,21 +16,21 @@ export const reviewService = {
     return data
   },
   getByStoreId: async (storeId: string) => {
-    const { data } = await axiosClassic<IReview[]>({
+    const { data } = await axiosWithToken<IReview[]>({
       url: API_URL.reviews(`/store/${storeId}`),
       method: 'GET',
     })
     return data
   },
   getById: async (id: string) => {
-    const { data } = await axiosClassic<IReview>({
+    const { data } = await axiosWithToken<IReview>({
       url: API_URL.reviews(`/${id}`),
       method: 'GET',
     })
     return data
   },
   create: async (data: IReviewCreate, storeId: string) => {
-    const response = await axiosClassic<IReview>({
+    const response = await axiosWithToken<IReview>({
       url: API_URL.reviews(`/store/${storeId}`),
       method: 'POST',
       data,
@@ -38,7 +38,7 @@ export const reviewService = {
     return response.data
   },
   update: async (id: string, data: IReviewUpdate) => {
-    const response = await axiosClassic<IReview>({
+    const response = await axiosWithToken<IReview>({
       url: API_URL.reviews(`/${id}`),
       method: 'PATCH',
       data,
@@ -46,7 +46,7 @@ export const reviewService = {
     return response.data
   },
   delete: async (id: string) => {
-    const response = await axiosClassic<IReview>({
+    const response = await axiosWithToken<IReview>({
       url: API_URL.reviews(`/${id}`),
       method: 'DELETE',
     })
