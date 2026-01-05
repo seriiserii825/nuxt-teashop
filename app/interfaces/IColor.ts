@@ -8,4 +8,4 @@ export interface IColor {
 }
 
 export type IColorCreate = Pick<IColor, 'name' | 'value'>
-export type IColorEdit = Pick<IColor, 'name' | 'value'>
+export type IColorUpdate = Pick<IColor, 'name' | 'value'>

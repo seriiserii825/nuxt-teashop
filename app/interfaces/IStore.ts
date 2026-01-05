@@ -8,4 +8,4 @@ export interface IStore {
 }
 
 export type IStoreCreate = Pick<IStore, 'title'>
-export type IStoreEdit = Pick<IStore, 'title' | 'description'>
+export type IStoreUpdate = Pick<IStore, 'title' | 'description'>
