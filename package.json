@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "eslint . && vue-tsc --noEmit && nuxt build",
-    "dev": "eslint . && vue-tsc --noEmit && nuxt dev",
+    "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",

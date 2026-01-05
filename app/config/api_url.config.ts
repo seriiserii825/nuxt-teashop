@@ -1,0 +1,16 @@
+export const SERVER_URL =
+  process.env.NUXT_PUBLIC_API_BASE ||
+  console.error('NUXT_PUBLIC_API_BASE is not defined')
+export const API_URL = {
+  root: (url = '') => `${url ? SERVER_URL + url : SERVER_URL}`,
+  auth: (url = '') => API_URL.root(`/auth${url}`),
+  users: (url = '') => API_URL.root(`/users${url}`),
+  products: (url = '') => API_URL.root(`/products${url}`),
+  stores: (url = '') => API_URL.root(`/stores${url}`),
+  colors: (url = '') => API_URL.root(`/colors${url}`),
+  categories: (url = '') => API_URL.root(`/categories${url}`),
+  files: (url = '') => API_URL.root(`/files${url}`),
+  reviews: (url = '') => API_URL.root(`/reviews${url}`),
+  orders: (url = '') => API_URL.root(`/orders${url}`),
+  statistics: (url = '') => API_URL.root(`/statistics${url}`),
+}
