@@ -11,3 +11,9 @@ export interface IProduct {
   colorId: string
   userId: null
 }
+
+export type IProductCreate = Omit<
+  IProduct,
+  'id' | 'createdAt' | 'updatedAt' | 'userId'
+>
+export type IProductUpdate = Partial<IProductCreate>
