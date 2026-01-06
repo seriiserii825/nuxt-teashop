@@ -14,6 +14,10 @@
         | 'btn-outline',
       default: 'btn-info',
     },
+    loading: {
+      type: Boolean,
+      default: false,
+    },
   })
 
   function onClick(event: Event) {
@@ -22,7 +26,13 @@
 </script>
 
 <template>
-  <button :type="type" :class="`btn ${variant}`" @click="onClick">
+  <button
+    :disabled="loading"
+    :type="type"
+    :class="`btn ${variant}`"
+    @click="onClick"
+  >
+    <Preloader v-if="loading" class="mr-2 h-4 w-4" />
     <slot></slot>
   </button>
 </template>
