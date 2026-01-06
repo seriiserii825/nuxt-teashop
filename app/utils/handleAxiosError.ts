@@ -14,7 +14,15 @@ export default function handleAxiosError(
     const { response } = error
     if (response) {
       const { status, data } = response
-      if (status === 422 && errors) {
+      console.log(status, 'status')
+      if (status === 401 || status === 400 || status === 500) {
+        useSweetAlert(
+          'error',
+          'Unauthorized',
+          data.message || 'Please log in again.'
+        )
+        navigateTo('/login')
+      } else if (status === 422 && errors) {
         errors.value = data.errors
         for (const key in errors.value) {
           const fieldErrors = errors.value[key]
@@ -23,13 +31,6 @@ export default function handleAxiosError(
             break
           }
         }
-      } else if (status === 401) {
-        useSweetAlert(
-          'error',
-          'Unauthorized',
-          data.message || 'Please log in again.'
-        )
-        navigateTo('/login')
       } else {
         useSweetAlert('error', 'Error', data.message || 'Something went wrong')
       }

@@ -3,7 +3,16 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   runtimeConfig: {
     public: {
-      apiBase: process.env.NUXT_PUBLIC_API_BASE,
+      apiBase: '/api', // изменил на прокси
+    },
+  },
+  nitro: {
+    devProxy: {
+      '/api': {
+        target: 'https://nest-teashop.seriiburduja.org',
+        changeOrigin: true,
+        cookieDomainRewrite: 'localhost',
+      },
     },
   },
   devServer: {
