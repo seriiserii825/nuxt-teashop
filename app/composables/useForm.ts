@@ -1,7 +1,4 @@
-export default function useForm<
-  TFormData extends Record<string, unknown>,
-  TApiResult,
->(
+export default function useForm<TFormData extends object, TApiResult>(
   apiFn: (args: TFormData) => Promise<TApiResult>,
   formData: TFormData,
   onSuccess?: (args: TApiResult) => void

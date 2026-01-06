@@ -11,7 +11,7 @@
     </div>
     <div class="flex w-1/2 items-center justify-center">
       <div class="max-w-96">
-        <FormAuth />
+        <FormRegister />
       </div>
     </div>
   </div>
