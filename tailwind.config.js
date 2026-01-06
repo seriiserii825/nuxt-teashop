@@ -28,9 +28,12 @@ export default {
     extend: {
       colors: {
         accent: {
-          light: 'rgb(var(--accent-color-light) / <alpha-value>)', //use in html class "text-accent-light"
-          DEFAULT: 'rgb(var(--accent-color) / <alpha-value>)', //use in html class "text-primary"
-          dark: 'rgb(var(--accent-color-dark) / <alpha-value>)', //use in html class "text-accent-dark"
+          light: 'var(--accent-color-light)', //use in html class "text-accent-light"
+          DEFAULT: 'var(--accent-color)', //use in html class "text-primary"
+          dark: 'var(--accent-color-dark)', //use in html class "text-accent-dark"
+        },
+        text: {
+          DEFAULT: 'rgb(var(--text-color) / <alpha-value>)', //use in html class "text-text"
         },
       },
       fontFamily: {
