@@ -4,6 +4,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       apiBase: '/api', // изменил на прокси
+      serverUrl: process.env.NUXT_PUBLIC_SERVER_URL,
     },
   },
   nitro: {
