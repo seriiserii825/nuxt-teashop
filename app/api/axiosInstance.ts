@@ -1,6 +1,6 @@
 import axios, { type CreateAxiosDefaults } from 'axios'
 
-import { getAccessToken, removeAccessToken } from './api_tokens'
+import { getAccessToken, removeAccessToken, setAccessToken } from './api_tokens'
 
 const config = useRuntimeConfig()
 const baseURL = config.public.apiBase
@@ -36,7 +36,15 @@ axiosWithToken.interceptors.response.use(
       !error.config._isRetry
     ) {
       try {
-        // await j
+        // Получаем новый accessToken
+        const response = await axiosClassic.post('/auth/login/access-token')
+        const newToken = response.data.accessToken
+
+        // Сохраняем новый токен
+        setAccessToken(newToken)
+
+        // Обновляем header и повторяем запрос
+        originalRequest.headers.Authorization = `Bearer ${newToken}`
         return axiosWithToken.request(originalRequest)
       } catch (e) {
         if (
@@ -45,8 +53,11 @@ axiosWithToken.interceptors.response.use(
         ) {
           removeAccessToken()
         }
+        window.location.href = '/login'
+        return Promise.reject(e)
       }
     }
+    return Promise.reject(error)
   }
 )
 
