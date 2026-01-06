@@ -9,7 +9,7 @@ import { axiosClassic, axiosWithToken } from '../axiosInstance'
 
 export const categoryService = {
   getAll: async () => {
-    const { data } = await axiosClassic<ICategory[]>({
+    const { data } = await axiosWithToken<ICategory[]>({
       url: API_URL.categories(),
       method: 'GET',
     })

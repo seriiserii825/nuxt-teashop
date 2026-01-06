@@ -23,6 +23,13 @@ export default function handleAxiosError(
             break
           }
         }
+      } else if (status === 401) {
+        useSweetAlert(
+          'error',
+          'Unauthorized',
+          data.message || 'Please log in again.'
+        )
+        navigateTo('/login')
       } else {
         useSweetAlert('error', 'Error', data.message || 'Something went wrong')
       }

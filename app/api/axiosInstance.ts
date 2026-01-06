@@ -35,6 +35,7 @@ axiosWithToken.interceptors.response.use(
       error.config &&
       !error.config._isRetry
     ) {
+      originalRequest._isRetry = true // <-- добавь эту строку!
       try {
         // Получаем новый accessToken
         const response = await axiosClassic.post('/auth/login/access-token')
@@ -53,7 +54,6 @@ axiosWithToken.interceptors.response.use(
         ) {
           removeAccessToken()
         }
-        window.location.href = '/login'
         return Promise.reject(e)
       }
     }

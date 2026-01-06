@@ -3,7 +3,7 @@ import type { IColor, IColorCreate, IColorUpdate } from '~/interfaces/IColor'
 
 import { axiosClassic, axiosWithToken } from '../axiosInstance'
 
-export const categoryService = {
+export const colorService = {
   getAll: async () => {
     const { data } = await axiosClassic<IColor[]>({
       url: API_URL.colors(),

@@ -11,6 +11,7 @@
     },
     () => {
       useSweetAlert('success', 'Logged in successfully!')
+      navigateTo('/')
     }
   )
 </script>
