@@ -5,9 +5,12 @@
 
 <template>
   <div class="flex min-h-screen bg-white">
-    <div class="w-64">
+    <div class="w-64 lg:hidden">
       <StoreNavigation :id="id" />
     </div>
-    <slot></slot>
+    <div class="w-full">
+      <StoreHeader />
+      <slot></slot>
+    </div>
   </div>
 </template>
