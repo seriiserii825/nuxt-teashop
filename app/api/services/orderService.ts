@@ -1,10 +1,11 @@
 import { API_URL } from '~/config/api_url.config'
 import type { IOrder, IOrderCreate } from '~/interfaces/IOrder'
 
-import { axiosWithToken } from '../axiosInstance'
+import { useAxios } from '../axiosInstance'
 
 export const reviewService = {
   getAll: async () => {
+    const { axiosWithToken } = useAxios()
     const { data } = await axiosWithToken<IOrder[]>({
       url: API_URL.reviews(),
       method: 'GET',
@@ -12,6 +13,7 @@ export const reviewService = {
     return data
   },
   create: async (data: IOrderCreate) => {
+    const { axiosWithToken } = useAxios()
     const response = await axiosWithToken<IOrder>({
       url: API_URL.orders('place'),
       method: 'POST',

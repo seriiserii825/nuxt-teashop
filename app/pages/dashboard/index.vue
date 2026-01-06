@@ -1,9 +1,7 @@
 <script setup lang="ts">
-  import { setAccessToken } from '~/api/api_tokens'
-
-  const route = useRoute()
-  const accessToken = route.query.accessToken as string
-  setAccessToken(accessToken)
+  definePageMeta({
+    layout: 'dashboard',
+  })
 </script>
 
 <template>

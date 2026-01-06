@@ -5,10 +5,11 @@ import type {
   IReviewUpdate,
 } from '~/interfaces/IReview'
 
-import { axiosClassic, axiosWithToken } from '../axiosInstance'
+import { useAxios } from '../axiosInstance'
 
 export const reviewService = {
   getAll: async () => {
+    const { axiosClassic } = useAxios()
     const { data } = await axiosClassic<IReview[]>({
       url: API_URL.reviews(),
       method: 'GET',
@@ -16,6 +17,7 @@ export const reviewService = {
     return data
   },
   getByStoreId: async (storeId: string) => {
+    const { axiosWithToken } = useAxios()
     const { data } = await axiosWithToken<IReview[]>({
       url: API_URL.reviews(`/store/${storeId}`),
       method: 'GET',
@@ -23,6 +25,7 @@ export const reviewService = {
     return data
   },
   getById: async (id: string) => {
+    const { axiosWithToken } = useAxios()
     const { data } = await axiosWithToken<IReview>({
       url: API_URL.reviews(`/${id}`),
       method: 'GET',
@@ -30,6 +33,7 @@ export const reviewService = {
     return data
   },
   create: async (data: IReviewCreate, storeId: string) => {
+    const { axiosWithToken } = useAxios()
     const response = await axiosWithToken<IReview>({
       url: API_URL.reviews(`/store/${storeId}`),
       method: 'POST',
@@ -38,6 +42,7 @@ export const reviewService = {
     return response.data
   },
   update: async (id: string, data: IReviewUpdate) => {
+    const { axiosWithToken } = useAxios()
     const response = await axiosWithToken<IReview>({
       url: API_URL.reviews(`/${id}`),
       method: 'PATCH',
@@ -46,6 +51,7 @@ export const reviewService = {
     return response.data
   },
   delete: async (id: string) => {
+    const { axiosWithToken } = useAxios()
     const response = await axiosWithToken<IReview>({
       url: API_URL.reviews(`/${id}`),
       method: 'DELETE',

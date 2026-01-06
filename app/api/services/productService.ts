@@ -5,10 +5,11 @@ import type {
   IProductUpdate,
 } from '~/interfaces/IProduct'
 
-import { axiosClassic, axiosWithToken } from '../axiosInstance'
+import { useAxios } from '../axiosInstance'
 
 export const productService = {
   getAll: async () => {
+    const { axiosClassic } = useAxios()
     const { data } = await axiosClassic<IProduct[]>({
       url: API_URL.products(),
       method: 'GET',
@@ -16,6 +17,7 @@ export const productService = {
     return data
   },
   getByStoreId: async (storeId: string) => {
+    const { axiosWithToken } = useAxios()
     const { data } = await axiosWithToken<IProduct[]>({
       url: API_URL.products(`/store/${storeId}`),
       method: 'GET',
@@ -23,6 +25,7 @@ export const productService = {
     return data
   },
   getByCategoryId: async (categoryId: string) => {
+    const { axiosWithToken } = useAxios()
     const { data } = await axiosWithToken<IProduct[]>({
       url: API_URL.products(`/category/${categoryId}`),
       method: 'GET',
@@ -30,6 +33,7 @@ export const productService = {
     return data
   },
   searchByTerm: async (term: string) => {
+    const { axiosWithToken } = useAxios()
     const { data } = await axiosWithToken<IProduct[]>({
       url: API_URL.products(`/search`),
       method: 'GET',
@@ -38,6 +42,7 @@ export const productService = {
     return data || []
   },
   getById: async (id: string) => {
+    const { axiosWithToken } = useAxios()
     const { data } = await axiosWithToken<IProduct>({
       url: API_URL.products(`/${id}`),
       method: 'GET',
@@ -45,6 +50,7 @@ export const productService = {
     return data
   },
   create: async (data: IProductCreate, storeId: string) => {
+    const { axiosWithToken } = useAxios()
     const response = await axiosWithToken<IProduct>({
       url: API_URL.products(`/store/${storeId}`),
       method: 'POST',
@@ -53,6 +59,7 @@ export const productService = {
     return response.data
   },
   update: async (id: string, data: IProductUpdate) => {
+    const { axiosWithToken } = useAxios()
     const response = await axiosWithToken<IProduct>({
       url: API_URL.products(`/${id}`),
       method: 'PATCH',
@@ -61,6 +68,7 @@ export const productService = {
     return response.data
   },
   delete: async (id: string) => {
+    const { axiosWithToken } = useAxios()
     const response = await axiosWithToken<IProduct>({
       url: API_URL.products(`/${id}`),
       method: 'DELETE',

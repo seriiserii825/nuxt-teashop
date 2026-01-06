@@ -1,65 +1,65 @@
-import axios, { type CreateAxiosDefaults } from 'axios'
+import axios, { type AxiosInstance, type CreateAxiosDefaults } from 'axios'
 
 import { getAccessToken, removeAccessToken, setAccessToken } from './api_tokens'
 
-const config = useRuntimeConfig()
-const baseURL = config.public.apiBase
+let axiosClassic: AxiosInstance | null = null
+let axiosWithToken: AxiosInstance | null = null
 
-const options: CreateAxiosDefaults = {
-  baseURL,
-  headers: {
-    contentType: 'application/json',
-  },
-  withCredentials: true,
-}
+function createAxiosInstances() {
+  const config = useRuntimeConfig()
+  const baseURL = config.public.apiBase
 
-const axiosClassic = axios.create(options)
-const axiosWithToken = axios.create(options)
-
-axiosWithToken.interceptors.request.use((config) => {
-  const accessToken = getAccessToken()
-  if (accessToken && config.headers) {
-    config.headers.Authorization = `Bearer ${accessToken}`
+  const options: CreateAxiosDefaults = {
+    baseURL,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    withCredentials: true,
   }
-  return config
-})
 
-axiosWithToken.interceptors.response.use(
-  (config) => config,
-  async (error) => {
-    const originalRequest = error.config
-    if (
-      (error.response.status === 401 ||
-        errorCatch(error) === 'jwt expired' ||
-        errorCatch(error) === 'jwt must be provided') &&
-      error.config &&
-      !error.config._isRetry
-    ) {
-      originalRequest._isRetry = true // <-- добавь эту строку!
-      try {
-        // Получаем новый accessToken
-        const response = await axiosClassic.post('/auth/login/access-token')
-        const newToken = response.data.accessToken
+  axiosClassic = axios.create(options)
+  axiosWithToken = axios.create(options)
 
-        // Сохраняем новый токен
-        setAccessToken(newToken)
-
-        // Обновляем header и повторяем запрос
-        originalRequest.headers.Authorization = `Bearer ${newToken}`
-        return axiosWithToken.request(originalRequest)
-      } catch (e) {
-        if (
-          errorCatch(e) === 'jwt expired' ||
-          errorCatch(e) === 'jwt must be provided'
-        ) {
-          removeAccessToken()
-        }
-        return Promise.reject(e)
-      }
+  axiosWithToken.interceptors.request.use((config) => {
+    const accessToken = getAccessToken()
+    if (accessToken && config.headers) {
+      config.headers.Authorization = `Bearer ${accessToken}`
     }
-    return Promise.reject(error)
-  }
-)
+    return config
+  })
+
+  axiosWithToken.interceptors.response.use(
+    (response) => response,
+    async (error) => {
+      const originalRequest = error.config
+      if (
+        (error.response?.status === 401 ||
+          errorCatch(error) === 'jwt expired' ||
+          errorCatch(error) === 'jwt must be provided') &&
+        originalRequest &&
+        !originalRequest._isRetry
+      ) {
+        originalRequest._isRetry = true
+        try {
+          const response = await axiosClassic!.post('/auth/login/access-token')
+          const newToken = response.data.accessToken
+          setAccessToken(newToken)
+          originalRequest.headers.Authorization = `Bearer ${newToken}`
+          return axiosWithToken!.request(originalRequest)
+        } catch (e) {
+          if (
+            errorCatch(e) === 'jwt expired' ||
+            errorCatch(e) === 'jwt must be provided'
+          ) {
+            removeAccessToken()
+          }
+          return Promise.reject(e)
+        }
+      }
+      return Promise.reject(error)
+    }
+  )
+}
 
 function errorCatch(error: any) {
   const message = error?.response?.data?.message
@@ -70,4 +70,9 @@ function errorCatch(error: any) {
     : error.message
 }
 
-export { axiosClassic, axiosWithToken }
+export function useAxios() {
+  if (!axiosClassic || !axiosWithToken) {
+    createAxiosInstances()
+  }
+  return { axiosClassic: axiosClassic!, axiosWithToken: axiosWithToken! }
+}

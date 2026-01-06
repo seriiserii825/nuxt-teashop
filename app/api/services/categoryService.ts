@@ -5,10 +5,11 @@ import type {
   ICategoryUpdate,
 } from '~/interfaces/ICategory'
 
-import { axiosClassic, axiosWithToken } from '../axiosInstance'
+import { useAxios } from '../axiosInstance'
 
 export const categoryService = {
   getAll: async () => {
+    const { axiosWithToken } = useAxios()
     const { data } = await axiosWithToken<ICategory[]>({
       url: API_URL.categories(),
       method: 'GET',
@@ -16,6 +17,7 @@ export const categoryService = {
     return data
   },
   getByStoreId: async (storeId: string) => {
+    const { axiosWithToken } = useAxios()
     const { data } = await axiosWithToken<ICategory[]>({
       url: API_URL.categories(`/store/${storeId}`),
       method: 'GET',
@@ -23,6 +25,7 @@ export const categoryService = {
     return data
   },
   getById: async (id: string) => {
+    const { axiosWithToken } = useAxios()
     const { data } = await axiosWithToken<ICategory>({
       url: API_URL.categories(`/${id}`),
       method: 'GET',
@@ -30,6 +33,7 @@ export const categoryService = {
     return data
   },
   create: async (data: ICategoryCreate, storeId: string) => {
+    const { axiosWithToken } = useAxios()
     const response = await axiosWithToken<ICategory>({
       url: API_URL.categories(`/store/${storeId}`),
       method: 'POST',
@@ -38,6 +42,7 @@ export const categoryService = {
     return response.data
   },
   update: async (id: string, data: ICategoryUpdate) => {
+    const { axiosWithToken } = useAxios()
     const response = await axiosWithToken<ICategory>({
       url: API_URL.categories(`/${id}`),
       method: 'PATCH',
@@ -46,6 +51,7 @@ export const categoryService = {
     return response.data
   },
   delete: async (id: string) => {
+    const { axiosWithToken } = useAxios()
     const response = await axiosWithToken<ICategory>({
       url: API_URL.categories(`/${id}`),
       method: 'DELETE',
