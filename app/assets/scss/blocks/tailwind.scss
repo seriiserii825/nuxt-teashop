@@ -30,16 +30,22 @@
 }
 
 @layer utilities {
-  // .btn-success {
-  //   @apply rounded bg-green-600 px-4 py-3 text-white transition hover:bg-green-700;
-  // }
-  // .btn-danger {
-  //   @apply bg-red-600 text-white hover:bg-red-700;
-  // }
-  // .btn-warning {
-  //   @apply bg-yellow-600 text-white hover:bg-yellow-700;
-  // }
-  // .btn-info {
-  //   @apply bg-cyan-600 text-white hover:bg-cyan-700;
-  // }
+  .btn-success {
+    @apply rounded bg-green-600 px-4 py-3 text-white transition hover:bg-green-700;
+  }
+  .btn-danger {
+    @apply bg-red-600 text-white hover:bg-red-700;
+  }
+  .btn-warning {
+    @apply bg-yellow-600 text-white hover:bg-yellow-700;
+  }
+  .btn-info {
+    @apply bg-cyan-600 text-white hover:bg-cyan-700;
+  }
+  .btn-outline {
+    @apply border-2 bg-transparent font-normal text-text-light;
+    &:hover {
+      @apply bg-gray-200;
+    }
+  }
 }

@@ -6,12 +6,12 @@
       default: 'button',
     },
     variant: {
-      // Changed from 'class' to 'variant'
       type: String as () =>
         | 'btn-danger'
         | 'btn-success'
         | 'btn-warning'
-        | 'btn-info',
+        | 'btn-info'
+        | 'btn-outline',
       default: 'btn-info',
     },
   })
@@ -23,6 +23,6 @@
 
 <template>
   <button :type="type" :class="`btn ${variant}`" @click="onClick">
-    <slot ></slot>
+    <slot></slot>
   </button>
 </template>
