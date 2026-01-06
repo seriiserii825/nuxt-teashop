@@ -13,12 +13,20 @@
       console.log('User registered successfully')
     }
   )
+
+  const is_reg = ref(false)
 </script>
 
 <template>
-  <div>
-    <div v-if="pending" class="loading mb-4">Loading...</div>
-    <div v-else class="mb-4">
+  <div class="rounded border p-8">
+    <div class="text-center">
+      <h3 class="mb-3 text-2xl font-bold">Sign in to your account</h3>
+      <p class="text-md text-text-light">
+        Sign in or create an account<br />
+        to place orders!
+      </p>
+    </div>
+    <div class="mb-4">
       <FormInput
         v-model="form.name"
         label="Name"
@@ -40,11 +48,6 @@
         placeholder="Enter your password"
       />
     </div>
-    <div
-      class="cursor-pointer rounded bg-blue-500 p-4 text-white"
-      @click="send"
-    >
-      submit
-    </div>
+    <div class="btn w-full" @click="send">Continue</div>
   </div>
 </template>

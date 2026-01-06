@@ -33,7 +33,8 @@ export default {
           dark: 'var(--accent-color-dark)', //use in html class "text-accent-dark"
         },
         text: {
-          DEFAULT: 'rgb(var(--text-color) / <alpha-value>)', //use in html class "text-text"
+          light: 'var(--text-color-light)', //use in html class "text-text-light"
+          DEFAULT: 'var(--text-color)', //use in html class "text-text"
         },
       },
       fontFamily: {
