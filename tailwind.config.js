@@ -3,46 +3,40 @@ export default {
   content: {
     files: [
       // all directories and extensions will correspond to your Nuxt config
-      "srcDir/components/**/*.{vue,js,jsx,mjs,ts,tsx}",
-      "srcDir/layouts/**/*.{vue,js,jsx,mjs,ts,tsx}",
-      "srcDir/pages/**/*.{vue,js,jsx,mjs,ts,tsx}",
-      "srcDir/plugins/**/*.{js,ts,mjs}",
-      "srcDir/composables/**/*.{js,ts,mjs}",
-      "srcDir/utils/**/*.{js,ts,mjs}",
-      "srcDir/{A,a}pp.{vue,js,jsx,mjs,ts,tsx}",
-      "srcDir/{E,e}rror.{vue,js,jsx,mjs,ts,tsx}",
-      "srcDir/app.config.{js,ts,mjs}",
-      "srcDir/app/spa-loading-template.html",
+      'srcDir/components/**/*.{vue,js,jsx,mjs,ts,tsx}',
+      'srcDir/layouts/**/*.{vue,js,jsx,mjs,ts,tsx}',
+      'srcDir/pages/**/*.{vue,js,jsx,mjs,ts,tsx}',
+      'srcDir/plugins/**/*.{js,ts,mjs}',
+      'srcDir/composables/**/*.{js,ts,mjs}',
+      'srcDir/utils/**/*.{js,ts,mjs}',
+      'srcDir/{A,a}pp.{vue,js,jsx,mjs,ts,tsx}',
+      'srcDir/{E,e}rror.{vue,js,jsx,mjs,ts,tsx}',
+      'srcDir/app.config.{js,ts,mjs}',
+      'srcDir/app/spa-loading-template.html',
     ],
   },
   theme: {
     screens: {
-      lg: { max: "992px" },
-      md: { max: "768px" },
-      sm: { max: "576px" },
+      lg: { max: '992px' },
+      md: { max: '768px' },
+      sm: { max: '576px' },
     },
     container: {
-      padding: "20px",
+      padding: '20px',
       center: true,
     },
     extend: {
       colors: {
-        primary: {
-          light: "#6D28D9", //use in html class "text-primary-light"
-          DEFAULT: "#5B21B6", //use in html class "text-primary"
-          dark: "#4C1D95", //use in html class "text-primary-dark"
-        },
-        secondary: {
-          light: "#3B82F6", //use in html class "text-secondary-light"
-          DEFAULT: "#2563EB", //use in html class "text-secondary"
-          dark: "#1D4ED8", //use in html class "text-secondary-dark"
+        accent: {
+          light: 'rgb(var(--accent-color-light) / <alpha-value>)', //use in html class "text-accent-light"
+          DEFAULT: 'rgb(var(--accent-color) / <alpha-value>)', //use in html class "text-primary"
+          dark: 'rgb(var(--accent-color-dark) / <alpha-value>)', //use in html class "text-accent-dark"
         },
       },
       fontFamily: {
-        sans: ["Inter", "ui-sans-serif", "system-ui"], // use in html class "font-sans"
-        serif: ["Merriweather", "ui-serif", "Georgia"], // use in html class "font-serif"
+        sans: ['Roboto', 'ui-sans-serif', 'system-ui'], // use in html class "font-sans"
       },
     },
   },
-  plugins: [require("@tailwindcss/forms"), "prettier-plugin-tailwindcss"],
-};
+  plugins: [require('@tailwindcss/forms'), 'prettier-plugin-tailwindcss'],
+}
