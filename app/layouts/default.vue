@@ -19,6 +19,9 @@
       <li>
         <NuxtLink to="/dashboard">Dashboard</NuxtLink>
       </li>
+      <li>
+        <NuxtLink to="/store">Store</NuxtLink>
+      </li>
       <li class="cursor-pointer" @click="logout">logout</li>
     </ul>
     <div class="container">
