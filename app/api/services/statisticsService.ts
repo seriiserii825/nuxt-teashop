@@ -1,5 +1,6 @@
 import { API_URL } from '~/config/api_url.config'
 import type { IMainStatistics } from '~/interfaces/IMainStatistics'
+import type { IStatisticsMiddle } from '~/interfaces/IStatisticsMiddle'
 
 import { useAxios } from '../axiosInstance'
 
@@ -8,6 +9,14 @@ export const statisticsService = {
     const { axiosWithToken } = useAxios()
     const { data } = await axiosWithToken<IMainStatistics[]>({
       url: API_URL.statistics(`/main/${storeId}`),
+      method: 'GET',
+    })
+    return data
+  },
+  middleStatistics: async (storeId: string) => {
+    const { axiosWithToken } = useAxios()
+    const { data } = await axiosWithToken<IStatisticsMiddle>({
+      url: API_URL.statistics(`/middle/${storeId}`),
       method: 'GET',
     })
     return data
