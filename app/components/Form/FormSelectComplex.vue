@@ -51,6 +51,7 @@
     set: (val) => {
       emits('update:modelValue', val)
       is_dropdown_opened.value = false
+      search_title.value = ''
     },
   })
 
@@ -59,6 +60,7 @@
   function clickHandler() {
     emits('closeDropdown')
     is_dropdown_opened.value = false
+    search_title.value = ''
   }
 
   const label = computed(() => {
@@ -71,10 +73,17 @@
 
   useClickOutside(dropdownRef, () => {
     is_dropdown_opened.value = false
+    search_title.value = ''
   })
-  onMounted(() => {
-    filtered_options.value = props.options.slice(0, stores_to_show.value)
-  })
+  watch(
+    () => props.options,
+    (newOptions) => {
+      if (!search_title.value.length) {
+        filtered_options.value = newOptions.slice(0, stores_to_show.value)
+      }
+    },
+    { immediate: true }
+  )
 </script>
 
 <template>
