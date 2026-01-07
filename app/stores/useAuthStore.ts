@@ -1,10 +1,12 @@
-export const useAuthStore = defineStore("auth", () => {
-  const email = ref<string | null>(null);
-  function setEmail(newEmail: string | null) {
-    email.value = newEmail;
+import type { IUser } from '~/interfaces/IUser'
+
+export const useAuthStore = defineStore('auth', () => {
+  const user = ref<IUser | null>(null)
+  function setUser(newUser: IUser | null) {
+    user.value = newUser
   }
-  function reset() {
-    email.value = null;
+  return {
+    user,
+    setUser,
   }
-  return { email, setEmail, reset };
-});
+})

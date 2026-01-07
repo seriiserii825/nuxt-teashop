@@ -16,16 +16,6 @@
     opacity: 0.9;
   }
 
-  /* .page-enter-active, */
-  /* .page-leave-active { */
-  /*   transition: all 0.5s ease-in-out; */
-  /* } */
-  /* .page-enter-from, */
-  /* .page-leave-to { */
-  /*   transform: translateY(10px); */
-  /*   opacity: 0; */
-  /* } */
-
   .page-enter-active,
   .page-leave-active {
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
