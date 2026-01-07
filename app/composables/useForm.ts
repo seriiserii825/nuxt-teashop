@@ -1,9 +1,9 @@
 export default function useForm<TFormData extends object, TApiResult>(
-  apiFn: (args: TFormData) => Promise<TApiResult>,
+  apiFn: (data: TFormData) => Promise<TApiResult>,
   formData: TFormData,
-  onSuccess?: (args: TApiResult) => void
+  onSuccess?: (result: TApiResult) => void
 ) {
-  const form = reactive(formData)
+  const form = reactive(formData) as TFormData
   const errors = ref<Record<string, string>>({})
   const notice = ref<string | null>(null)
   const pending = ref(false)
@@ -15,7 +15,7 @@ export default function useForm<TFormData extends object, TApiResult>(
     pending.value = true
     success.value = false
     try {
-      const res = await apiFn(formData)
+      const res = await apiFn(form) // передаём form, не formData
       success.value = true
       if (onSuccess) {
         onSuccess(res)
@@ -26,6 +26,7 @@ export default function useForm<TFormData extends object, TApiResult>(
       pending.value = false
     }
   }
+
   return {
     form,
     errors,

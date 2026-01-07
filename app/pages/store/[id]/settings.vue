@@ -6,6 +6,10 @@
 
 <template>
   <div class="p-4">
-    <h1 class="mb-4 text-2xl font-bold">Settings</h1>
+    <Heading
+      title="Store Settings"
+      description="Manage your store preferences and configurations."
+    />
+    <FormSettings />
   </div>
 </template>

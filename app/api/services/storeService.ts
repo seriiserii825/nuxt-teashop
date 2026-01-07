@@ -37,10 +37,10 @@ export const storeService = {
     })
     return response.data
   },
-  update: async (id: string, data: IStoreUpdate) => {
+  update: async (store_id: string, data: IStoreUpdate) => {
     const { axiosWithToken } = useAxios()
     const response = await axiosWithToken<IStore>({
-      url: API_URL.stores(`/${id}`),
+      url: API_URL.stores(`/${store_id}`),
       method: 'PATCH',
       data,
     })

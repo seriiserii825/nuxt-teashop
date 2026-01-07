@@ -3,7 +3,7 @@ export interface IStore {
   createdAt: Date
   updatedAt: Date
   title: string
-  description: null
+  description: string
   userId: string
 }
 

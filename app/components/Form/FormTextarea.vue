@@ -14,13 +14,8 @@
       required: false,
       default: '',
     },
-    type: {
-      type: String,
-      required: false,
-      default: 'text',
-    },
     modelValue: {
-      type: [String, Number],
+      type: String,
       required: false,
       default: '',
     },
@@ -29,11 +24,15 @@
       required: false,
       default: false,
     },
+    rows: {
+      type: Number,
+      required: false,
+      default: 4,
+    },
   })
 
   const emit = defineEmits(['update:modelValue'])
-
-  const categoryInputRef = ref<HTMLInputElement | null>(null)
+  const textareaRef = ref<HTMLTextAreaElement | null>(null)
 
   const value = computed({
     get: () => props.modelValue,
@@ -41,8 +40,8 @@
   })
 
   onMounted(() => {
-    if (props.focus && categoryInputRef.value) {
-      categoryInputRef.value.focus()
+    if (props.focus && textareaRef.value) {
+      textareaRef.value.focus()
     }
   })
 </script>
@@ -56,14 +55,14 @@
     >
       {{ label }}
     </label>
-    <input
+    <textarea
       :id="name"
-      ref="categoryInputRef"
+      ref="textareaRef"
       v-model="value"
       :name="name"
-      :type="type"
-      class="mt-1 block w-full rounded-md border-gray-300 bg-transparent text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+      :rows="rows"
       :placeholder="placeholder"
-    />
+      class="mt-1 block w-full rounded-md border-gray-300 bg-transparent text-sm shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+    ></textarea>
   </div>
 </template>

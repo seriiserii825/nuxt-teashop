@@ -20,7 +20,6 @@ export default function handleAxiosError(
           'Unauthorized',
           data.message || 'Please log in again.'
         )
-        navigateTo('/login')
       } else if (status === 422 && errors) {
         errors.value = data.errors
         for (const key in errors.value) {
