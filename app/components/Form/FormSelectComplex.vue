@@ -51,6 +51,11 @@
       'Select'
     )
   })
+  const dropdownRef = ref<HTMLElement | null>(null)
+
+  useClickOutside(dropdownRef, () => {
+    is_dropdown_opened.value = false
+  })
 </script>
 
 <template>
@@ -67,6 +72,7 @@
     <Transition name="fade-up">
       <div
         v-if="is_dropdown_opened"
+        ref="dropdownRef"
         class="absolute left-0 top-12 w-full rounded-md border border-gray-300 bg-white p-2"
       >
         <h3
