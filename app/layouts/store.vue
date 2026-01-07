@@ -1,5 +1,6 @@
 <script setup lang="ts">
-  const id = useIdParamFromUrl()
+  const store = useStoreStore()
+  store.setStoreId(useIdParamFromUrl())
 
   const is_drawer_visible = ref(false)
   useFetchProfileToPinia()
@@ -13,11 +14,11 @@
         class="hidden lg:block"
         @emit-close="is_drawer_visible = false"
       >
-        <StoreNavigation :id="id" />
+        <StoreNavigation />
       </Drawer>
     </Transition>
     <div class="w-64 lg:hidden">
-      <StoreNavigation :id="id" />
+      <StoreNavigation />
     </div>
     <div class="w-full">
       <StoreHeader @emit-show-drawer="is_drawer_visible = true" />

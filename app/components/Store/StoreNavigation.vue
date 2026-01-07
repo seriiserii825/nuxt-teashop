@@ -1,10 +1,6 @@
 <script setup lang="ts">
-  defineProps({
-    id: {
-      type: String,
-      required: true,
-    },
-  })
+  const store = useStoreStore()
+  const id = computed(() => store.store_id)
 </script>
 
 <template>

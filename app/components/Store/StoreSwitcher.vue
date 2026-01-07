@@ -1,7 +1,8 @@
 <script setup lang="ts">
   import { storeService } from '~/api/services/storeService'
-  import { userService } from '~/api/services/userService'
   import type { IStore, IStoreCreate } from '~/interfaces/IStore'
+
+  const store = useStoreStore()
 
   const auth_store = useAuthStore()
   const stores = computed(() => {
@@ -34,6 +35,7 @@
   watch(selectedStore, (new_store_id) => {
     if (new_store_id) {
       navigateTo(`/store/${new_store_id}`)
+      store.setStoreId(new_store_id)
     }
   })
 

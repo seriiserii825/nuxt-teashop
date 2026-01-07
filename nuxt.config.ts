@@ -46,5 +46,10 @@ export default defineNuxtConfig({
     typedPages: true,
   },
 
-  modules: ['@pinia/nuxt', '@nuxtjs/tailwindcss', '@nuxt/eslint'],
+  modules: [
+    '@pinia/nuxt',
+    '@nuxtjs/tailwindcss',
+    '@nuxt/eslint',
+    'pinia-plugin-persistedstate/nuxt',
+  ],
 })
