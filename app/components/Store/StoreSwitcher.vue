@@ -43,6 +43,12 @@
     is_opened_popup.value = false
   }
 
+  function submitStore() {
+    send().then(() => {
+      closePopup()
+    })
+  }
+
   const { form, send, pending } = useForm<IStoreCreate, IStore>(
     (data) => storeService.create(data),
     {
@@ -69,7 +75,12 @@
         name="store_title"
         placeholder="Enter store title"
       />
-      <Btn :pending="pending" class="mt-4 w-full" @click="send()">
+      <Btn
+        :pending="pending"
+        :disabled="form.title === ''"
+        class="mt-4 w-full"
+        @click="submitStore"
+      >
         Create new store
       </Btn>
     </Popup>

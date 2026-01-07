@@ -30,6 +30,22 @@
     },
   })
 
+  const stores_to_show = ref<number>(5)
+  const filtered_options = ref<ISelectOption[]>([])
+
+  const search_title = ref<string>('')
+
+  watch(search_title, (new_title) => {
+    if (new_title.length) {
+      const filtered = props.options.filter((option) =>
+        option.text.toLowerCase().includes(new_title.toLowerCase())
+      )
+      return (filtered_options.value = filtered)
+    } else {
+      filtered_options.value = props.options.slice(0, stores_to_show.value)
+    }
+  })
+
   const value = computed({
     get: () => props.modelValue,
     set: (val) => {
@@ -56,6 +72,9 @@
   useClickOutside(dropdownRef, () => {
     is_dropdown_opened.value = false
   })
+  onMounted(() => {
+    filtered_options.value = props.options.slice(0, stores_to_show.value)
+  })
 </script>
 
 <template>
@@ -75,6 +94,12 @@
         ref="dropdownRef"
         class="absolute left-0 top-12 w-full rounded-md border border-gray-300 bg-white p-2"
       >
+        <FormInput
+          v-model="search_title"
+          name="search_store"
+          placeholder="Search..."
+          class="mb-2 w-full"
+        />
         <h3
           class="border-b border-gray-200 pb-1 text-sm font-medium text-gray-700"
         >
@@ -85,7 +110,7 @@
           class="border-b border-gray-200 pb-1"
         >
           <li
-            v-for="(option, index) in options"
+            v-for="(option, index) in filtered_options"
             :key="option.value"
             :tabindex="index"
             class="mt-2 cursor-pointer rounded-md py-2 hover:bg-gray-100"
