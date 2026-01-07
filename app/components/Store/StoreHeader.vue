@@ -3,6 +3,9 @@
   function showDrawer() {
     emits('emit-show-drawer')
   }
+
+  const auth_store = useAuthStore()
+  const user = computed(() => auth_store.user)
 </script>
 
 <template>
@@ -17,7 +20,13 @@
     <nav class="mr-auto flex items-center"></nav>
     <div class="flex items-center gap-x-4">
       <StoreSwitcher />
-      <img src="/images/profile.png" alt="Logo" class="h-8 w-8 rounded-full" />
+      <img
+        :src="
+          user?.picture ? userGetServerUrl(user.picture) : '/images/profile.png'
+        "
+        alt="Logo"
+        class="h-8 w-8 rounded-full"
+      />
     </div>
   </div>
 </template>
