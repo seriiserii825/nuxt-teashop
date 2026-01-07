@@ -1,5 +1,7 @@
 <script setup lang="ts">
-  import type { IStore } from '~/interfaces/IStore'
+  import { storeService } from '~/api/services/storeService'
+  import { userService } from '~/api/services/userService'
+  import type { IStore, IStoreCreate } from '~/interfaces/IStore'
 
   const auth_store = useAuthStore()
   const stores = computed(() => {
@@ -8,6 +10,7 @@
     }
     return []
   })
+  const store_param_id = useIdParamFromUrl()
   const stores_options = computed(() => {
     if (!stores.value) {
       return []
@@ -22,17 +25,61 @@
     stores_options,
     (options) => {
       if (options.length && options[0] && !selectedStore.value) {
-        selectedStore.value = options[0].value
+        selectedStore.value = store_param_id || options[0].value
       }
     },
     { immediate: true }
   )
+
+  watch(selectedStore, (new_store_id) => {
+    if (new_store_id) {
+      navigateTo(`/store/${new_store_id}`)
+    }
+  })
+
+  const is_opened_popup = ref(false)
+
+  function closePopup() {
+    is_opened_popup.value = false
+  }
+
+  const { form, send, pending } = useForm<IStoreCreate, IStore>(
+    (data) => storeService.create(data),
+    {
+      title: '',
+    },
+    () => {
+      useSweetAlert('success', 'Store created successfully')
+      userService
+        .profile()
+        .then((response) => {
+          auth_store.setUser(response)
+          is_opened_popup.value = false
+        })
+        .catch(() => {
+          useSweetAlert('error', 'Failed to refresh user data')
+        })
+    }
+  )
 </script>
 
 <template>
-  <FormSelectComplex
-    v-model="selectedStore"
-    :icon="['fas', 'store']"
-    :options="stores_options"
-  />
+  <div>
+    <FormSelectComplex
+      v-model="selectedStore"
+      :icon="['fas', 'store']"
+      :options="stores_options"
+      @close-dropdown="is_opened_popup = true"
+    />
+    <Popup v-if="is_opened_popup" title="Switch Store" @emit_close="closePopup">
+      <FormInput
+        v-model="form.title"
+        name="store_title"
+        placeholder="Enter store title"
+      />
+      <Btn :pending="pending" class="mt-4 w-full" @click="send()">
+        Create new store
+      </Btn>
+    </Popup>
+  </div>
 </template>

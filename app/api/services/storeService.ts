@@ -28,10 +28,10 @@ export const storeService = {
     })
     return data
   },
-  create: async (data: IStoreCreate, storeId: string) => {
+  create: async (data: IStoreCreate) => {
     const { axiosWithToken } = useAxios()
     const response = await axiosWithToken<IStore>({
-      url: API_URL.stores(`/store/${storeId}`),
+      url: API_URL.stores(),
       method: 'POST',
       data,
     })

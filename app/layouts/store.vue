@@ -4,8 +4,7 @@
 
   const auth_store = useAuthStore()
 
-  const route = useRoute()
-  const id = 'id' in route.params ? (route.params.id as string) : ''
+  const id = useIdParamFromUrl()
 
   const is_drawer_visible = ref(false)
 

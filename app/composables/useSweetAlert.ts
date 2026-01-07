@@ -9,7 +9,7 @@ export default function useSweetAlert(
   if (nuxtApp?.$swal) {
     return nuxtApp.$swal.fire({
       toast: true,
-      position: 'top-end',
+      position: 'bottom-end',
       icon,
       title,
       text,
