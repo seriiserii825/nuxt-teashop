@@ -1,4 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+  const emits = defineEmits(['emit-show-drawer'])
+  function showDrawer() {
+    emits('emit-show-drawer')
+  }
+</script>
 
 <template>
   <div
@@ -7,6 +12,7 @@
     <font-awesome-icon
       :icon="['fas', 'bars']"
       class="hidden text-xl lg:block"
+      @click="showDrawer"
     />
     <nav class="mr-auto flex items-center"></nav>
     <div class="flex items-center gap-x-4">

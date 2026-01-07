@@ -8,7 +8,7 @@
 </script>
 
 <template>
-  <div class="h-full border-r border-neutral-200 bg-neutral-50 p-8">
+  <div class="h-full border-r border-neutral-200 bg-neutral-50 p-8 sm:p-4">
     <div class="flex items-center gap-4">
       <IconILogo />
       <span class="text-2xl font-bold text-accent-dark">TeaShop</span>
