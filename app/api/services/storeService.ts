@@ -5,8 +5,8 @@ import { useAxios } from '../axiosInstance'
 
 export const storeService = {
   getAll: async () => {
-    const { axiosClassic } = useAxios()
-    const { data } = await axiosClassic<IStore[]>({
+    const { axiosWithToken } = useAxios()
+    const { data } = await axiosWithToken<IStore[]>({
       url: API_URL.stores(),
       method: 'GET',
     })
