@@ -1,38 +1,38 @@
 <script setup lang="ts">
-import type { ISelectOption } from "~/interfaces/ISelectOption";
+  import type { ISelectOption } from '~/interfaces/ISelectOption'
 
-const emits = defineEmits(["update:modelValue"]);
+  const emits = defineEmits(['update:modelValue'])
 
-const props = defineProps({
-  label: {
-    type: String,
-    required: true,
-  },
-  name: {
-    type: String,
-    required: false,
-    default: "",
-  },
-  required: {
-    type: Boolean,
-    required: false,
-    default: false,
-  },
-  options: {
-    type: Array as PropType<ISelectOption[]>,
-    required: true,
-  },
-  modelValue: {
-    type: [String, Number],
-    required: false,
-    default: "",
-  },
-});
+  const props = defineProps({
+    label: {
+      type: String,
+      required: true,
+    },
+    name: {
+      type: String,
+      required: false,
+      default: '',
+    },
+    required: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    options: {
+      type: Array as PropType<ISelectOption[]>,
+      required: true,
+    },
+    modelValue: {
+      type: [String, Number],
+      required: false,
+      default: '',
+    },
+  })
 
-const value = computed({
-  get: () => props.modelValue,
-  set: (val) => emits("update:modelValue", val),
-});
+  const value = computed({
+    get: () => props.modelValue,
+    set: (val) => emits('update:modelValue', val),
+  })
 </script>
 
 <template>
@@ -43,7 +43,7 @@ const value = computed({
       v-model="value"
       :name="name"
       :required="required"
-      class="cursor-pointer border-slate-700 bg-slate-800"
+      class="cursor-pointer border-gray-300 bg-white text-gray-900"
     >
       <option
         v-for="option in options"
