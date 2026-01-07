@@ -5,7 +5,10 @@
 
 <template>
   <div class="h-full border-r border-neutral-200 bg-neutral-50 p-8 sm:p-4">
-    <NuxtLink to="/" class="flex items-center gap-4 hover:opacity-80 transition-opacity">
+    <NuxtLink
+      to="/"
+      class="flex items-center gap-4 transition-opacity hover:opacity-80"
+    >
       <IconILogo />
       <span class="text-2xl font-bold text-accent-dark">TeaShop</span>
     </NuxtLink>

@@ -1,6 +1,16 @@
 <script setup lang="ts">
   const store = useStoreStore()
-  store.setStoreId(useIdParamFromUrl())
+  const route = useRoute()
+  watch(
+    () => route.params,
+    (params) => {
+      const id = 'id' in params ? params.id : null
+      if (typeof id === 'string' && id) {
+        store.setStoreId(id)
+      }
+    },
+    { immediate: true }
+  )
 
   const is_drawer_visible = ref(false)
   useFetchProfileToPinia()
