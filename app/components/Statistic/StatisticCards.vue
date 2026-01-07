@@ -5,7 +5,7 @@
   const storeId = useIdParamFromUrl()
 
   const { data: statistics, loading } = useQuery<IMainStatistics[]>(() =>
-    statisticsService.mainStatistics(storeId!)
+    statisticsService.mainStatistics(storeId.value!)
   )
   const sales = ref<IMainStatistics | null>(null)
   const products = ref<IMainStatistics | null>(null)

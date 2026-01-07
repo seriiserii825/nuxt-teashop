@@ -3,12 +3,14 @@
   import type { ILoginPayload } from '~/interfaces/ILoginPayload'
   import type { ILoginResponse } from '~/interfaces/ILoginResonse'
 
+  const initialData: ILoginPayload = {
+    email: '',
+    password: '',
+  }
+
   const { form, send, pending } = useForm<ILoginPayload, ILoginResponse>(
     authService.login,
-    {
-      email: '',
-      password: '',
-    },
+    initialData,
     () => {
       useSweetAlert('success', 'Logged in successfully!')
       navigateTo('/')

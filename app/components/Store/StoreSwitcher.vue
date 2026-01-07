@@ -22,11 +22,19 @@
     }))
   })
   const selectedStore = ref<string>('')
+
+  //watch store_param_id changed
+  watch(store_param_id, (new_store_param_id) => {
+    if (new_store_param_id) {
+      selectedStore.value = new_store_param_id
+    }
+  })
+
   watch(
     stores_options,
     (options) => {
       if (options.length && options[0] && !selectedStore.value) {
-        selectedStore.value = store_param_id || options[0].value
+        selectedStore.value = store_param_id.value || options[0].value
       }
     },
     { immediate: true }
@@ -51,11 +59,13 @@
     })
   }
 
+  const initalData: IStoreCreate = {
+    title: '',
+  }
+
   const { form, send, pending } = useForm<IStoreCreate, IStore>(
     (data) => storeService.create(data),
-    {
-      title: '',
-    },
+    initalData,
     () => {
       useSweetAlert('success', 'Store created successfully')
       useFetchProfileToPinia()

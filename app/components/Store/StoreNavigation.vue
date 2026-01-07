@@ -6,7 +6,7 @@
 <template>
   <div class="h-full border-r border-neutral-200 bg-neutral-50 p-8 sm:p-4">
     <NuxtLink
-      to="/"
+      to="/store"
       class="flex items-center gap-4 transition-opacity hover:opacity-80"
     >
       <IconILogo />

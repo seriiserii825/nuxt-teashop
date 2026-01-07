@@ -5,11 +5,11 @@ export default function useSweetConfirm(
   cancelText = 'Cancel',
   icon: 'warning' | 'question' = 'warning'
 ) {
-  const nuxtApp = tryUseNuxtApp();
+  const nuxtApp = tryUseNuxtApp()
 
   if (!nuxtApp?.$swal) {
-    console.warn('[SweetAlert CONFIRM]', title, text);
-    return Promise.resolve({ isConfirmed: false });
+    console.warn('[SweetAlert CONFIRM]', title, text)
+    return Promise.resolve({ isConfirmed: false })
   }
 
   return nuxtApp.$swal.fire({
@@ -21,5 +21,5 @@ export default function useSweetConfirm(
     cancelButtonText: cancelText,
     reverseButtons: true,
     focusCancel: true,
-  });
+  })
 }

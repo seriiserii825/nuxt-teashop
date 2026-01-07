@@ -8,7 +8,7 @@
   const stores = auth_store.user?.stores
   const current_store_param = useIdParamFromUrl()
   const current_store = computed(() =>
-    stores?.find((store) => store.id === current_store_param)
+    stores?.find((store) => store.id === current_store_param.value)
   )
 
   const initialData: IStoreUpdate = {
@@ -17,13 +17,28 @@
   }
 
   const { form, send, pending } = useForm<IStoreUpdate, IStore>(
-    (data) => storeService.update(current_store_param || '', data),
+    (data) => storeService.update(current_store_param.value || '', data),
     initialData,
     () => {
       useSweetAlert('success', 'Settings updated successfully!')
       navigateTo('/store')
     }
   )
+
+  async function deleteStore() {
+    const agree = await useSweetConfirm(
+      'Are you sure you want to delete this store? This action cannot be undone.'
+    )
+    if (agree.isConfirmed) {
+      try {
+        await storeService.delete(current_store_param.value || '')
+        useSweetAlert('success', 'Store deleted successfully!')
+        navigateTo('/store')
+      } catch (error) {
+        handleAxiosError(error)
+      }
+    }
+  }
 </script>
 
 <template>
@@ -36,7 +51,7 @@
     />
     <div class="flex w-full justify-between">
       <Btn :loading="pending" @click="send"> Save Settings </Btn>
-      <Btn variant="btn-danger">Delete Store</Btn>
+      <Btn variant="btn-danger" @click="deleteStore">Delete Store</Btn>
     </div>
   </div>
 </template>

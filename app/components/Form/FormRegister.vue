@@ -5,13 +5,15 @@
     IRegisterResponse,
   } from '~/interfaces/IRegister'
 
+  const initialData: IRegisterPayload = {
+    name: 'John Doe',
+    email: '',
+    password: '',
+  }
+
   const { form, send, pending } = useForm<IRegisterPayload, IRegisterResponse>(
     authService.register,
-    {
-      name: 'John Doe',
-      email: '',
-      password: '',
-    },
+    initialData,
     () => {
       useSweetAlert('success', 'Registered successfully!')
     }

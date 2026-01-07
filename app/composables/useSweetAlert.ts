@@ -9,12 +9,12 @@ export default function useSweetAlert(
   if (nuxtApp?.$swal) {
     return nuxtApp.$swal.fire({
       toast: true,
-      position: 'bottom-end',
+      position: 'top-end',
       icon,
       title,
       text,
       showConfirmButton: false,
-      timer: 5000,
+      timer: 3000,
       timerProgressBar: true,
       theme: 'dark',
     })
