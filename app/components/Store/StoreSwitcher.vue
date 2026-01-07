@@ -50,15 +50,7 @@
     },
     () => {
       useSweetAlert('success', 'Store created successfully')
-      userService
-        .profile()
-        .then((response) => {
-          auth_store.setUser(response)
-          is_opened_popup.value = false
-        })
-        .catch(() => {
-          useSweetAlert('error', 'Failed to refresh user data')
-        })
+      useFetchProfileToPinia()
     }
   )
 </script>

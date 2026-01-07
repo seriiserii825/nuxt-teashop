@@ -1,20 +1,8 @@
 <script setup lang="ts">
-  import { userService } from '~/api/services/userService'
-  import type { IUser } from '~/interfaces/IUser'
-
-  const auth_store = useAuthStore()
-
   const id = useIdParamFromUrl()
 
   const is_drawer_visible = ref(false)
-
-  const { data: user } = useQuery<IUser>(userService.profile)
-  watch(user, (newUser) => {
-    if (newUser) {
-      auth_store.setUser(newUser)
-      console.log('User set to store:', auth_store.user)
-    }
-  })
+  useFetchProfileToPinia()
 </script>
 
 <template>
