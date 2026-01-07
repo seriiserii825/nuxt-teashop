@@ -5,9 +5,9 @@
 </script>
 
 <template>
-  <div class="min-h-screen bg-white p-8">
+  <div class="min-h-screen bg-white p-8 lg:p-4">
     <Heading title="Statistics" />
-    <div class="grid grid-cols-3 gap-4">
+    <div class="grid grid-cols-3 gap-4 lg:grid-cols-2 sm:grid-cols-1">
       <Card
         title="Total Sales"
         :icon="['fas', 'dollar-sign']"
