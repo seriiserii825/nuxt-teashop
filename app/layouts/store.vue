@@ -22,7 +22,9 @@
     </div>
     <div class="w-full">
       <StoreHeader @emit-show-drawer="is_drawer_visible = true" />
-      <slot></slot>
+      <div class="overflow-hidden">
+        <slot></slot>
+      </div>
     </div>
   </div>
 </template>
