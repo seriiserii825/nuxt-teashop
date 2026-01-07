@@ -14,7 +14,6 @@ export default function handleAxiosError(
     const { response } = error
     if (response) {
       const { status, data } = response
-      console.log(status, 'status')
       if (status === 401 || status === 400 || status === 500) {
         useSweetAlert(
           'error',

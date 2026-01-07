@@ -32,13 +32,15 @@ function createAxiosInstances() {
     (response) => response,
     async (error) => {
       const originalRequest = error.config
-      if (
-        (error.response?.status === 401 ||
-          errorCatch(error) === 'jwt expired' ||
-          errorCatch(error) === 'jwt must be provided') &&
-        originalRequest &&
-        !originalRequest._isRetry
-      ) {
+      const status = error.response?.status
+      const message = errorCatch(error)
+
+      const isAuthError =
+        status === 401 ||
+        message === 'jwt expired' ||
+        message === 'jwt must be provided'
+
+      if (isAuthError && originalRequest && !originalRequest._isRetry) {
         originalRequest._isRetry = true
         try {
           const response = await axiosClassic!.post('/auth/login/access-token')
@@ -47,15 +49,19 @@ function createAxiosInstances() {
           originalRequest.headers.Authorization = `Bearer ${newToken}`
           return axiosWithToken!.request(originalRequest)
         } catch (e) {
-          if (
-            errorCatch(e) === 'jwt expired' ||
-            errorCatch(e) === 'jwt must be provided'
-          ) {
-            removeAccessToken()
-          }
+          // Refresh failed — logout and redirect
+          removeAccessToken()
+          navigateTo('/login')
           return Promise.reject(e)
         }
       }
+
+      // Any other 401 that's not retryable — logout
+      if (status === 401) {
+        removeAccessToken()
+        navigateTo('/login')
+      }
+
       return Promise.reject(error)
     }
   )

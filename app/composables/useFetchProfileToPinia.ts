@@ -11,7 +11,6 @@ export default function useFetchProfileToPinia() {
         return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
       })
       auth_store.setUser(newUser)
-      console.log('User set to store:', auth_store.user)
     }
   })
 }
