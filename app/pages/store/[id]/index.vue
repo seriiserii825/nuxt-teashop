@@ -1,23 +1,82 @@
 <script setup lang="ts">
+  import { statisticsService } from '~/api/services/statisticsService'
+  import type { IMainStatistics } from '~/interfaces/IMainStatistics'
+
   definePageMeta({
     layout: 'store',
+  })
+  const storeId = useIdParamFromUrl()
+
+  const { data: statistics, loading } = useQuery<IMainStatistics[]>(() =>
+    statisticsService.mainStatistics(storeId!)
+  )
+  const sales = ref<IMainStatistics | null>(null)
+  const products = ref<IMainStatistics | null>(null)
+  const categories = ref<IMainStatistics | null>(null)
+  const colors = ref<IMainStatistics | null>(null)
+  const reviews = ref<IMainStatistics | null>(null)
+  const rating = ref<IMainStatistics | null>(null)
+
+  watch(statistics, (newStatistics) => {
+    if (newStatistics) {
+      sales.value = useGetStatisticById(newStatistics, 'revenue') ?? null
+      products.value = useGetStatisticById(newStatistics, 'products') ?? null
+      categories.value =
+        useGetStatisticById(newStatistics, 'categories') ?? null
+      colors.value = useGetStatisticById(newStatistics, 'colors') ?? null
+      reviews.value = useGetStatisticById(newStatistics, 'reviews') ?? null
+      rating.value = useGetStatisticById(newStatistics, 'rating') ?? null
+    }
   })
 </script>
 
 <template>
   <div class="min-h-screen bg-white p-8 lg:p-4">
     <Heading title="Statistics" />
-    <div class="grid grid-cols-3 gap-4 lg:grid-cols-2 sm:grid-cols-1">
+    <Preloader v-if="loading" />
+    <div
+      v-else-if="statistics"
+      class="grid grid-cols-3 gap-4 lg:grid-cols-2 sm:grid-cols-1"
+    >
       <Card
+        v-if="sales && sales.value"
         title="Total Sales"
         :icon="['fas', 'dollar-sign']"
-        :count="useFormatPrice(1589)"
+        :count="useFormatPrice(sales.value)"
       />
-      <Card title="Products" :icon="['fab', 'product-hunt']" :count="24" />
-      <Card title="Categories" :icon="['fas', 'icons']" :count="7" />
-      <Card title="Colors" :icon="['fas', 'brush']" :count="14" />
-      <Card title="Reviews" :icon="['fas', 'chart-simple']" :count="43" />
-      <Card title="Rating" :icon="['fas', 'star-half-stroke']" :count="5" />
+      <Card
+        v-if="products && products.value"
+        title="Products"
+        :icon="['fab', 'product-hunt']"
+        :count="products.value"
+      />
+      <Card
+        v-if="categories && categories.value"
+        title="Categories"
+        :icon="['fas', 'icons']"
+        :count="categories.value"
+      />
+      <Card
+        v-if="colors && colors.value"
+        title="Colors"
+        :icon="['fas', 'brush']"
+        :count="colors.value"
+      />
+      <Card
+        v-if="reviews && reviews.value"
+        title="Reviews"
+        :icon="['fas', 'chart-simple']"
+        :count="reviews.value"
+      />
+      <Card
+        v-if="rating && rating.value"
+        title="Rating"
+        :icon="['fas', 'star-half-stroke']"
+        :count="rating.value"
+      />
+    </div>
+    <div v-else>
+      <p class="text-center text-red-500">Failed to load statistics.</p>
     </div>
   </div>
 </template>
