@@ -6,6 +6,12 @@
 
 <template>
   <div class="p-4">
-    <h1 class="mb-4 text-2xl font-bold">Products</h1>
+    <Heading
+      title="Products"
+      description="All shop products"
+      button-text="Create"
+      :icon="['fas', 'plus']"
+      @btn_click="console.log('Create product')"
+    />
   </div>
 </template>
