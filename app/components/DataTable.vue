@@ -16,7 +16,15 @@
     },
     perPageOptions: {
       type: Array,
-      default: () => [5, 10, 25, 50],
+      default: () => [2, 5, 10, 25, 50],
+    },
+    totalPages: {
+      type: Number,
+      default: 1,
+    },
+    currentPage: {
+      type: Number,
+      default: 1,
     },
   })
 
@@ -24,7 +32,6 @@
 
   const sortKey = ref('')
   const sortOrder = ref('asc')
-  const currentPage = ref(1)
   const perPageModel = ref(props.perPage)
 
   const sortedData = computed(() => {
@@ -47,12 +54,8 @@
     })
   })
 
-  const totalPages = computed(
-    () => Math.ceil(sortedData.value.length / perPageModel.value) || 1
-  )
-
   const paginatedData = computed(() => {
-    const start = (currentPage.value - 1) * perPageModel.value
+    const start = (props.currentPage - 1) * perPageModel.value
     return sortedData.value.slice(start, start + perPageModel.value)
   })
 
@@ -61,25 +64,25 @@
       icon: '←',
       action: 'first',
       handler: () => goToPage(1),
-      disabled: currentPage.value === 1,
+      disabled: props.currentPage === 1,
     },
     {
       icon: '‹',
       action: 'prev',
-      handler: () => goToPage(currentPage.value - 1),
-      disabled: currentPage.value === 1,
+      handler: () => goToPage(props.currentPage - 1),
+      disabled: props.currentPage === 1,
     },
     {
       icon: '›',
       action: 'next',
-      handler: () => goToPage(currentPage.value + 1),
-      disabled: currentPage.value === totalPages.value,
+      handler: () => goToPage(props.currentPage + 1),
+      disabled: props.currentPage === props.totalPages,
     },
     {
       icon: '→',
       action: 'last',
-      handler: () => goToPage(totalPages.value),
-      disabled: currentPage.value === totalPages.value,
+      handler: () => goToPage(props.totalPages),
+      disabled: props.currentPage === props.totalPages,
     },
   ])
 
@@ -94,8 +97,7 @@
   }
 
   function goToPage(page) {
-    if (page >= 1 && page <= totalPages.value) {
-      currentPage.value = page
+    if (page >= 1 && page <= props.totalPages) {
       emit('page-change', page)
     }
   }
@@ -105,12 +107,7 @@
     return value
   }
 
-  watch(
-    () => props.data,
-    () => (currentPage.value = 1)
-  )
   watch(perPageModel, (val) => {
-    currentPage.value = 1
     emit('update:perPage', val)
   })
 </script>
