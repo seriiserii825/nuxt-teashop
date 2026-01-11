@@ -33,13 +33,21 @@
     refetch()
   }
 
-  watch(search, (newSearch) => {
-    if (newSearch.trim() === '') {
-      page.value = 1
-      refetch()
-      return
-    }
+  const products = computed(() => {
+    if (!response.value) return []
+    return response.value.data.map((product) => ({
+      ...product,
+      price: `${useFormatPrice(product.price)}`,
+    }))
+  })
+
+  const { debouncedFn: debouncedSearch } = useDebounce(() => {
+    page.value = 1
     refetch()
+  }, 500)
+
+  watch(search, () => {
+    debouncedSearch()
   })
 </script>
 
@@ -60,11 +68,10 @@
       class="mb-6 w-full max-w-md"
     />
     <Preloader v-if="loading" />
-    <!-- <h3 v-if="loading" class="text-center text-gray-500">Loading...</h3> -->
     <DataTable
-      v-else-if="response && response.data.length"
+      v-else-if="response && products.length"
       :columns="columns"
-      :data="response.data"
+      :data="products"
       :per-page="limit"
       :total-pages="response.meta.totalPages"
       :current-page="page"
