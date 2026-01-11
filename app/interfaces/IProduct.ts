@@ -1,3 +1,6 @@
+import type { ICategory } from './ICategory'
+import type { IColor } from './IColor'
+
 export interface IProduct {
   id: string
   createdAt: Date
@@ -8,7 +11,9 @@ export interface IProduct {
   images: string[]
   storeId: string
   categoryId: string
+  category: ICategory
   colorId: string
+  color: IColor
   userId: null
 }
 

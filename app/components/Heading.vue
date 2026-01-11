@@ -16,7 +16,7 @@
     buttonText: {
       type: String,
       required: false,
-      default: 'Add New',
+      default: '',
     },
     icon: {
       type: Array as PropType<string[]>,

@@ -37,7 +37,7 @@
 
 <template>
   <label class="grid">
-    <span class="label">{{ label }}</span>
+    <span class="text-gray-700 font-medium mb-2">{{ label }}</span>
     <select
       :id="name"
       v-model="value"
