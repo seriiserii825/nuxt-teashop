@@ -8,16 +8,16 @@
 
   const page = ref(1)
   const limit = ref(2)
+  const search = ref('')
 
   const {
     data: response,
     loading,
     refetch,
   } = useQuery<IProductResponse>(() =>
-    productService.getAll(page.value, limit.value)
+    productService.getAll(page.value, limit.value, search.value)
   )
 
-  const search = ref('')
   const columns = ref<Record<'key' | 'label', string>[]>([
     { key: 'title', label: 'Title' },
     { key: 'description', label: 'Description' },
@@ -32,6 +32,15 @@
     page.value = newPage
     refetch()
   }
+
+  watch(search, (newSearch) => {
+    if (newSearch.trim() === '') {
+      page.value = 1
+      refetch()
+      return
+    }
+    refetch()
+  })
 </script>
 
 <template>
@@ -51,6 +60,7 @@
       class="mb-6 w-full max-w-md"
     />
     <Preloader v-if="loading" />
+    <!-- <h3 v-if="loading" class="text-center text-gray-500">Loading...</h3> -->
     <DataTable
       v-else-if="response && response.data.length"
       :columns="columns"

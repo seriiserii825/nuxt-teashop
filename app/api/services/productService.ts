@@ -9,12 +9,12 @@ import type { IProductResponse } from '~/interfaces/IProductResponse'
 import { useAxios } from '../axiosInstance'
 
 export const productService = {
-  getAll: async (page = 1, limit = 10) => {
+  getAll: async (page = 1, limit = 10, search = '') => {
     const { axiosWithToken } = useAxios()
     const { data } = await axiosWithToken<IProductResponse>({
       url: API_URL.products(),
       method: 'GET',
-      params: { page, limit },
+      params: { page, limit, search },
     })
     return data
   },
