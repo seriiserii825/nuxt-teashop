@@ -116,9 +116,10 @@
       </thead>
       <tbody>
         <tr
-          v-for="row in data"
+          v-for="(row, index) in data"
           :key="row.id"
           class="border-b border-gray-50 transition-colors hover:bg-gray-50/50"
+          :class="{ 'bg-gray-50': index % 2 === 1 }"
         >
           <td
             v-for="column in columns"
