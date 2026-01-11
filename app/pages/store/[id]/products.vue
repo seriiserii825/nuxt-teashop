@@ -56,9 +56,23 @@
     selected_product_id.value = id
     row_action.value = 'edit'
   }
-  function deleteRow(id: string) {
+  async function deleteRow(id: string) {
     selected_product_id.value = id
     row_action.value = 'delete'
+    const confirmed = await useSweetConfirm(
+      'Are you sure you want to delete this product?'
+    )
+    if (confirmed.isConfirmed) {
+      try {
+        await productService.delete(selected_product_id.value)
+        useSweetAlert('success', 'Product deleted successfully')
+        selected_product_id.value = null
+        row_action.value = null
+        refetch()
+      } catch (error) {
+        handleAxiosError(error)
+      }
+    }
   }
 
   watch(search, () => {
