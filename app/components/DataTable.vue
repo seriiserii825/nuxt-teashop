@@ -155,7 +155,7 @@
         <span>Всего на странице</span>
         <select
           v-model="perPageModel"
-          class="cursor-pointer rounded-md border border-gray-200 bg-white px-2 py-1.5 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+          class="w-20 cursor-pointer rounded-md border border-gray-200 bg-white px-2 py-1.5 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
         >
           <option v-for="n in perPageOptions" :key="n" :value="n">
             {{ n }}
