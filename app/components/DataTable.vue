@@ -34,31 +34,6 @@
   const sortOrder = ref('asc')
   const perPageModel = ref(props.perPage)
 
-  const sortedData = computed(() => {
-    if (!sortKey.value) return [...props.data]
-
-    return [...props.data].sort((a, b) => {
-      const aVal = a[sortKey.value]
-      const bVal = b[sortKey.value]
-
-      if (aVal === bVal) return 0
-
-      let result
-      if (typeof aVal === 'number' && typeof bVal === 'number') {
-        result = aVal - bVal
-      } else {
-        result = String(aVal).localeCompare(String(bVal), 'ru')
-      }
-
-      return sortOrder.value === 'asc' ? result : -result
-    })
-  })
-
-  const paginatedData = computed(() => {
-    const start = (props.currentPage - 1) * perPageModel.value
-    return sortedData.value.slice(start, start + perPageModel.value)
-  })
-
   const paginationButtons = computed(() => [
     {
       icon: '←',
@@ -102,11 +77,6 @@
     }
   }
 
-  function formatValue(value, column) {
-    if (column.formatter) return column.formatter(value)
-    return value
-  }
-
   watch(perPageModel, (val) => {
     emit('update:perPage', val)
   })
@@ -146,7 +116,7 @@
       </thead>
       <tbody>
         <tr
-          v-for="row in paginatedData"
+          v-for="row in data"
           :key="row.id"
           class="border-b border-gray-50 transition-colors hover:bg-gray-50/50"
         >
@@ -160,19 +130,19 @@
               :value="row[column.key]"
               :row="row"
             >
-              {{ formatValue(row[column.key], column) }}
+              {{ row[column.key] }}
             </slot>
           </td>
           <td v-if="$slots.actions" class="px-5 py-4 text-center">
             <slot name="actions" :row="row"></slot>
           </td>
         </tr>
-        <tr v-if="paginatedData.length === 0">
+        <tr v-if="data.length === 0">
           <td
             :colspan="columns.length + ($slots.actions ? 1 : 0)"
             class="px-5 py-10 text-center text-gray-400"
           >
-            Нет данных
+            No data available.
           </td>
         </tr>
       </tbody>
