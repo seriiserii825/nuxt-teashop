@@ -4,15 +4,17 @@ import type {
   IProductCreate,
   IProductUpdate,
 } from '~/interfaces/IProduct'
+import type { IProductResponse } from '~/interfaces/IProductResponse'
 
 import { useAxios } from '../axiosInstance'
 
 export const productService = {
-  getAll: async () => {
-    const { axiosClassic } = useAxios()
-    const { data } = await axiosClassic<IProduct[]>({
+  getAll: async (page = 1, limit = 10) => {
+    const { axiosWithToken } = useAxios()
+    const { data } = await axiosWithToken<IProductResponse>({
       url: API_URL.products(),
       method: 'GET',
+      params: { page, limit },
     })
     return data
   },

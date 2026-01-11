@@ -1,26 +1,24 @@
 <script setup lang="ts">
+  import { productService } from '~/api/services/productService'
   import type { IProduct } from '~/interfaces/IProduct'
+  import type { IProductResponse } from '~/interfaces/IProductResponse'
 
   definePageMeta({
     layout: 'store',
   })
 
+  const page = ref(1)
+  const limit = ref(10)
+
+  const { data: response, loading } = useQuery<IProductResponse>(() =>
+    productService.getAll(page.value, limit.value)
+  )
+
   const search = ref('')
-  const filtered_products = ref<IProduct[]>([])
   const columns = ref<Record<'key' | 'label', string>[]>([
     { key: 'title', label: 'Title' },
     { key: 'description', label: 'Description' },
     { key: 'price', label: 'Price' },
-  ])
-  const products = ref<
-    Pick<IProduct, 'id' | 'title' | 'description' | 'price'>[]
-  >([
-    {
-      id: '1',
-      title: 'Product A',
-      description: 'Description for product a',
-      price: 29.99,
-    },
   ])
 </script>
 
@@ -40,6 +38,12 @@
       placeholder="Search products..."
       class="mb-6 w-full max-w-md"
     />
-    <DataTable :columns="columns" :data="products" />
+    <Preloader v-if="loading" />
+    <DataTable
+      v-else-if="response && response.data.length"
+      :columns="columns"
+      :data="response.data"
+    />
+    <div v-else class="text-center text-gray-500">No products found.</div>
   </div>
 </template>
