@@ -28,7 +28,13 @@
     },
   })
 
-  const emit = defineEmits(['update:perPage', 'sort', 'page-change'])
+  const emit = defineEmits([
+    'update:perPage',
+    'sort',
+    'page-change',
+    'edit-row',
+    'delete-row',
+  ])
 
   const sortKey = ref('')
   const sortOrder = ref('asc')
@@ -106,11 +112,8 @@
               </span>
             </div>
           </th>
-          <th
-            v-if="$slots.actions"
-            class="px-5 py-4 text-left text-sm font-medium text-gray-500"
-          >
-            Действия
+          <th class="px-5 py-4 text-left text-sm font-medium text-gray-500">
+            Actions
           </th>
         </tr>
       </thead>
@@ -134,13 +137,18 @@
               {{ row[column.key] }}
             </slot>
           </td>
-          <td v-if="$slots.actions" class="px-5 py-4 text-center">
-            <slot name="actions" :row="row"></slot>
+          <td class="flex justify-center gap-2 px-5 py-4">
+            <Btn variant="btn-success" @click="$emit('edit-row', row.id)">
+              <font-awesome-icon :icon="['fas', 'pen-to-square']" />
+            </Btn>
+            <Btn variant="btn-danger" @click="$emit('delete-row', row.id)">
+              <font-awesome-icon :icon="['fas', 'trash-can']" />
+            </Btn>
           </td>
         </tr>
         <tr v-if="data.length === 0">
           <td
-            :colspan="columns.length + ($slots.actions ? 1 : 0)"
+            :colspan="columns.length + 1"
             class="px-5 py-10 text-center text-gray-400"
           >
             No data available.
