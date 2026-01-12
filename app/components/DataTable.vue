@@ -158,29 +158,28 @@
     </table>
 
     <div
-      class="flex items-center justify-between border-t border-gray-100 px-5 py-4"
+      class="flex items-center justify-between border-t-2 border-gray-300 bg-gray-50 px-5 py-4"
     >
-      <div class="flex items-center gap-3 text-sm text-gray-500">
+      <div class="flex items-center gap-3 text-sm font-medium text-gray-700">
         <span>Всего на странице</span>
         <select
           v-model="perPageModel"
-          class="w-20 cursor-pointer rounded-md border border-gray-200 bg-white px-2 py-1.5 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+          class="w-20 cursor-pointer rounded-md border-2 border-gray-400 bg-white px-2 py-1.5 font-semibold text-gray-800 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
         >
           <option v-for="n in perPageOptions" :key="n" :value="n">
             {{ n }}
           </option>
         </select>
-        <span class="text-gray-400"
+        <span class="font-medium text-gray-600"
           >Страница {{ currentPage }} из {{ totalPages }}</span
         >
       </div>
-
       <div class="flex gap-1">
         <button
           v-for="btn in paginationButtons"
           :key="btn.action"
           :disabled="btn.disabled"
-          class="flex h-8 w-8 items-center justify-center rounded-md border border-gray-200 text-sm text-gray-500 transition-colors hover:border-gray-300 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-gray-200 disabled:hover:bg-white"
+          class="flex h-8 w-8 items-center justify-center rounded-md border-2 border-gray-400 text-sm font-semibold text-gray-700 transition-colors hover:border-gray-500 hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:border-gray-400 disabled:hover:bg-white"
           @click="btn.handler"
         >
           {{ btn.icon }}
