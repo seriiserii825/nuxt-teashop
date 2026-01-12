@@ -9,12 +9,28 @@ import type { IProductResponse } from '~/interfaces/IProductResponse'
 import { useAxios } from '../axiosInstance'
 
 export const productService = {
-  getAll: async (page = 1, limit = 10, search = '') => {
+  getAll: async (
+    page = 1,
+    limit = 10,
+    search = '',
+    sortKey = '',
+    sortOrder: 'asc' | 'desc' = 'desc'
+  ) => {
     const { axiosWithToken } = useAxios()
+
+    // Формируем параметры, убирая пустые значения
+    const params: Record<string, string | number> = { page, limit }
+
+    if (search) params.search = search
+    if (sortKey) {
+      params.sortKey = sortKey
+      params.sortOrder = sortOrder
+    }
+
     const { data } = await axiosWithToken<IProductResponse>({
       url: API_URL.products(),
       method: 'GET',
-      params: { page, limit, search },
+      params,
     })
     return data
   },

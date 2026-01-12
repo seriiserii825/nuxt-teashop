@@ -2,6 +2,7 @@
   import { productService } from '~/api/services/productService'
   import type { IProduct } from '~/interfaces/IProduct'
   import type { IProductResponse } from '~/interfaces/IProductResponse'
+  import type { TSortColumn } from '~/interfaces/TSortColumn'
 
   definePageMeta({
     layout: 'store',
@@ -12,13 +13,21 @@
   const search = ref('')
   const selected_product_id = ref<string | null>(null)
   const row_action = ref<'edit' | 'delete' | null>(null)
+  const sortKey = ref<string>('') // Добавлено
+  const sortOrder = ref<'asc' | 'desc'>('desc') // Добавлено
 
   const {
     data: response,
     loading,
     refetch,
   } = useQuery<IProductResponse>(() =>
-    productService.getAll(page.value, limit.value, search.value)
+    productService.getAll(
+      page.value,
+      limit.value,
+      search.value,
+      sortKey.value,
+      sortOrder.value
+    )
   )
 
   const columns = ref<Record<'key' | 'label', string>[]>([
@@ -84,6 +93,13 @@
     row_action.value = null
     refetch()
   }
+
+  function sortColumn(column: TSortColumn) {
+    sortKey.value = column.key
+    sortOrder.value = column.order
+    page.value = 1 // Сбрасываем на первую страницу при сортировке
+    refetch()
+  }
 </script>
 
 <template>
@@ -110,10 +126,13 @@
       :per-page="limit"
       :total-pages="response.meta.totalPages"
       :current-page="page"
+      :sort-key="sortKey"
+      :sort-order="sortOrder"
       @update:per-page="updatePerPage"
       @page-change="pageChange"
       @edit-row="editRow"
       @delete-row="deleteRow"
+      @sort="sortColumn"
     />
     <div v-else class="text-center text-gray-500">No products found.</div>
     <Popup
