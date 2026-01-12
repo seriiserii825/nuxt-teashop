@@ -1,13 +1,24 @@
-<script setup>
+<script setup lang="ts">
   import { computed, ref, watch } from 'vue'
+
+  interface TableRow {
+    id: string
+    [key: string]: unknown
+  }
+
+  interface TableColumn {
+    key: string
+    label: string
+    sortable?: boolean
+  }
 
   const props = defineProps({
     data: {
-      type: Array,
+      type: Array as PropType<TableRow[]>,
       required: true,
     },
     columns: {
-      type: Array,
+      type: Array as PropType<TableColumn[]>,
       required: true,
     },
     perPage: {
@@ -15,7 +26,7 @@
       default: 10,
     },
     perPageOptions: {
-      type: Array,
+      type: Array as PropType<number[]>,
       default: () => [2, 5, 10, 25, 50],
     },
     totalPages: {
@@ -25,6 +36,14 @@
     currentPage: {
       type: Number,
       default: 1,
+    },
+    sortKey: {
+      type: String,
+      default: '',
+    },
+    sortOrder: {
+      type: String,
+      default: 'asc',
     },
   })
 
@@ -36,8 +55,6 @@
     'delete-row',
   ])
 
-  const sortKey = ref('')
-  const sortOrder = ref('asc')
   const perPageModel = ref(props.perPage)
 
   const paginationButtons = computed(() => [
@@ -67,19 +84,20 @@
     },
   ])
 
-  function sortBy(key) {
-    console.log(key, 'key')
-    console.log(sortKey.value, 'sortKey.value')
-    if (sortKey.value === key) {
-      sortOrder.value = sortOrder.value === 'asc' ? 'desc' : 'asc'
+  function sortBy(key: string) {
+    let local_key = ''
+    let local_order: 'asc' | 'desc' = 'asc'
+    if (props.sortKey === key) {
+      local_order = props.sortOrder === 'asc' ? 'desc' : 'asc'
+      local_key = key
     } else {
-      sortKey.value = key
-      sortOrder.value = 'asc'
+      local_key = key
+      local_order = 'asc'
     }
-    emit('sort', { key: sortKey.value, order: sortOrder.value })
+    emit('sort', { key: local_key, order: local_order })
   }
 
-  function goToPage(page) {
+  function goToPage(page: number) {
     if (page >= 1 && page <= props.totalPages) {
       emit('page-change', page)
     }

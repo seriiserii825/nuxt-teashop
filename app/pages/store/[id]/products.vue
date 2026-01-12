@@ -126,6 +126,8 @@
       :per-page="limit"
       :total-pages="response.meta.totalPages"
       :current-page="page"
+      :sort-key="sortKey"
+      :sort-order="sortOrder"
       @update:per-page="updatePerPage"
       @page-change="pageChange"
       @edit-row="editRow"
