@@ -68,6 +68,8 @@
   ])
 
   function sortBy(key) {
+    console.log(key, 'key')
+    console.log(sortKey.value, 'sortKey.value')
     if (sortKey.value === key) {
       sortOrder.value = sortOrder.value === 'asc' ? 'desc' : 'asc'
     } else {
