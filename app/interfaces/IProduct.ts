@@ -17,8 +17,8 @@ export interface IProduct {
   userId: null
 }
 
-export type IProductCreate = Omit<
+export type IProductCreate = Pick<
   IProduct,
-  'id' | 'createdAt' | 'updatedAt' | 'userId'
+  'title' | 'description' | 'price' | 'images' | 'categoryId' | 'colorId'
 >
 export type IProductUpdate = Partial<IProductCreate>

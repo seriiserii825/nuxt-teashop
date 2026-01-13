@@ -5,8 +5,8 @@ import { useAxios } from '../axiosInstance'
 
 export const colorService = {
   getAll: async () => {
-    const { axiosClassic } = useAxios()
-    const { data } = await axiosClassic<IColor[]>({
+    const { axiosWithToken } = useAxios()
+    const { data } = await axiosWithToken<IColor[]>({
       url: API_URL.colors(),
       method: 'GET',
     })

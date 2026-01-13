@@ -100,6 +100,12 @@
     page.value = 1 // Сбрасываем на первую страницу при сортировке
     refetch()
   }
+
+  function goToCreateProductPage() {
+    const current_store_id = useIdParamFromUrl()
+    console.log('current_store_id', current_store_id)
+    navigateTo(`/store/${current_store_id.value}/products/create`)
+  }
 </script>
 
 <template>
@@ -110,7 +116,7 @@
       description="All shop products"
       button-text="Create"
       :icon="['fas', 'plus']"
-      @btn_click="console.log('Create product')"
+      @btn_click="goToCreateProductPage"
     />
     <FormInput
       v-model="search"
