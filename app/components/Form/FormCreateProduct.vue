@@ -26,7 +26,7 @@
     initialData,
     () => {
       useSweetAlert('success', 'Product created successfully')
-      emits('emit_close')
+      navigateTo(`/store/${storeId.value}/products`)
     }
   )
 
