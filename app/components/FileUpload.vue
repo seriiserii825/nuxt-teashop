@@ -1,12 +1,12 @@
 <script setup lang="ts">
-  import { ref } from 'vue'
+  import { type PropType, ref } from 'vue'
 
   import { fileService } from '~/api/services/fileService'
   import type { IFileUpload } from '~/interfaces/IFileUpload'
 
   const emits = defineEmits(['emitUploaded'])
 
-  defineProps({
+  const props = defineProps({
     label: {
       type: String,
       default: 'Upload Images',
@@ -14,6 +14,10 @@
     name: {
       type: String,
       default: 'images',
+    },
+    images: {
+      type: Array as PropType<string[]>,
+      default: () => [],
     },
   })
 
@@ -101,6 +105,15 @@
     )
     return `${truncated}...${extension}`
   }
+
+  onMounted(() => {
+    if (props.images && props.images.length > 0) {
+      uploadedFiles.value = [...props.images].map((url) => ({
+        name: url.split('/').pop() || 'image',
+        url,
+      }))
+    }
+  })
 </script>
 
 <template>

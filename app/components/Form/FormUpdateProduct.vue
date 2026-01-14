@@ -4,6 +4,7 @@
   import { productService } from '~/api/services/productService'
   import type { ICategory } from '~/interfaces/ICategory'
   import type { IColor } from '~/interfaces/IColor'
+  import type { IFileUpload } from '~/interfaces/IFileUpload'
   import type { IProduct, IProductUpdate } from '~/interfaces/IProduct'
   import type { ISelectOption } from '~/interfaces/ISelectOption'
 
@@ -16,6 +17,8 @@
     },
   })
 
+  const storeId = useIdParamFromUrl()
+
   const { data: product, loading: product_loading } = useQuery<IProduct>(() =>
     productService.getById(props.productId)
   )
@@ -26,6 +29,7 @@
     price: 0,
     categoryId: '',
     colorId: '',
+    images: [],
   }
 
   watch(product, (newProduct) => {
@@ -35,6 +39,7 @@
       initialData.price = newProduct.price
       initialData.categoryId = newProduct.categoryId
       initialData.colorId = newProduct.colorId
+      initialData.images = newProduct.images
     }
   })
 
@@ -43,7 +48,7 @@
     initialData,
     () => {
       useSweetAlert('success', 'Product updated successfully')
-      emits('emit_close')
+      navigateTo(`/store/${storeId.value}/products`)
     }
   )
 
@@ -84,6 +89,10 @@
     }))
     form.colorId = String(colors_options.value[0]?.value) || ''
   })
+
+  function emitUploadImages(images: IFileUpload[]) {
+    form.images = images.map((img) => img.url)
+  }
 </script>
 
 <template>
@@ -129,6 +138,15 @@
           :required="true"
           placeholder="Select color"
           class="mt-4"
+        />
+
+        <FileUpload
+          v-model="form.images"
+          label="Images"
+          name="form_images"
+          class="mt-4"
+          :images="initialData.images"
+          @emit-uploaded="emitUploadImages"
         />
       </div>
       <Btn :loading="pending" class="mb-4 w-full" @click="send">Update</Btn>

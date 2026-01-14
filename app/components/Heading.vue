@@ -23,6 +23,16 @@
       required: false,
       default: () => [],
     },
+    linkUrl: {
+      type: String,
+      required: false,
+      default: '',
+    },
+    linkText: {
+      type: String,
+      required: false,
+      default: '',
+    },
   })
 </script>
 
@@ -39,6 +49,12 @@
     <Btn v-if="buttonText" variant="btn-info" @click="$emit('btn_click')">
       <font-awesome-icon v-if="icon.length" :icon="icon" />
       {{ buttonText }}</Btn
+    >
+    <NuxtLink
+      v-if="linkUrl"
+      :to="linkUrl"
+      class="btn btn-secondary flex items-center"
+      >{{ linkText }}</NuxtLink
     >
   </div>
 </template>

@@ -63,9 +63,9 @@
     refetch()
   }, 500)
 
-  function editRow(id: string) {
-    selected_product_id.value = id
-    row_action.value = 'edit'
+  function editRow(product_id: string) {
+    const url = `/store/${storeId.value}/products/${product_id}/edit`
+    navigateTo(url)
   }
   async function deleteRow(id: string) {
     selected_product_id.value = id

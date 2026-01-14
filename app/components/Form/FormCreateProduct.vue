@@ -8,8 +8,6 @@
   import type { IProduct, IProductCreate } from '~/interfaces/IProduct'
   import type { ISelectOption } from '~/interfaces/ISelectOption'
 
-  const emits = defineEmits(['emit_close'])
-
   const storeId = useIdParamFromUrl()
 
   const initialData: IProductCreate = {
@@ -124,7 +122,7 @@
           @emit-uploaded="emitUploadImages"
         />
       </div>
-      <Btn :loading="pending" class="mb-4 w-full" @click="send">Create</Btn>
+      <Btn :loading="pending" @click="send">Create</Btn>
     </div>
   </div>
 </template>
