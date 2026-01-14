@@ -15,13 +15,15 @@
   const row_action = ref<'edit' | 'delete' | null>(null)
   const sortKey = ref<string>('') // Добавлено
   const sortOrder = ref<'asc' | 'desc'>('desc') // Добавлено
+  const storeId = useIdParamFromUrl()
 
   const {
     data: response,
     loading,
     refetch,
   } = useQuery<IProductResponse>(() =>
-    productService.getAll(
+    productService.getByStoreId(
+      storeId.value,
       page.value,
       limit.value,
       search.value,

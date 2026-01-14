@@ -34,11 +34,29 @@ export const productService = {
     })
     return data
   },
-  getByStoreId: async (storeId: string) => {
+  getByStoreId: async (
+    storeId: string,
+    page = 1,
+    limit = 10,
+    search = '',
+    sortKey = '',
+    sortOrder: 'asc' | 'desc' = 'desc'
+  ) => {
     const { axiosWithToken } = useAxios()
-    const { data } = await axiosWithToken<IProduct[]>({
+
+    // Формируем параметры, убирая пустые значения
+    const params: Record<string, string | number> = { page, limit }
+
+    if (search) params.search = search
+    if (sortKey) {
+      params.sortKey = sortKey
+      params.sortOrder = sortOrder
+    }
+
+    const { data } = await axiosWithToken<IProductResponse>({
       url: API_URL.products(`/store/${storeId}`),
       method: 'GET',
+      params,
     })
     return data
   },
