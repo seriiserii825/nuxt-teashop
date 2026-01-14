@@ -8,10 +8,10 @@
 <template>
   <div class="p-4">
     <Heading
-      title="Create Product"
-      :link-url="`/store/${storeId}/products`"
-      link-text="List products"
+      title="Create Color"
+      :link-url="`/store/${storeId}/colors`"
+      link-text="List colors"
     />
-    <FormCreateProduct />
+    <FormCreateColor />
   </div>
 </template>

@@ -24,7 +24,7 @@ export const colorService = {
     search = '',
     sortKey = '',
     sortOrder: 'asc' | 'desc' = 'desc'
-    ) => {
+  ) => {
     const { axiosWithToken } = useAxios()
 
     const params: Record<string, string | number> = { page, limit }
@@ -52,7 +52,7 @@ export const colorService = {
   create: async (data: IColorCreate, storeId: string) => {
     const { axiosWithToken } = useAxios()
     const response = await axiosWithToken<IColor>({
-      url: API_URL.colors(`/store/${storeId}`),
+      url: API_URL.colors(`/${storeId}`),
       method: 'POST',
       data,
     })

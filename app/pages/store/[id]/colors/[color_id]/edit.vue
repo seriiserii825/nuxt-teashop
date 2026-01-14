@@ -3,16 +3,16 @@
     layout: 'store',
   })
   const storeId = useIdParamFromUrl()
-  const product_id = useIdParamFromUrl('product_id')
+  const color_id = useIdParamFromUrl('color_id')
 </script>
 
 <template>
   <div class="p-4">
     <Heading
-      title="Edit Product"
-      :link-url="`/store/${storeId}/products`"
-      link-text="List products"
+      title="Edit Color"
+      :link-url="`/store/${storeId}/colors`"
+      link-text="List colors"
     />
-    <FormUpdateProduct :product-id="product_id" />
+    <FormUpdateColor :color-id="color_id" />
   </div>
 </template>

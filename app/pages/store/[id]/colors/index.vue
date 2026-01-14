@@ -59,7 +59,7 @@
 
   function editRow(color_id: string) {
     const url = `/store/${storeId.value}/colors/${color_id}/edit`
-    // navigateTo(url)
+    navigateTo(url)
   }
   async function deleteRow(id: string) {
     selected_color_id.value = id
@@ -83,12 +83,6 @@
   watch(search, () => {
     debouncedSearch()
   })
-
-  function closePopup() {
-    selected_color_id.value = null
-    row_action.value = null
-    refetch()
-  }
 
   function sortColumn(column: TSortColumn) {
     sortKey.value = column.key
