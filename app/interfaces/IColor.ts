@@ -9,3 +9,14 @@ export interface IColor {
 
 export type IColorCreate = Pick<IColor, 'name' | 'value'>
 export type IColorUpdate = Pick<IColor, 'name' | 'value'>
+
+export interface IColorResponse {
+  data: IColor[]
+  meta: Meta
+}
+interface Meta {
+  total: number
+  page: number
+  limit: number
+  totalPages: number
+}

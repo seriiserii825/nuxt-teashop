@@ -1,4 +1,15 @@
 <script setup lang="ts">
+  const emits = defineEmits(['emit-navigation-close'])
+  const route = useRoute()
+
+  // Автоматически закрывать навигацию при изменении роута
+  watch(
+    () => route.path,
+    () => {
+      emits('emit-navigation-close')
+    }
+  )
+
   const store = useStoreStore()
   const id = computed(() => store.store_id)
 </script>

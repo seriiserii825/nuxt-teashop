@@ -1,5 +1,10 @@
 import { API_URL } from '~/config/api_url.config'
-import type { IColor, IColorCreate, IColorUpdate } from '~/interfaces/IColor'
+import type {
+  IColor,
+  IColorCreate,
+  IColorResponse,
+  IColorUpdate,
+} from '~/interfaces/IColor'
 
 import { useAxios } from '../axiosInstance'
 
@@ -12,11 +17,27 @@ export const colorService = {
     })
     return data
   },
-  getByStoreId: async (storeId: string) => {
+  getByStoreId: async (
+    storeId: string,
+    page = 1,
+    limit = 10,
+    search = '',
+    sortKey = '',
+    sortOrder: 'asc' | 'desc' = 'desc'
+    ) => {
     const { axiosWithToken } = useAxios()
-    const { data } = await axiosWithToken<IColor[]>({
+
+    const params: Record<string, string | number> = { page, limit }
+
+    if (search) params.search = search
+    if (sortKey) {
+      params.sortKey = sortKey
+      params.sortOrder = sortOrder
+    }
+    const { data } = await axiosWithToken<IColorResponse>({
       url: API_URL.colors(`/store/${storeId}`),
       method: 'GET',
+      params,
     })
     return data
   },

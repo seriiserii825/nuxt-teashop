@@ -24,7 +24,7 @@
         class="hidden lg:block"
         @emit-close="is_drawer_visible = false"
       >
-        <StoreNavigation />
+        <StoreNavigation @emit-navigation-close="is_drawer_visible = false" />
       </Drawer>
     </Transition>
     <div class="w-64 lg:hidden">
