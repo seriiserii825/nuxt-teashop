@@ -87,11 +87,31 @@ export const productService = {
   },
   create: async (data: IProductCreate, storeId: string) => {
     const { axiosWithToken } = useAxios()
+
+    // Создаем FormData
+    const formData = new FormData()
+
+    // Добавляем обычные поля
+    formData.append('title', data.title)
+    formData.append('description', data.description)
+    formData.append('price', data.price.toString())
+    formData.append('categoryId', data.categoryId)
+    formData.append('colorId', data.colorId)
+
+    // Добавляем файлы
+    data.images.forEach((file) => {
+      formData.append('images', file)
+    })
+
     const response = await axiosWithToken<IProduct>({
       url: API_URL.products(`/store/${storeId}`),
       method: 'POST',
-      data,
+      data: formData,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
     })
+
     return response.data
   },
   update: async (id: string, data: IProductUpdate) => {

@@ -1,10 +1,11 @@
 <script setup lang="ts">
   import { type PropType, ref } from 'vue'
 
-  import { fileService } from '~/api/services/fileService'
   import type { IFileUpload } from '~/interfaces/IFileUpload'
 
-  const emits = defineEmits(['emitUploaded'])
+  const emits = defineEmits<{
+    emitUploaded: [files: File[]]
+  }>()
 
   const props = defineProps({
     label: {
@@ -42,40 +43,14 @@
         }
         reader.readAsDataURL(file)
       })
+
+      emits('emitUploaded', files.value)
     }
   }
 
   function removeImage(index: number) {
     files.value.splice(index, 1)
     previews.value.splice(index, 1)
-  }
-
-  async function saveImages() {
-    if (files.value.length === 0) return
-
-    isUploading.value = true
-
-    try {
-      const formData = new FormData()
-
-      // Append all files
-      files.value.forEach((file) => {
-        formData.append('files', file)
-      })
-
-      const response: IFileUpload[] = await fileService.upload(
-        formData,
-        'products'
-      )
-
-      uploadedFiles.value = [...uploadedFiles.value, ...response]
-      emits('emitUploaded', response)
-      clearAll()
-    } catch (error) {
-      handleAxiosError(error)
-    } finally {
-      isUploading.value = false
-    }
   }
 
   function clearAll() {
@@ -136,7 +111,7 @@
 
     <div
       v-if="previews.length > 0"
-      class="mt-4 grid grid-cols-2 gap-4 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3"
+      class="mt-4 grid grid-cols-4 gap-4 lg:grid-cols-5 md:grid-cols-4 sm:grid-cols-3"
     >
       <div
         v-for="(preview, index) in previews"
@@ -187,15 +162,6 @@
       </p>
 
       <div class="ml-auto flex gap-2">
-        <button
-          type="button"
-          :disabled="isUploading"
-          class="rounded-lg bg-slate-700 px-4 py-2 text-sm font-medium text-white transition-colors duration-200 hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 active:bg-slate-900 disabled:cursor-not-allowed disabled:opacity-50"
-          @click="saveImages"
-        >
-          {{ isUploading ? 'Uploading...' : 'Upload Images' }}
-        </button>
-
         <button
           type="button"
           :disabled="isUploading"

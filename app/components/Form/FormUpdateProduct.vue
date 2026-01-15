@@ -4,7 +4,6 @@
   import { productService } from '~/api/services/productService'
   import type { ICategory } from '~/interfaces/ICategory'
   import type { IColor } from '~/interfaces/IColor'
-  import type { IFileUpload } from '~/interfaces/IFileUpload'
   import type { IProduct, IProductUpdate } from '~/interfaces/IProduct'
   import type { ISelectOption } from '~/interfaces/ISelectOption'
 
@@ -18,6 +17,7 @@
   })
 
   const storeId = useIdParamFromUrl()
+  const images = ref<string[]>([])
 
   const { data: product, loading: product_loading } = useQuery<IProduct>(() =>
     productService.getById(props.productId)
@@ -39,7 +39,7 @@
       initialData.price = newProduct.price
       initialData.categoryId = newProduct.categoryId
       initialData.colorId = newProduct.colorId
-      initialData.images = newProduct.images
+      images.value = newProduct.images
     }
   })
 
@@ -90,8 +90,8 @@
     form.colorId = String(colors_options.value[0]?.value) || ''
   })
 
-  function emitUploadImages(images: IFileUpload[]) {
-    form.images = images.map((img) => img.url)
+  function emitUploadImages(images: File[]) {
+    form.images = images
   }
 </script>
 
@@ -141,11 +141,10 @@
         />
 
         <FileUpload
-          v-model="form.images"
           label="Images"
           name="form_images"
           class="mt-4"
-          :images="initialData.images"
+          :images="images"
           @emit-uploaded="emitUploadImages"
         />
       </div>

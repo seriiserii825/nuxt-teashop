@@ -1,6 +1,7 @@
 import type { ICategory } from './ICategory'
 import type { IColor } from './IColor'
 
+// Базовый интерфейс продукта (то, что приходит с сервера)
 export interface IProduct {
   id: string
   createdAt: Date
@@ -8,7 +9,7 @@ export interface IProduct {
   title: string
   description: string
   price: number
-  images: string[]
+  images: string[] // URL-ы изображений с сервера
   storeId: string
   categoryId: string
   category: ICategory
@@ -17,8 +18,22 @@ export interface IProduct {
   userId: null
 }
 
-export type IProductCreate = Pick<
-  IProduct,
-  'title' | 'description' | 'price' | 'images' | 'categoryId' | 'colorId'
->
-export type IProductUpdate = Partial<IProductCreate>
+// Для создания продукта (отправка на сервер с файлами)
+export interface IProductCreate {
+  title: string
+  description: string
+  price: number
+  images: File[] // Файлы для загрузки
+  categoryId: string
+  colorId: string
+}
+
+// Для обновления продукта (без файлов)
+export interface IProductUpdate {
+  title?: string
+  description?: string
+  price?: number
+  categoryId?: string
+  colorId?: string
+  images: File[]
+}

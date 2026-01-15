@@ -4,7 +4,6 @@
   import { productService } from '~/api/services/productService'
   import type { ICategory } from '~/interfaces/ICategory'
   import type { IColor } from '~/interfaces/IColor'
-  import type { IFileUpload } from '~/interfaces/IFileUpload'
   import type { IProduct, IProductCreate } from '~/interfaces/IProduct'
   import type { ISelectOption } from '~/interfaces/ISelectOption'
 
@@ -13,10 +12,10 @@
   const initialData: IProductCreate = {
     title: '',
     description: '',
-    images: [],
     price: 0,
     categoryId: '',
     colorId: '',
+    images: [],
   }
 
   const { form, send, pending } = useForm<IProductCreate, IProduct>(
@@ -63,8 +62,8 @@
     }))
   })
 
-  function emitUploadImages(images: IFileUpload[]) {
-    form.images = images.map((img) => img.url)
+  function emitUploadImages(files: File[]) {
+    form.images = files
   }
 </script>
 
@@ -115,7 +114,6 @@
           class="mt-4"
         />
         <FileUpload
-          v-model="form.images"
           label="Images"
           name="form_images"
           class="mt-4"
