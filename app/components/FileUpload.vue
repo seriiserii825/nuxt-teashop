@@ -3,9 +3,7 @@
 
   import type { IFileUpload } from '~/interfaces/IFileUpload'
 
-  const emits = defineEmits<{
-    emitUploaded: [files: File[]]
-  }>()
+  const emits = defineEmits(['emitUploaded', 'emitRemovedImages'])
 
   const props = defineProps({
     label: {
@@ -68,6 +66,7 @@
 
   function removeUploadedFile(index: number) {
     uploadedFiles.value.splice(index, 1)
+    emits('emitRemovedImages', uploadedFiles.value)
   }
 
   function truncateFileName(name: string, maxLength: number = 20): string {

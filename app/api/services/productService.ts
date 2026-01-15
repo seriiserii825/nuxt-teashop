@@ -116,11 +116,49 @@ export const productService = {
   },
   update: async (id: string, data: IProductUpdate) => {
     const { axiosWithToken } = useAxios()
+
+    const formData = new FormData()
+
+    // Добавляем обычные поля (только если они определены)
+    if (data.title !== undefined) {
+      formData.append('title', data.title)
+    }
+    if (data.description !== undefined) {
+      formData.append('description', data.description)
+    }
+    if (data.price !== undefined) {
+      formData.append('price', data.price.toString())
+    }
+    if (data.categoryId !== undefined) {
+      formData.append('categoryId', data.categoryId)
+    }
+    if (data.colorId !== undefined) {
+      formData.append('colorId', data.colorId)
+    }
+
+    // Добавляем старые изображения (те, что нужно сохранить)
+    if (data.oldImages && data.oldImages.length > 0) {
+      data.oldImages.forEach((url) => {
+        formData.append('oldImages[]', url)
+      })
+    }
+
+    // Добавляем новые изображения (если есть)
+    if (data.images && data.images.length > 0) {
+      data.images.forEach((file) => {
+        formData.append('images', file)
+      })
+    }
+
     const response = await axiosWithToken<IProduct>({
       url: API_URL.products(`/${id}`),
       method: 'PATCH',
-      data,
+      data: formData,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
     })
+
     return response.data
   },
   delete: async (id: string) => {

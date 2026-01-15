@@ -4,6 +4,7 @@
   import { productService } from '~/api/services/productService'
   import type { ICategory } from '~/interfaces/ICategory'
   import type { IColor } from '~/interfaces/IColor'
+  import type { IFileUpload } from '~/interfaces/IFileUpload'
   import type { IProduct, IProductUpdate } from '~/interfaces/IProduct'
   import type { ISelectOption } from '~/interfaces/ISelectOption'
 
@@ -30,6 +31,7 @@
     categoryId: '',
     colorId: '',
     images: [],
+    oldImages: [],
   }
 
   watch(product, (newProduct) => {
@@ -40,6 +42,7 @@
       initialData.categoryId = newProduct.categoryId
       initialData.colorId = newProduct.colorId
       images.value = newProduct.images
+      initialData.oldImages = newProduct.images
     }
   })
 
@@ -91,7 +94,10 @@
   })
 
   function emitUploadImages(images: File[]) {
-    form.images = images
+    initialData.images = images
+  }
+  function emitRemovedImages(files: IFileUpload[]) {
+    initialData.oldImages = files.map((file) => file.url)
   }
 </script>
 
@@ -146,6 +152,7 @@
           class="mt-4"
           :images="images"
           @emit-uploaded="emitUploadImages"
+          @emit-removed-images="emitRemovedImages"
         />
       </div>
       <Btn :loading="pending" class="mb-4 w-full" @click="send">Update</Btn>
