@@ -2,8 +2,10 @@
   import { categoryService } from '~/api/services/categoryService'
   import type { ICategory } from '~/interfaces/ICategory'
 
-  const { data: categories, loading } = useQuery<ICategory[]>(
-    categoryService.getAll
+  const store_id = useIdParamFromUrl()
+
+  const { data: categories, loading } = useQuery<ICategory[]>(() =>
+    categoryService.getAll(+store_id.value)
   )
 </script>
 

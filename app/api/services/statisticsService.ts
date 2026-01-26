@@ -8,7 +8,7 @@ export const statisticsService = {
   mainStatistics: async (storeId: string) => {
     const { axiosWithToken } = useAxios()
     const { data } = await axiosWithToken<IMainStatistics[]>({
-      url: API_URL.statistics(`/main/${storeId}`),
+      url: API_URL.statistics(`/main/store/${storeId}`),
       method: 'GET',
     })
     return data
@@ -16,7 +16,7 @@ export const statisticsService = {
   middleStatistics: async (storeId: string) => {
     const { axiosWithToken } = useAxios()
     const { data } = await axiosWithToken<IStatisticsMiddle>({
-      url: API_URL.statistics(`/middle/${storeId}`),
+      url: API_URL.statistics(`/middle/store/${storeId}`),
       method: 'GET',
     })
     return data

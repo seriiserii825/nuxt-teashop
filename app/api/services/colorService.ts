@@ -9,10 +9,10 @@ import type {
 import { useAxios } from '../axiosInstance'
 
 export const colorService = {
-  getAll: async () => {
+  getAll: async (store_id: number) => {
     const { axiosWithToken } = useAxios()
     const { data } = await axiosWithToken<IColor[]>({
-      url: API_URL.colors(),
+      url: API_URL.colors(`/store/${store_id}`),
       method: 'GET',
     })
     return data
@@ -41,10 +41,10 @@ export const colorService = {
     })
     return data
   },
-  getById: async (id: string) => {
+  getById: async (id: string, store_id: number) => {
     const { axiosWithToken } = useAxios()
     const { data } = await axiosWithToken<IColor>({
-      url: API_URL.colors(`/${id}`),
+      url: API_URL.colors(`/${id}/store/${store_id}`),
       method: 'GET',
     })
     return data
@@ -52,25 +52,25 @@ export const colorService = {
   create: async (data: IColorCreate, storeId: string) => {
     const { axiosWithToken } = useAxios()
     const response = await axiosWithToken<IColor>({
-      url: API_URL.colors(`/${storeId}`),
+      url: API_URL.colors(`/store/${storeId}`),
       method: 'POST',
       data,
     })
     return response.data
   },
-  update: async (id: string, data: IColorUpdate) => {
+  update: async (id: string, data: IColorUpdate, store_id: number) => {
     const { axiosWithToken } = useAxios()
     const response = await axiosWithToken<IColor>({
-      url: API_URL.colors(`/${id}`),
+      url: API_URL.colors(`${id}/store/${store_id}`),
       method: 'PATCH',
       data,
     })
     return response.data
   },
-  delete: async (id: string) => {
+  delete: async (id: string, store_id: number) => {
     const { axiosWithToken } = useAxios()
     const response = await axiosWithToken<IColor>({
-      url: API_URL.colors(`/${id}`),
+      url: API_URL.colors(`/${id}/store/${store_id}`),
       method: 'DELETE',
     })
     return response.data

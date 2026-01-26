@@ -25,7 +25,7 @@
         :price="user.total"
       />
     </div>
-      <div v-else class="text-center text-lg text-red-500 font-bold">
+    <div v-else class="text-center text-lg font-bold text-red-500">
       No customers found.
     </div>
   </div>

@@ -29,7 +29,7 @@
 
   const { data: categories, loading: categories_loading } = useQuery<
     ICategory[]
-  >(categoryService.getAll)
+  >(() => categoryService.getAll(+storeId.value))
 
   const categories_options = ref<ISelectOption[]>([])
 
@@ -45,8 +45,8 @@
     }))
   })
 
-  const { data: colors, loading: colors_loading } = useQuery<IColor[]>(
-    colorService.getAll
+  const { data: colors, loading: colors_loading } = useQuery<IColor[]>(() =>
+    colorService.getAll(+storeId.value)
   )
 
   const colors_options = ref<ISelectOption[]>([])

@@ -12,7 +12,7 @@
   const storeId = useIdParamFromUrl()
 
   const { data: color, loading: color_loading } = useQuery<IColor>(() =>
-    colorService.getById(props.colorId)
+    colorService.getById(props.colorId, +storeId.value)
   )
 
   const initialData: IColorUpdate = {
@@ -28,7 +28,7 @@
   })
 
   const { form, send, pending } = useForm<IColorUpdate, IColor>(
-    () => colorService.update(props.colorId, initialData),
+    () => colorService.update(props.colorId, initialData, +storeId.value),
     initialData,
     () => {
       useSweetAlert('success', 'Color updated successfully')

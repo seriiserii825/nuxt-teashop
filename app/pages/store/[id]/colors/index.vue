@@ -69,7 +69,7 @@
     )
     if (confirmed.isConfirmed) {
       try {
-        await colorService.delete(selected_color_id.value)
+        await colorService.delete(selected_color_id.value, +storeId.value)
         useSweetAlert('success', 'Color deleted successfully')
         selected_color_id.value = null
         row_action.value = null

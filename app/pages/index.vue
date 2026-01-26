@@ -2,7 +2,11 @@
   import { colorService } from '~/api/services/colorService'
   import type { IColor } from '~/interfaces/IColor'
 
-  const { data: colors, loading } = useQuery<IColor[]>(colorService.getAll)
+  const store_id = useIdParamFromUrl()
+
+  const { data: colors, loading } = useQuery<IColor[]>(() =>
+    colorService.getAll(+store_id.value)
+  )
 </script>
 
 <template>
