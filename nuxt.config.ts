@@ -8,11 +8,9 @@ export default defineNuxtConfig({
     },
   },
   nitro: {
-    devProxy: {
-      '/api': {
-        target: 'https://nest-teashop.seriiburduja.org',
-        changeOrigin: true,
-        cookieDomainRewrite: 'localhost',
+    routeRules: {
+      '/api/**': {
+        proxy: 'http://localhost:3300/api/**',
       },
     },
   },
