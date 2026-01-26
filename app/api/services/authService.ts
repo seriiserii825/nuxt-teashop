@@ -20,8 +20,8 @@ export const authService = {
       method: 'POST',
       data,
     })
-    if (response.data.accessToken) {
-      setAccessToken(response.data.accessToken)
+    if (response.data.tokens?.accessToken) {
+      setAccessToken(response.data.tokens.accessToken)
     }
     return response.data
   },
@@ -40,8 +40,8 @@ export const authService = {
       url: API_URL.auth('/login/access-token'),
       method: 'POST',
     })
-    if (response.data.accessToken) {
-      setAccessToken(response.data.accessToken)
+    if (response.data.tokens?.accessToken) {
+      setAccessToken(response.data.tokens.accessToken)
     }
     return response.data
   },
