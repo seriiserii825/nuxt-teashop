@@ -13,8 +13,8 @@
     title: '',
     description: '',
     price: 0,
-    categoryId: '',
-    colorId: '',
+    category_id: '',
+    color_id: '',
     images: [],
   }
 
@@ -94,7 +94,7 @@
         <Preloader v-if="categories_loading" />
         <FormSelect
           v-else
-          v-model="form.categoryId"
+          v-model="form.category_id"
           label="Category"
           :options="categories_options"
           name="form_category"
@@ -105,7 +105,7 @@
         <Preloader v-if="colors_loading" />
         <FormSelect
           v-else
-          v-model="form.colorId"
+          v-model="form.color_id"
           label="Color"
           :options="colors_options"
           name="form_color"

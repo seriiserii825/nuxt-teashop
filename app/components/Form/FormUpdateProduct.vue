@@ -21,15 +21,15 @@
   const images = ref<string[]>([])
 
   const { data: product, loading: product_loading } = useQuery<IProduct>(() =>
-    productService.getById(props.productId)
+    productService.getById(props.productId, +storeId.value)
   )
 
   const initialData: IProductUpdate = {
     title: '',
     description: '',
     price: 0,
-    categoryId: '',
-    colorId: '',
+    category_id: '',
+    color_id: '',
     images: [],
     oldImages: [],
   }
@@ -39,15 +39,15 @@
       initialData.title = newProduct.title
       initialData.description = newProduct.description
       initialData.price = newProduct.price
-      initialData.categoryId = newProduct.categoryId
-      initialData.colorId = newProduct.colorId
+      initialData.category_id = newProduct.category_id
+      initialData.color_id = newProduct.color_id
       images.value = newProduct.images
       initialData.oldImages = newProduct.images
     }
   })
 
   const { form, send, pending } = useForm<IProductUpdate, IProduct>(
-    () => productService.update(props.productId, initialData),
+    () => productService.update(props.productId, initialData, +storeId.value),
     initialData,
     () => {
       useSweetAlert('success', 'Product updated successfully')
@@ -90,7 +90,7 @@
       value: color.id,
       text: color.name,
     }))
-    form.colorId = String(colors_options.value[0]?.value) || ''
+    form.color_id = String(colors_options.value[0]?.value) || ''
   })
 
   function emitUploadImages(images: File[]) {
@@ -126,7 +126,7 @@
         <Preloader v-if="categories_loading" />
         <FormSelect
           v-else
-          v-model="form.categoryId"
+          v-model="form.category_id"
           label="Category"
           :options="categories_options"
           name="form_category"
@@ -137,7 +137,7 @@
         <Preloader v-if="colors_loading" />
         <FormSelect
           v-else
-          v-model="form.colorId"
+          v-model="form.color_id"
           label="Color"
           :options="colors_options"
           name="form_color"

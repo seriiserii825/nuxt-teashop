@@ -75,7 +75,7 @@
     )
     if (confirmed.isConfirmed) {
       try {
-        await productService.delete(selected_product_id.value)
+        await productService.delete(selected_product_id.value, +storeId.value)
         useSweetAlert('success', 'Product deleted successfully')
         selected_product_id.value = null
         row_action.value = null

@@ -11,9 +11,9 @@ export interface IProduct {
   price: number
   images: string[] // URL-ы изображений с сервера
   storeId: string
-  categoryId: string
+  category_id: string
   category: ICategory
-  colorId: string
+  color_id: string
   color: IColor
   userId: null
 }
@@ -24,8 +24,8 @@ export interface IProductCreate {
   description: string
   price: number
   images: File[] // Файлы для загрузки
-  categoryId: string
-  colorId: string
+  category_id: string
+  color_id: string
 }
 
 // Для обновления продукта (без файлов)
@@ -33,8 +33,8 @@ export interface IProductUpdate {
   title?: string
   description?: string
   price?: number
-  categoryId?: string
-  colorId?: string
+  category_id?: string
+  color_id?: string
   images: File[]
   oldImages: string[]
 }

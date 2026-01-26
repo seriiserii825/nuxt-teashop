@@ -14,7 +14,8 @@ export const productService = {
     limit = 10,
     search = '',
     sortKey = '',
-    sortOrder: 'asc' | 'desc' = 'desc'
+    sortOrder: 'asc' | 'desc' = 'desc',
+    store_id: number
   ) => {
     const { axiosWithToken } = useAxios()
 
@@ -28,7 +29,7 @@ export const productService = {
     }
 
     const { data } = await axiosWithToken<IProductResponse>({
-      url: API_URL.products(),
+      url: API_URL.products(`/store/${store_id}`),
       method: 'GET',
       params,
     })
@@ -60,10 +61,10 @@ export const productService = {
     })
     return data
   },
-  getByCategoryId: async (categoryId: string) => {
+  getByCategoryId: async (category_id: string) => {
     const { axiosWithToken } = useAxios()
     const { data } = await axiosWithToken<IProduct[]>({
-      url: API_URL.products(`/category/${categoryId}`),
+      url: API_URL.products(`/category/${category_id}`),
       method: 'GET',
     })
     return data
@@ -77,10 +78,10 @@ export const productService = {
     })
     return data || []
   },
-  getById: async (id: string) => {
+  getById: async (id: string, store_id: number) => {
     const { axiosWithToken } = useAxios()
     const { data } = await axiosWithToken<IProduct>({
-      url: API_URL.products(`/${id}`),
+      url: API_URL.products(`/${id}/store/${store_id}`),
       method: 'GET',
     })
     return data
@@ -95,8 +96,8 @@ export const productService = {
     formData.append('title', data.title)
     formData.append('description', data.description)
     formData.append('price', data.price.toString())
-    formData.append('categoryId', data.categoryId)
-    formData.append('colorId', data.colorId)
+    formData.append('category_id', data.category_id)
+    formData.append('color_id', data.color_id)
 
     // Добавляем файлы
     data.images.forEach((file) => {
@@ -114,7 +115,7 @@ export const productService = {
 
     return response.data
   },
-  update: async (id: string, data: IProductUpdate) => {
+  update: async (id: string, data: IProductUpdate, store_id: number) => {
     const { axiosWithToken } = useAxios()
 
     const formData = new FormData()
@@ -129,11 +130,11 @@ export const productService = {
     if (data.price !== undefined) {
       formData.append('price', data.price.toString())
     }
-    if (data.categoryId !== undefined) {
-      formData.append('categoryId', data.categoryId)
+    if (data.category_id !== undefined) {
+      formData.append('category_id', data.category_id)
     }
-    if (data.colorId !== undefined) {
-      formData.append('colorId', data.colorId)
+    if (data.color_id !== undefined) {
+      formData.append('color_id', data.color_id)
     }
 
     // Добавляем старые изображения (те, что нужно сохранить)
@@ -151,7 +152,7 @@ export const productService = {
     }
 
     const response = await axiosWithToken<IProduct>({
-      url: API_URL.products(`/${id}`),
+      url: API_URL.products(`/${id}/store/${store_id}`),
       method: 'PATCH',
       data: formData,
       headers: {
@@ -161,10 +162,10 @@ export const productService = {
 
     return response.data
   },
-  delete: async (id: string) => {
+  delete: async (id: string, store_id: number) => {
     const { axiosWithToken } = useAxios()
     const response = await axiosWithToken<IProduct>({
-      url: API_URL.products(`/${id}`),
+      url: API_URL.products(`/${id}/store/${store_id}`),
       method: 'DELETE',
     })
     return response.data
