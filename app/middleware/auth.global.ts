@@ -3,7 +3,7 @@ import { getAccessToken, setAccessToken } from '~/api/api_tokens'
 import { userService } from '~/api/services/userService'
 
 export default defineNuxtRouteMiddleware(async (to) => {
-  if (!to.path.startsWith('/dashboard') || !to.path.startsWith('/store')) {
+  if (!to.path.startsWith('/dashboard') && !to.path.startsWith('/store')) {
     return
   }
 
