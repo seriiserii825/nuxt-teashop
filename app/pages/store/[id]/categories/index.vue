@@ -29,7 +29,7 @@
     if (!response.value) return []
     return response.value.map((category: ICategory) => ({
       ...category,
-      store: category.store_id,
+      store: category.store?.title,
     }))
   })
 

@@ -1,3 +1,5 @@
+import type { IStore } from './IStore'
+
 export interface ICategory {
   id: string
   createdAt: Date
@@ -5,6 +7,7 @@ export interface ICategory {
   title: string
   description: string
   store_id: null
+  store?: IStore
 }
 
 export type ICategoryCreate = Pick<ICategory, 'title' | 'description'>

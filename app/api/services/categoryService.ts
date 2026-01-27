@@ -24,7 +24,7 @@ export const categoryService = {
     })
     return data
   },
-  getById: async (id: string, store_id: number) => {
+  getById: async (id: number, store_id: number) => {
     const { axiosWithToken } = useAxios()
     const { data } = await axiosWithToken<ICategory>({
       url: API_URL.categories(`/${id}/store/${store_id}`),
@@ -41,7 +41,7 @@ export const categoryService = {
     })
     return response.data
   },
-  update: async (id: string, data: ICategoryUpdate, store_id: number) => {
+  update: async (id: number, data: ICategoryUpdate, store_id: number) => {
     const { axiosWithToken } = useAxios()
     const response = await axiosWithToken<ICategory>({
       url: API_URL.categories(`/${id}/store/${store_id}`),
