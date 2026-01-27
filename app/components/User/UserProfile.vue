@@ -1,15 +1,24 @@
 <script setup lang="ts">
   import { authService } from '~/api/services/authService'
 
+  const auth_store = useAuthStore()
+  const { user } = storeToRefs(auth_store)
+
+  const loading = ref(false)
+
   const isDropdownOpen = ref(false)
 
-  const { send, pending } = useForm(
-    () => authService.logout(),
-    () => {
-      useSweetAlert('success', 'Color updated successfully')
-      window.location.href = '/login'
+  async function logout() {
+    try {
+      loading.value = true
+      await authService.logout()
+      window.location.reload()
+    } catch (error) {
+      handleAxiosError(error)
+    } finally {
+      loading.value = false
     }
-  )
+  }
 
   // Закрытие дропдауна при клике вне его
   onMounted(() => {
@@ -22,19 +31,19 @@
   })
 </script>
 <template>
-  <div class="relative">
+  <div v-if="user" class="relative">
     <button
       class="flex items-center gap-3 rounded-xl bg-gray-50 px-4 py-2 transition hover:bg-gray-100"
       @click="isDropdownOpen = !isDropdownOpen"
     >
       <img
-        src="https://i.pravatar.cc/300"
+        :src="userGetServerUrl(user.picture)"
         alt="User Avatar"
         class="h-10 w-10 rounded-full ring-2 ring-gray-200"
       />
       <div class="flex flex-col items-start">
-        <span class="text-sm font-semibold text-gray-900">John Doe</span>
-        <span class="text-xs text-gray-500">email@mail.com</span>
+        <span class="text-sm font-semibold text-gray-900">{{ user.name }}</span>
+        <span class="text-xs text-gray-500">{{ user.email }}</span>
       </div>
       <svg
         class="h-4 w-4 text-gray-500 transition"
@@ -69,13 +78,13 @@
         <div class="border-b border-gray-100 p-4">
           <div class="flex items-center gap-3">
             <img
-              src="https://i.pravatar.cc/300"
+              :src="userGetServerUrl(user.picture)"
               alt="User Avatar"
               class="h-12 w-12 rounded-full ring-2 ring-blue-100"
             />
             <div class="flex-1">
-              <p class="font-semibold text-gray-900">John Doe</p>
-              <p class="text-sm text-gray-500">email@mail.com</p>
+              <p class="font-semibold text-gray-900">{{ user.name }}</p>
+              <p class="text-sm text-gray-500">{{ user.email }}</p>
             </div>
           </div>
         </div>
@@ -171,12 +180,7 @@
 
         <!-- Logout -->
         <div class="border-t border-gray-100 px-4 py-2">
-          <Btn
-            variant="btn-danger"
-            :loading="pending"
-            :disabled="pending"
-            @click="send"
-          >
+          <Btn variant="btn-danger" :disabled="loading" @click="logout">
             <IconILogout />
             <span class="text-sm font-medium">Logout</span>
           </Btn>
