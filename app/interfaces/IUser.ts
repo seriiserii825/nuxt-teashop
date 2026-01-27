@@ -8,6 +8,7 @@ export type IUser = {
   email: string
   password: string
   name: string
+  role: 'admin' | 'user'
   picture: string
   stores: IStore[]
   favorites: IProduct[]
