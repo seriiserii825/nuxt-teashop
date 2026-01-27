@@ -19,7 +19,8 @@
           technologies.
         </p>
 
-        <button
+        <NuxtLink
+          to="/catalog"
           class="inline-flex transform items-center space-x-2 rounded-lg bg-blue-600 px-8 py-4 text-lg font-medium text-white shadow-lg transition duration-200 hover:scale-105 hover:bg-blue-700 hover:shadow-xl"
         >
           <span>For shopping</span>
@@ -36,7 +37,7 @@
               d="M17 8l4 4m0 0l-4 4m4-4H3"
             />
           </svg>
-        </button>
+        </NuxtLink>
       </div>
     </div>
   </section>
