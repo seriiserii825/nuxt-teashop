@@ -1,5 +1,5 @@
 export interface IStore {
-  id: string
+  id: number
   createdAt: Date
   updatedAt: Date
   title: string

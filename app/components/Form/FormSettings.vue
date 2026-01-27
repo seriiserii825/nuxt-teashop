@@ -8,7 +8,7 @@
   const stores = auth_store.user?.stores
   const current_store_param = useIdParamFromUrl()
   const current_store = computed(() =>
-    stores?.find((store) => store.id === current_store_param.value)
+    stores?.find((store) => store.id === +current_store_param.value)
   )
 
   const initialData: IStoreUpdate = {

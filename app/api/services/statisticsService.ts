@@ -13,7 +13,7 @@ export const statisticsService = {
     })
     return data
   },
-  middleStatistics: async (storeId: string) => {
+  middleStatistics: async (storeId: number) => {
     const { axiosWithToken } = useAxios()
     const { data } = await axiosWithToken<IStatisticsMiddle>({
       url: API_URL.statistics(`/middle/store/${storeId}`),

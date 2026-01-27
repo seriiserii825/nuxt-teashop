@@ -6,7 +6,7 @@
     (params) => {
       const id = 'id' in params ? params.id : null
       if (typeof id === 'string' && id) {
-        store.setStoreId(id)
+        store.setStoreId(+id)
       }
     },
     { immediate: true }

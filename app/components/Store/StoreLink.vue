@@ -1,7 +1,7 @@
 <script setup lang="ts">
   defineProps({
     id: {
-      type: String,
+      type: Number,
       required: true,
     },
     slug: {

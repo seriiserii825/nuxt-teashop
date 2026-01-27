@@ -5,8 +5,8 @@ import { ref } from 'vue'
 export const useStoreStore = defineStore(
   'store',
   () => {
-    const store_id = ref('')
-    function setStoreId(id: string) {
+    const store_id = ref(0)
+    function setStoreId(id: number) {
       store_id.value = id
     }
     return {

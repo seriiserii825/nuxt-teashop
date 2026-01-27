@@ -21,12 +21,12 @@
       text: store.title,
     }))
   })
-  const selectedStore = ref<string>('')
+  const selectedStore = ref<number | null>(null)
 
   //watch store_param_id changed
   watch(store_param_id, (new_store_param_id) => {
     if (new_store_param_id) {
-      selectedStore.value = new_store_param_id
+      selectedStore.value = +new_store_param_id
     }
   })
 
@@ -34,7 +34,7 @@
     stores_options,
     (options) => {
       if (options.length && options[0] && !selectedStore.value) {
-        selectedStore.value = store_param_id.value || options[0].value
+        selectedStore.value = +store_param_id.value || options[0].value
       }
     },
     { immediate: true }
@@ -76,6 +76,7 @@
 <template>
   <div>
     <FormSelectComplex
+      v-if="selectedStore !== null"
       v-model="selectedStore"
       :icon="['fas', 'store']"
       :options="stores_options"
