@@ -2,6 +2,7 @@
 
 <template>
   <div>
-    <div>Home page frontend</div>
+    <!-- HomeHero -->
+    <HomeHero />
   </div>
 </template>
