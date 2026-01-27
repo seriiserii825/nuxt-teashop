@@ -1,4 +1,12 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+  const mini_cart_store = useMiniCartStore()
+
+  const show_empty_cart = ref(false)
+
+  function hideMiniCart() {
+    mini_cart_store.setVisibleDrawer(false)
+  }
+</script>
 <template>
   <div class="flex min-h-screen flex-col">
     <!-- FrontHeader -->
@@ -6,7 +14,17 @@
     <main class="flex-grow">
       <NuxtPage />
     </main>
-    <!-- FrontFooter -->
+    <Drawer
+      v-if="mini_cart_store.is_visible_drawer"
+      :has-close-icon="false"
+      position="right"
+      @emit-close="hideMiniCart"
+    >
+      <template #default="{ close }">
+        <MiniCartEmpty v-if="show_empty_cart" @emit-close="close" />
+        <MiniCartFilled v-else @emit-close="close" />
+      </template>
+    </Drawer>
     <FrontFooter />
   </div>
 </template>
