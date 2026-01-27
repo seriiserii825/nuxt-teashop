@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ваши заказы - TeaShop</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-white">
+    <!-- Orders Content -->
+    <div class="px-4 py-12">
+      <div class="mx-auto max-w-6xl">
+        <!-- Page Header -->
+        <div class="mb-8 flex items-center justify-between">
+          <h1 class="text-4xl font-bold text-gray-900">Ваши заказы</h1>
+          <button
+            class="flex items-center gap-2 text-gray-700 transition hover:text-gray-900"
+          >
+            <svg
+              class="h-5 w-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+              />
+            </svg>
+            <span>Выйти</span>
+          </button>
+        </div>
+
+        <!-- Orders Table -->
+        <div class="overflow-hidden rounded-xl border border-gray-200 bg-white">
+          <!-- Table Header -->
+          <div
+            class="grid grid-cols-3 gap-4 border-b border-gray-200 bg-gray-50 px-6 py-4"
+          >
+            <div
+              class="flex items-center gap-2 text-sm font-medium text-gray-700"
+            >
+              <span>Дата оплаты</span>
+              <svg
+                class="h-4 w-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"
+                />
+              </svg>
+            </div>
+            <div
+              class="flex items-center gap-2 text-sm font-medium text-gray-700"
+            >
+              <span>Статус</span>
+              <svg
+                class="h-4 w-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"
+                />
+              </svg>
+            </div>
+            <div
+              class="flex items-center gap-2 text-sm font-medium text-gray-700"
+            >
+              <span>Сумма</span>
+              <svg
+                class="h-4 w-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"
+                />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Table Row - Order 1 -->
+          <div
+            class="grid cursor-pointer grid-cols-3 gap-4 border-b border-gray-200 px-6 py-5 transition hover:bg-gray-50"
+          >
+            <div class="text-gray-900">23.07.2024</div>
+            <div class="text-gray-900">Оплачен</div>
+            <div class="text-gray-900">69 595 ₽</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Цвета - TeaShop</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-50">
+    <!-- Colors Content -->
+    <div class="p-8">
+      <div class="mx-auto max-w-6xl">
+        <!-- Page Header -->
+        <div class="mb-8 flex items-center justify-between">
+          <div>
+            <h1 class="mb-2 text-3xl font-bold text-gray-900">Цвета (3)</h1>
+            <p class="text-gray-600">Все цвета вашего магазина</p>
+          </div>
+          <button
+            class="flex items-center gap-2 rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white transition duration-200 hover:bg-blue-700"
+          >
+            <svg
+              class="h-5 w-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 4v16m8-8H4"
+              />
+            </svg>
+            <span>Создать</span>
+          </button>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="mb-6">
+          <div class="relative">
+            <input
+              type="text"
+              placeholder="Поиск..."
+              class="w-full max-w-md rounded-lg border border-gray-300 px-4 py-3 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <svg
+              class="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 transform text-gray-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              />
+            </svg>
+          </div>
+        </div>
+
+        <!-- Colors Table -->
+        <div class="overflow-hidden rounded-xl border border-gray-200 bg-white">
+          <!-- Table Header -->
+          <div
+            class="grid grid-cols-4 gap-4 border-b border-gray-200 bg-gray-50 px-6 py-4"
+          >
+            <div
+              class="flex items-center gap-2 text-sm font-medium text-gray-700"
+            >
+              <span>Название</span>
+              <svg
+                class="h-4 w-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"
+                />
+              </svg>
+            </div>
+            <div
+              class="flex items-center gap-2 text-sm font-medium text-gray-700"
+            >
+              <span>Значение</span>
+              <svg
+                class="h-4 w-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"
+                />
+              </svg>
+            </div>
+            <div
+              class="flex items-center gap-2 text-sm font-medium text-gray-700"
+            >
+              <span>Дата создания</span>
+              <svg
+                class="h-4 w-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"
+                />
+              </svg>
+            </div>
+            <div class="text-sm font-medium text-gray-700">Действия</div>
+          </div>
+
+          <!-- Table Rows -->
+          <!-- Color Row 1 - Black -->
+          <div
+            class="grid grid-cols-4 items-center gap-4 border-b border-gray-200 px-6 py-5 transition hover:bg-gray-50"
+          >
+            <div class="font-medium text-gray-900">Черный</div>
+            <div class="flex items-center gap-3">
+              <span class="font-mono text-gray-700">#000000</span>
+              <div
+                class="h-8 w-8 rounded-full border-2 border-gray-300"
+                style="background-color: #000000"
+              ></div>
+            </div>
+            <div class="text-gray-900">14.07.2024</div>
+            <div>
+              <button class="text-gray-400 transition hover:text-gray-600">
+                <svg
+                  class="h-6 w-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Color Row 2 - Blue -->
+          <div
+            class="grid grid-cols-4 items-center gap-4 border-b border-gray-200 px-6 py-5 transition hover:bg-gray-50"
+          >
+            <div class="font-medium text-gray-900">Синий</div>
+            <div class="flex items-center gap-3">
+              <span class="font-mono text-gray-700">#1D4ED8</span>
+              <div
+                class="h-8 w-8 rounded-full border-2 border-gray-300"
+                style="background-color: #1d4ed8"
+              ></div>
+            </div>
+            <div class="text-gray-900">14.07.2024</div>
+            <div>
+              <button class="text-gray-400 transition hover:text-gray-600">
+                <svg
+                  class="h-6 w-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Color Row 3 - Gray -->
+          <div
+            class="grid grid-cols-4 items-center gap-4 px-6 py-5 transition hover:bg-gray-50"
+          >
+            <div class="font-medium text-gray-900">Серый</div>
+            <div class="flex items-center gap-3">
+              <span class="font-mono text-gray-700">#64748B</span>
+              <div
+                class="h-8 w-8 rounded-full border-2 border-gray-300"
+                style="background-color: #64748b"
+              ></div>
+            </div>
+            <div class="text-gray-900">14.07.2024</div>
+            <div>
+              <button class="text-gray-400 transition hover:text-gray-600">
+                <svg
+                  class="h-6 w-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
