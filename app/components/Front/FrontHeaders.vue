@@ -1,12 +1,13 @@
 <script setup lang="ts">
-  const props = defineProps({
+  defineProps({
     title: {
       type: String,
       required: true,
     },
     text: {
       type: String,
-      required: true,
+      required: false,
+      default: '',
     },
     linkText: {
       type: String,
@@ -28,7 +29,7 @@
       <h2 class="mb-2 text-3xl font-bold text-gray-900 md:text-4xl">
         {{ title }}
       </h2>
-      <p class="text-gray-600">{{ text }}</p>
+      <p v-if="text" class="text-gray-600">{{ text }}</p>
     </div>
     <NuxtLink
       v-if="linkText && linkUrl"

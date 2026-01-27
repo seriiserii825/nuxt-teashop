@@ -3,7 +3,7 @@
 <template>
   <nav class="flex items-center space-x-6">
     <button class="text-gray-700 transition hover:text-blue-600">Cart</button>
-    <NuxtLink to="/" class="text-gray-700 transition hover:text-blue-600"
+    <NuxtLink to="/catalog" class="text-gray-700 transition hover:text-blue-600"
       >Catalog</NuxtLink
     >
     <button
