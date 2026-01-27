@@ -1,4 +1,5 @@
 export default function useIsLoggedIn() {
   const auth_store = useAuthStore()
-  return !!auth_store.user
+  const { user } = storeToRefs(auth_store)
+  return computed(() => !!user.value)
 }

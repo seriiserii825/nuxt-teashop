@@ -45,6 +45,14 @@ export const authService = {
     }
     return response.data
   },
+  getProfile: async () => {
+    const { axiosClassic } = useAxios()
+    const response = await axiosClassic({
+      url: API_URL.auth('/users/profile'),
+      method: 'GET',
+    })
+    return response.data
+  },
   logout: async (): Promise<void> => {
     const { axiosWithToken } = useAxios()
     await axiosWithToken({

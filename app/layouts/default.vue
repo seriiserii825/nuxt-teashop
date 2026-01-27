@@ -1,4 +1,16 @@
 <script setup lang="ts">
+  import { userService } from '~/api/services/userService'
+  import type { IUser } from '~/interfaces/IUser'
+
+  const auth_store = useAuthStore()
+
+  const { data } = useQuery<IUser>(() => userService.profile())
+  watch(data, (newData) => {
+    if (newData) {
+      auth_store.setUser(newData)
+    }
+  })
+
   const mini_cart_store = useMiniCartStore()
 
   const show_empty_cart = ref(false)

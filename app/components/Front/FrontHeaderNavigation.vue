@@ -16,11 +16,14 @@
       >Favorites</NuxtLink
     >
     <Btn @click="showMiniCart">Cart(4)</Btn>
-    <button
+    <NuxtLink
+      v-if="!useIsLoggedIn()"
       class="flex items-center space-x-2 rounded-lg bg-blue-600 px-6 py-2 text-white transition hover:bg-blue-700"
+      to="/login"
     >
       <IconILogout />
       <span>Войти</span>
-    </button>
+    </NuxtLink>
+    <UserProfile v-else />
   </nav>
 </template>
