@@ -22,7 +22,12 @@ export default defineNuxtRouteMiddleware(async (to) => {
   }
 
   try {
+    const authStore = useAuthStore()
     await userService.profile()
+
+    if (to.path.startsWith('/store') && authStore.user?.role !== 'admin') {
+      return navigateTo('/dashboard')
+    }
 
     if (queryToken) {
       return navigateTo(to.path, { replace: true })
