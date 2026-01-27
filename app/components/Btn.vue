@@ -18,6 +18,10 @@
       type: Boolean,
       default: false,
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
   })
 
   function onClick(event: Event) {
@@ -27,7 +31,7 @@
 
 <template>
   <button
-    :disabled="loading"
+    :disabled="loading || disabled"
     :type="type"
     :class="`btn ${variant}`"
     @click="onClick"
