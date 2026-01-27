@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 <template>
   <div
-    class="group relative overflow-hidden rounded-3xl bg-white ring-1 ring-gray-200 transition duration-300 hover:ring-2 hover:ring-blue-400"
+    class="group relative overflow-hidden rounded-xl bg-white ring-1 ring-gray-200 transition duration-300 hover:ring-2 hover:ring-blue-400"
   >
     <!-- Image Container -->
     <NuxtLink
