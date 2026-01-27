@@ -45,6 +45,10 @@
       type: String,
       default: 'asc',
     },
+    showPagination: {
+      type: Boolean,
+      default: true,
+    },
   })
 
   const emit = defineEmits([
@@ -178,6 +182,7 @@
     </table>
 
     <div
+      v-if="showPagination"
       class="flex items-center justify-between border-t-2 border-gray-300 bg-gray-50 px-5 py-4"
     >
       <div class="flex items-center gap-3 text-sm font-medium text-gray-700">

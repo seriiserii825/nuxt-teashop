@@ -91,6 +91,7 @@
       :data="categories"
       :sort-key="sortKey"
       :sort-order="sortOrder"
+      :show-pagination="false"
       @edit-row="editRow"
       @delete-row="deleteRow"
       @sort="sortColumn"
