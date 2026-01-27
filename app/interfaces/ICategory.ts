@@ -4,7 +4,7 @@ export interface ICategory {
   updatedAt: Date
   title: string
   description: string
-  storeId: null
+  store_id: null
 }
 
 export type ICategoryCreate = Pick<ICategory, 'title' | 'description'>
