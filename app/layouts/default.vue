@@ -22,8 +22,8 @@
 <template>
   <div class="flex min-h-screen flex-col">
     <!-- FrontHeader -->
-    <FrontHeader />
-    <main class="flex-grow">
+    <FrontHeader class="relative z-40" />
+    <main class="min-h-[100vh] flex-grow">
       <NuxtPage />
     </main>
     <Drawer

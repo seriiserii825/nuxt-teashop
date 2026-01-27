@@ -17,7 +17,7 @@
 <template>
   <div>
     <NuxtLink
-      to="/store"
+      to="/"
       class="flex items-center gap-4 transition-opacity hover:opacity-80"
     >
       <IconILogo />
