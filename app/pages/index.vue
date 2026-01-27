@@ -4,5 +4,7 @@
   <div>
     <!-- HomeHero -->
     <HomeHero />
+    <!-- HomeBestSellers -->
+    <HomeBestSellers />
   </div>
 </template>
