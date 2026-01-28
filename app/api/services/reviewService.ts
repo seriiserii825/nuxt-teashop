@@ -8,10 +8,10 @@ import type {
 import { useAxios } from '../axiosInstance'
 
 export const reviewService = {
-  getAll: async () => {
+  getAll: async (store_id: number) => {
     const { axiosClassic } = useAxios()
     const { data } = await axiosClassic<IReview[]>({
-      url: API_URL.reviews(),
+      url: API_URL.reviews(`/store/${store_id}`),
       method: 'GET',
     })
     return data
@@ -50,10 +50,10 @@ export const reviewService = {
     })
     return response.data
   },
-  delete: async (id: string) => {
+  delete: async (id: string, store_id: number) => {
     const { axiosWithToken } = useAxios()
     const response = await axiosWithToken<IReview>({
-      url: API_URL.reviews(`/${id}`),
+      url: API_URL.reviews(`/${id}/store/${store_id}`),
       method: 'DELETE',
     })
     return response.data

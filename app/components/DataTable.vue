@@ -8,7 +8,7 @@
   }
 
   interface TableRow {
-    id: string
+    id: string | number
     [key: string]: unknown
   }
 

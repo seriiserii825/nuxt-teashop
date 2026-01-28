@@ -1,12 +1,15 @@
+import type { IStore } from './IStore'
+
 export interface IReview {
-  id: string
+  id: number
   createdAt: Date
   updatedAt: Date
   rating: number
   text: string
-  productId: string
-  userId: string
-  storeId: string
+  product_id: string
+  user_id: string
+  store_id: string
+  store: IStore
 }
 
 export type IReviewCreate = Omit<IReview, 'id' | 'createdAt' | 'updatedAt'>
