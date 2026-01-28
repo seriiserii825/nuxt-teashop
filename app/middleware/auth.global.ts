@@ -3,6 +3,8 @@ import { getAccessToken, setAccessToken } from '~/api/api_tokens'
 import { userService } from '~/api/services/userService'
 
 export default defineNuxtRouteMiddleware(async (to) => {
+  const auth_store = useAuthStore()
+
   if (!to.path.startsWith('/dashboard') && !to.path.startsWith('/store')) {
     return
   }
@@ -23,7 +25,8 @@ export default defineNuxtRouteMiddleware(async (to) => {
 
   try {
     const authStore = useAuthStore()
-    await userService.profile()
+    const newData = await userService.profile()
+    auth_store.setUser(newData)
 
     if (to.path.startsWith('/store') && authStore.user?.role !== 'admin') {
       return navigateTo('/dashboard')
@@ -33,7 +36,6 @@ export default defineNuxtRouteMiddleware(async (to) => {
       return navigateTo(to.path, { replace: true })
     }
   } catch (e) {
-    handleAxiosError(e)
-    return navigateTo('/login')
+    console.log(e, 'e')
   }
 })

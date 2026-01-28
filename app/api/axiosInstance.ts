@@ -51,7 +51,9 @@ function createAxiosInstances() {
         } catch (e) {
           // Refresh failed — logout and redirect
           removeAccessToken()
-          navigateTo('/login')
+          if (shouldRedirectOnAuthError()) {
+            navigateTo('/login')
+          }
           return Promise.reject(e)
         }
       }
@@ -59,7 +61,9 @@ function createAxiosInstances() {
       // Any other 401 that's not retryable — logout
       if (status === 401) {
         removeAccessToken()
-        navigateTo('/login')
+        if (shouldRedirectOnAuthError()) {
+          navigateTo('/login')
+        }
       }
 
       return Promise.reject(error)
@@ -81,4 +85,9 @@ export function useAxios() {
     createAxiosInstances()
   }
   return { axiosClassic: axiosClassic!, axiosWithToken: axiosWithToken! }
+}
+
+function shouldRedirectOnAuthError(): boolean {
+  const route = useRoute()
+  return route.path.startsWith('/dashboard') || route.path.startsWith('/store')
 }

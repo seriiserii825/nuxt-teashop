@@ -87,7 +87,16 @@
         <!-- Menu Items -->
         <div class="py-2">
           <NuxtLink
-            to="/profile"
+            to="/dashboard"
+            class="flex items-center gap-3 px-4 py-3 text-gray-700 transition hover:bg-gray-50"
+            exact-active-class="!bg-gray-200"
+          >
+            <font-awesome-icon :icon="['fas', 'gauge']" />
+            <span class="text-sm font-medium">Dashboard</span>
+          </NuxtLink>
+
+          <NuxtLink
+            to="/dashboard/profile"
             class="flex items-center gap-3 px-4 py-3 text-gray-700 transition hover:bg-gray-50"
             exact-active-class="!bg-gray-200"
           >
@@ -96,7 +105,7 @@
           </NuxtLink>
 
           <NuxtLink
-            to="/orders"
+            to="/dashboard/orders"
             class="flex items-center gap-3 px-4 py-3 text-gray-700 transition hover:bg-gray-50"
             exact-active-class="!bg-gray-200"
           >
@@ -105,7 +114,7 @@
           </NuxtLink>
 
           <NuxtLink
-            to="/favorites"
+            to="/dashboard/favorites"
             class="flex items-center gap-3 px-4 py-3 text-gray-700 transition hover:bg-gray-50"
             exact-active-class="!bg-gray-200"
           >
@@ -114,7 +123,7 @@
           </NuxtLink>
 
           <NuxtLink
-            to="/settings"
+            to="/dashboard/settings"
             class="flex items-center gap-3 px-4 py-3 text-gray-700 transition hover:bg-gray-50"
             exact-active-class="!bg-gray-200"
           >

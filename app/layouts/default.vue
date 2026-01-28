@@ -4,7 +4,9 @@
 
   const auth_store = useAuthStore()
 
-  const { data } = useQuery<IUser>(() => userService.profile())
+  const { data } = useQuery<IUser>(() => userService.profile(), {
+    silent: true,
+  })
   watch(data, (newData) => {
     if (newData) {
       auth_store.setUser(newData)
