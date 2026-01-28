@@ -8,10 +8,10 @@
 <template>
   <div class="p-4">
     <Heading
-      title="Create Category"
-      :link-url="`/store/${storeId}/categories`"
-      link-text="List categories"
+      title="Create Review"
+      :link-url="`/store/${storeId}/reviews`"
+      link-text="List reviews"
     />
-    <FormCreateCategory />
+    <FormCreateReview />
   </div>
 </template>

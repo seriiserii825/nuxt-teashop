@@ -1,8 +1,7 @@
 <script setup lang="ts">
   import { authService } from '~/api/services/authService'
 
-  const auth_store = useAuthStore()
-  const { user } = storeToRefs(auth_store)
+  const user = useGetUserFromStore()
 
   const route = useRoute()
 

@@ -12,5 +12,8 @@ export interface IReview {
   store: IStore
 }
 
-export type IReviewCreate = Omit<IReview, 'id' | 'createdAt' | 'updatedAt'>
+export type IReviewCreate = Omit<
+  IReview,
+  'id' | 'createdAt' | 'updatedAt' | 'store'
+>
 export type IReviewUpdate = Partial<IReviewCreate>
