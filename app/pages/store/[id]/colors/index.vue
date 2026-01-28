@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import { colorService } from '~/api/services/colorService'
+  import type { TableColumn } from '~/components/DataTable.vue'
   import type { IColor } from '~/interfaces/IColor'
   import type { TSortColumn } from '~/interfaces/TSortColumn'
 
@@ -19,16 +20,17 @@
     refetch,
   } = useQuery<IColor[]>(() => colorService.getAll(+store_id.value))
 
-  const columns = ref<Record<'key' | 'label', string>[]>([
+  const columns = ref<TableColumn[]>([
     { key: 'id', label: 'ID' },
     { key: 'name', label: 'Name' },
-    { key: 'value', label: 'Value' },
+    { key: 'value', label: 'Value', html: true },
   ])
 
   const colors = computed(() => {
     if (!response.value) return []
     return response.value.map((color: IColor) => ({
       ...color,
+      value: `<div class="flex items-center gap-2">${color.value} <span class="ml-2 w-5 h-5 inline-block rounded-full" style="background-color: ${color.value};"></span></div>`,
     }))
   })
 

@@ -1,15 +1,22 @@
 <script setup lang="ts">
+  import DOMPurify from 'dompurify'
+
   import { computed, ref, watch } from 'vue'
+
+  const sanitizeHtml = (html: string) => {
+    return DOMPurify.sanitize(html)
+  }
 
   interface TableRow {
     id: string
     [key: string]: unknown
   }
 
-  interface TableColumn {
+  export interface TableColumn {
     key: string
     label: string
     sortable?: boolean
+    html?: boolean
   }
 
   const props = defineProps({
@@ -158,7 +165,11 @@
               :value="row[column.key]"
               :row="row"
             >
-              {{ row[column.key] }}
+              <span
+                v-if="column.html"
+                v-html="sanitizeHtml(String(row[column.key] ?? ''))"
+              ></span>
+              <template v-else>{{ row[column.key] }}</template>
             </slot>
           </td>
           <td class="flex justify-center gap-2 px-5 py-4">

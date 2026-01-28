@@ -9,7 +9,7 @@
 <template>
   <div class="p-4">
     <Heading
-      title="Edit Product"
+      title="Edit Color"
       :link-url="`/store/${storeId}/colors`"
       link-text="List colors"
     />
