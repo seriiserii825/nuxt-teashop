@@ -4,7 +4,7 @@
 
   const props = defineProps({
     colorId: {
-      type: String,
+      type: Number,
       required: true,
     },
   })

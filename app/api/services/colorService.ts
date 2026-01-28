@@ -41,7 +41,7 @@ export const colorService = {
     })
     return data
   },
-  getById: async (id: string, store_id: number) => {
+  getById: async (id: number, store_id: number) => {
     const { axiosWithToken } = useAxios()
     const { data } = await axiosWithToken<IColor>({
       url: API_URL.colors(`/${id}/store/${store_id}`),
@@ -58,10 +58,10 @@ export const colorService = {
     })
     return response.data
   },
-  update: async (id: string, data: IColorUpdate, store_id: number) => {
+  update: async (id: number, data: IColorUpdate, store_id: number) => {
     const { axiosWithToken } = useAxios()
     const response = await axiosWithToken<IColor>({
-      url: API_URL.colors(`${id}/store/${store_id}`),
+      url: API_URL.colors(`/${id}/store/${store_id}`),
       method: 'PATCH',
       data,
     })

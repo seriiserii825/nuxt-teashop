@@ -1,64 +1,39 @@
 <script setup lang="ts">
   import { colorService } from '~/api/services/colorService'
-  import type { IColor, IColorResponse } from '~/interfaces/IColor'
+  import type { IColor } from '~/interfaces/IColor'
   import type { TSortColumn } from '~/interfaces/TSortColumn'
 
   definePageMeta({
     layout: 'store',
   })
 
-  const page = ref(1)
-  const limit = ref(2)
-  const search = ref('')
   const selected_color_id = ref<string | null>(null)
   const row_action = ref<'edit' | 'delete' | null>(null)
   const sortKey = ref<string>('') // Добавлено
   const sortOrder = ref<'asc' | 'desc'>('desc') // Добавлено
-  const storeId = useIdParamFromUrl()
+  const store_id = useIdParamFromUrl()
 
   const {
     data: response,
     loading,
     refetch,
-  } = useQuery<IColorResponse>(() =>
-    colorService.getByStoreId(
-      storeId.value,
-      page.value,
-      limit.value,
-      search.value,
-      sortKey.value,
-      sortOrder.value
-    )
-  )
+  } = useQuery<IColor[]>(() => colorService.getAll(+store_id.value))
 
   const columns = ref<Record<'key' | 'label', string>[]>([
+    { key: 'id', label: 'ID' },
     { key: 'name', label: 'Name' },
     { key: 'value', label: 'Value' },
   ])
 
-  function updatePerPage(newLimit: number) {
-    limit.value = newLimit
-    refetch()
-  }
-  function pageChange(newPage: number) {
-    page.value = newPage
-    refetch()
-  }
-
   const colors = computed(() => {
     if (!response.value) return []
-    return response.value.data.map((color: IColor) => ({
+    return response.value.map((color: IColor) => ({
       ...color,
     }))
   })
 
-  const { debouncedFn: debouncedSearch } = useDebounce(() => {
-    page.value = 1
-    refetch()
-  }, 500)
-
-  function editRow(color_id: string) {
-    const url = `/store/${storeId.value}/colors/${color_id}/edit`
+  function editRow(color_id: number) {
+    const url = `/store/${store_id.value}/colors/${color_id}/edit`
     navigateTo(url)
   }
   async function deleteRow(id: string) {
@@ -69,7 +44,7 @@
     )
     if (confirmed.isConfirmed) {
       try {
-        await colorService.delete(selected_color_id.value, +storeId.value)
+        await colorService.delete(selected_color_id.value, +store_id.value)
         useSweetAlert('success', 'Color deleted successfully')
         selected_color_id.value = null
         row_action.value = null
@@ -80,14 +55,15 @@
     }
   }
 
-  watch(search, () => {
-    debouncedSearch()
-  })
+  function closePopup() {
+    selected_color_id.value = null
+    row_action.value = null
+    refetch()
+  }
 
   function sortColumn(column: TSortColumn) {
     sortKey.value = column.key
     sortOrder.value = column.order
-    page.value = 1 // Сбрасываем на первую страницу при сортировке
     refetch()
   }
 
@@ -112,17 +88,23 @@
       v-else-if="response && colors.length"
       :columns="columns"
       :data="colors"
-      :per-page="limit"
-      :total-pages="response.meta.totalPages"
-      :current-page="page"
       :sort-key="sortKey"
       :sort-order="sortOrder"
-      @update:per-page="updatePerPage"
-      @page-change="pageChange"
+      :show-pagination="false"
       @edit-row="editRow"
       @delete-row="deleteRow"
       @sort="sortColumn"
     />
     <div v-else class="text-center text-gray-500">No colors found.</div>
+    <Popup
+      v-if="selected_color_id && row_action === 'edit'"
+      title="Edit color"
+      @emit_close="closePopup"
+    >
+      <!-- <FormUpdateColor -->
+      <!--   :color-id="selected_color_id" -->
+      <!--   @emit_close="closePopup" -->
+      <!-- /> -->
+    </Popup>
   </div>
 </template>

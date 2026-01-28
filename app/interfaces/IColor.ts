@@ -4,7 +4,7 @@ export interface IColor {
   updatedAt: Date
   name: string
   value: string
-  storeId: string
+  store_id: string
 }
 
 export type IColorCreate = Pick<IColor, 'name' | 'value'>

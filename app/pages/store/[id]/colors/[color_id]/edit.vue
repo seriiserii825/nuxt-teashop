@@ -9,10 +9,10 @@
 <template>
   <div class="p-4">
     <Heading
-      title="Edit Color"
+      title="Edit Product"
       :link-url="`/store/${storeId}/colors`"
       link-text="List colors"
     />
-    <FormUpdateColor :color-id="color_id" />
+    <FormUpdateColor :color-id="+color_id" />
   </div>
 </template>
