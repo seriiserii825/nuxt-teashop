@@ -7,7 +7,7 @@
 
   const store_id = useIdParamFromUrl()
 
-  const { data: products, loading } = useQuery<IProduct[]>(() =>
+  const { data: products } = useQuery<IProduct[]>(() =>
     productService.getAllArray(+store_id.value)
   )
 

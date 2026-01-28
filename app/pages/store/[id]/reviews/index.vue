@@ -23,14 +23,14 @@
   const columns = ref<TableColumn[]>([
     { key: 'id', label: 'ID' },
     { key: 'rating', label: 'Rating' },
-    { key: 'store', label: 'Store Id' },
+    { key: 'product', label: 'Product' },
   ])
 
   const reviews = computed(() => {
     if (!response.value) return []
     return response.value.map((review: IReview) => ({
       ...review,
-      store: review.store.title,
+      product: review.product ? review.product.title : 'N/A',
     }))
   })
 
@@ -87,7 +87,7 @@
     />
     <Preloader v-if="loading" />
     <DataTable
-      v-else-if="response && reviews.length"
+      v-else-if="reviews && reviews.length"
       :columns="columns"
       :data="reviews"
       :sort-key="sortKey"
