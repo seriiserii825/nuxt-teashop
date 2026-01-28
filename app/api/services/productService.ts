@@ -138,9 +138,9 @@ export const productService = {
     }
 
     // Добавляем старые изображения (те, что нужно сохранить)
-    if (data.oldImages && data.oldImages.length > 0) {
-      data.oldImages.forEach((url) => {
-        formData.append('oldImages[]', url)
+    if (data.old_images && data.old_images.length > 0) {
+      data.old_images.forEach((url) => {
+        formData.append('old_images[]', url)
       })
     }
 

@@ -31,7 +31,7 @@
     category_id: '',
     color_id: '',
     images: [],
-    oldImages: [],
+    old_images: [],
   }
 
   watch(product, (newProduct) => {
@@ -42,7 +42,7 @@
       initialData.category_id = newProduct.category_id
       initialData.color_id = newProduct.color_id
       images.value = newProduct.images
-      initialData.oldImages = newProduct.images
+      initialData.old_images = newProduct.images
     }
   })
 
@@ -97,7 +97,7 @@
     initialData.images = images
   }
   function emitRemovedImages(files: IFileUpload[]) {
-    initialData.oldImages = files.map((file) => file.url)
+    initialData.old_images = files.map((file) => file.url)
   }
 </script>
 

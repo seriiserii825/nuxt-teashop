@@ -36,5 +36,5 @@ export interface IProductUpdate {
   category_id?: string
   color_id?: string
   images: File[]
-  oldImages: string[]
+  old_images: string[]
 }
