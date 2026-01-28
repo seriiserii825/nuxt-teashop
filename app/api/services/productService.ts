@@ -35,6 +35,15 @@ export const productService = {
     })
     return data
   },
+  getAllArray: async (store_id: number) => {
+    const { axiosWithToken } = useAxios()
+
+    const { data } = await axiosWithToken<IProduct[]>({
+      url: API_URL.products(`/store/${store_id}/find-array`),
+      method: 'GET',
+    })
+    return data
+  },
   getByStoreId: async (
     storeId: string,
     page = 1,
