@@ -12,7 +12,7 @@
     stores?.find((store) => store.id === +current_store_param.value)
   )
 
-  const images = ref<string[]>([])
+  const images = ref<string[]>([current_store.value?.picture || ''])
 
   const initialData: IStoreUpdate = {
     title: current_store.value?.title || '',

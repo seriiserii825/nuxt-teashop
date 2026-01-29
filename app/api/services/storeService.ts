@@ -49,23 +49,24 @@ export const storeService = {
       formData.append('description', data.description)
     }
 
+    // Если нужно сохранить текущую картинку
     if (data.old_images && data.old_images.length > 0) {
-      data.old_images.forEach((url) => {
-        formData.append('old_images[]', url)
+      data.old_images.forEach((img) => {
+        formData.append('old_picture', img)
       })
     }
 
     // Добавляем новые изображения (если есть)
     if (data.images && data.images.length > 0) {
-      data.images.forEach((file) => {
-        formData.append('images', file)
+      data.images.forEach((img) => {
+        formData.append('picture', img)
       })
     }
 
     const response = await axiosWithToken<IStore>({
       url: API_URL.stores(`/${store_id}`),
       method: 'PATCH',
-      data,
+      data: formData,
       headers: {
         'Content-Type': 'multipart/form-data',
       },
