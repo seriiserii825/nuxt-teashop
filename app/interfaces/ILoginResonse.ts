@@ -1,15 +1,5 @@
-import type { IUser } from './IUser'
+import type { components } from '~/generated/schema'
 
-export interface ILoginResponse {
-  user: IUser
-  tokens: {
-    accessToken: string
-  }
-}
+export type ILoginResponse = components['schemas']['LoginResponseDto']
 
-export interface ILoginAccessTokenResponse {
-  user: IUser
-  tokens: {
-    accessToken: string
-  }
-}
+export type ILoginAccessTokenResponse = ILoginResponse
