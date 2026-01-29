@@ -1,11 +1,8 @@
+import type { components } from '~/generated/schema'
+
 import type { IUser } from './IUser'
 
-export interface IRegisterPayload {
-  name: string
-  email: string
-  password: string
-}
+type RegisterPayloadSchema = components['schemas']['CreateUserDto']
 
-export interface IRegisterResponse {
-  user: IUser
-}
+export type IRegisterPayload = RegisterPayloadSchema
+export type IRegisterResponse = IUser
