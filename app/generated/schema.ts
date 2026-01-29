@@ -597,141 +597,33 @@ export interface components {
             /** @description Array of existing image URLs to keep */
             old_images?: string[];
         };
-        ReviewBasicDto: {
-            /** @example 1 */
-            id: number;
-            /** @example Great product! */
-            text: string;
+        PaginationMetaDto: {
             /**
-             * @description Rating from 1 to 5
-             * @example 5
+             * @description Total number of items
+             * @example 100
              */
-            rating: number;
-            /** @example 1 */
-            user_id: number;
-            /** @example 1 */
-            product_id: number;
-            /** @description List of reviews made by the user */
-            products: components["schemas"]["ProductBasicDto"];
-            /** @example 1 */
-            store_id: number;
+            total: number;
             /**
-             * Format: date-time
-             * @example 2024-01-01T00:00:00Z
+             * @description Current page number
+             * @example 1
              */
-            createdAt: string;
+            page: number;
             /**
-             * Format: date-time
-             * @example 2024-01-01T00:00:00Z
+             * @description Items per page
+             * @example 10
              */
-            updatedAt: string;
+            limit: number;
+            /**
+             * @description Total number of pages
+             * @example 10
+             */
+            totalPages: number;
         };
-        OrderItemsBasicDto: {
-            /**
-             * @description Order Item ID
-             * @example 1
-             */
-            id: number;
-            /**
-             * @description Order ID
-             * @example 2
-             */
-            order_id: number;
-            /**
-             * @description Quantity of the product
-             * @example 3
-             */
-            quantity: number;
-            /**
-             * @description Price of the product
-             * @example 29.99
-             */
-            price: number;
-            /**
-             * @description Product ID
-             * @example 4
-             */
-            product_id: number;
-            /**
-             * @description Store ID
-             * @example 5
-             */
-            store_id: number;
-            /**
-             * Format: date-time
-             * @description The date and time when the order item was created
-             * @example 2024-01-01T00:00:00Z
-             */
-            createdAt: string;
-            /**
-             * Format: date-time
-             * @description The date and time when the order item was last updated
-             * @example 2024-01-02T00:00:00Z
-             */
-            updatedAt: string;
-        };
-        ProductFullDto: {
-            /**
-             * @description Product ID
-             * @example 1
-             */
-            id: number;
-            /**
-             * @description Product Title
-             * @example Green Tea
-             */
-            title: string;
-            /**
-             * @description Product Description
-             * @example A refreshing green tea.
-             */
-            description: string;
-            /**
-             * @description Product Price
-             * @example 9.99
-             */
-            price: number;
-            /**
-             * @description Product Images without domain
-             * @example ["http://example.com/image1.jpg", "http://example.com/image2.jpg"]
-             */
-            images: string[];
-            /**
-             * @description Store ID
-             * @example 1
-             */
-            store_id: number;
-            /**
-             * @description Category ID
-             * @example 2
-             */
-            category_id: number;
-            /**
-             * @description ColorBasic ID
-             * @example 3
-             */
-            color_id: number;
-            /**
-             * @description User ID
-             * @example 4
-             */
-            user_id: number;
-            /**
-             * Format: date-time
-             * @description Creation Date
-             * @example 2024-01-01T00:00:00Z
-             */
-            createdAt: string;
-            /**
-             * Format: date-time
-             * @description Last Update Date
-             * @example 2024-01-02T00:00:00Z
-             */
-            updatedAt: string;
-            /** @description Product reviews */
-            reviews?: components["schemas"]["ReviewBasicDto"][];
-            /** @description Order items */
-            order_items?: components["schemas"]["OrderItemsBasicDto"][];
+        ProductsPaginatedDto: {
+            /** @description Array of products */
+            data: components["schemas"]["ProductBasicDto"][];
+            /** @description Pagination metadata */
+            meta: components["schemas"]["PaginationMetaDto"];
         };
         CreateCategoryDto: {
             /**
@@ -860,6 +752,35 @@ export interface components {
             /** @example 1 */
             product_id: number;
         };
+        ReviewBasicDto: {
+            /** @example 1 */
+            id: number;
+            /** @example Great product! */
+            text: string;
+            /**
+             * @description Rating from 1 to 5
+             * @example 5
+             */
+            rating: number;
+            /** @example 1 */
+            user_id: number;
+            /** @example 1 */
+            product_id: number;
+            /** @description List of reviews made by the user */
+            products: components["schemas"]["ProductBasicDto"];
+            /** @example 1 */
+            store_id: number;
+            /**
+             * Format: date-time
+             * @example 2024-01-01T00:00:00Z
+             */
+            createdAt: string;
+            /**
+             * Format: date-time
+             * @example 2024-01-01T00:00:00Z
+             */
+            updatedAt: string;
+        };
         UpdateReviewDto: {
             /** @example Great product! */
             text?: string;
@@ -870,6 +791,50 @@ export interface components {
             rating?: number;
             /** @example 1 */
             product_id?: number;
+        };
+        OrderItemsBasicDto: {
+            /**
+             * @description Order Item ID
+             * @example 1
+             */
+            id: number;
+            /**
+             * @description Order ID
+             * @example 2
+             */
+            order_id: number;
+            /**
+             * @description Quantity of the product
+             * @example 3
+             */
+            quantity: number;
+            /**
+             * @description Price of the product
+             * @example 29.99
+             */
+            price: number;
+            /**
+             * @description Product ID
+             * @example 4
+             */
+            product_id: number;
+            /**
+             * @description Store ID
+             * @example 5
+             */
+            store_id: number;
+            /**
+             * Format: date-time
+             * @description The date and time when the order item was created
+             * @example 2024-01-01T00:00:00Z
+             */
+            createdAt: string;
+            /**
+             * Format: date-time
+             * @description The date and time when the order item was last updated
+             * @example 2024-01-02T00:00:00Z
+             */
+            updatedAt: string;
         };
         CreateOrderDto: {
             /**
@@ -1161,7 +1126,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ProductFullDto"];
+                    "application/json": components["schemas"]["ProductsPaginatedDto"];
                 };
             };
             /** @description Unauthorized */

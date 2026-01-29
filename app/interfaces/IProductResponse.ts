@@ -1,12 +1,5 @@
-import type { IProduct } from './IProduct'
+import type { components } from '~/generated/schema'
 
-export interface IProductResponse {
-  data: IProduct[]
-  meta: IMeta
-}
-export interface IMeta {
-  total: number
-  page: number
-  limit: number
-  totalPages: number
-}
+type ProductResponseSchema = components['schemas']['ProductsPaginatedDto']
+
+export type IProductResponse = ProductResponseSchema
