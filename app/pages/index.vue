@@ -4,7 +4,8 @@
   <div>
     <!-- HomeHero -->
     <HomeHero />
-    <!-- HomeBestSellers -->
-    <HomeBestSellers />
+    <div class="container">
+      <ShopGrid />
+    </div>
   </div>
 </template>
