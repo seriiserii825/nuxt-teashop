@@ -1,10 +1,5 @@
 import { API_URL } from '~/config/api_url.config'
-import type {
-  IColor,
-  IColorCreate,
-  IColorResponse,
-  IColorUpdate,
-} from '~/interfaces/IColor'
+import type { IColor, IColorCreate, IColorUpdate } from '~/interfaces/IColor'
 
 import { useAxios } from '../axiosInstance'
 
@@ -34,7 +29,7 @@ export const colorService = {
       params.sortKey = sortKey
       params.sortOrder = sortOrder
     }
-    const { data } = await axiosWithToken<IColorResponse>({
+    const { data } = await axiosWithToken<IColor[]>({
       url: API_URL.colors(`/store/${storeId}`),
       method: 'GET',
       params,

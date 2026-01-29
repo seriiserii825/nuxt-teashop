@@ -7,7 +7,7 @@ export default function useFetchProfileToPinia() {
   watch(user, (newUser) => {
     if (newUser) {
       // order user.stores by updatedAt descending
-      newUser.stores.sort((a, b) => {
+      newUser.stores?.sort((a, b) => {
         return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
       })
       auth_store.setUser(newUser)
