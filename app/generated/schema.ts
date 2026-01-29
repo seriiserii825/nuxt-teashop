@@ -465,6 +465,7 @@ export interface components {
             title: string;
             description?: string;
             user_id: number;
+            picture: string;
             /** Format: date-time */
             createdAt: string;
             /** Format: date-time */
@@ -1116,7 +1117,10 @@ export interface operations {
                 sortOrder?: "asc" | "desc";
             };
             header?: never;
-            path?: never;
+            path: {
+                /** @description Store ID */
+                store_id: string;
+            };
             cookie?: never;
         };
         requestBody?: never;
