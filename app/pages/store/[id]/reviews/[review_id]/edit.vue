@@ -3,16 +3,16 @@
     layout: 'store',
   })
   const storeId = useIdParamFromUrl()
-  const category_id = useIdParamFromUrl('category_id')
+  const review_id = useIdParamFromUrl('review_id')
 </script>
 
 <template>
   <div class="p-4">
     <Heading
-      title="Edit Product"
-      :link-url="`/store/${storeId}/categories`"
-      link-text="List categories"
+      title="Edit Review"
+      :link-url="`/store/${storeId}/reviews`"
+      link-text="List reviews"
     />
-    <FormUpdateCategory :category-id="+category_id" />
+    <FormUpdateReview :review-id="+review_id" />
   </div>
 </template>

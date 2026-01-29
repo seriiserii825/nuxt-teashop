@@ -24,10 +24,10 @@ export const reviewService = {
     })
     return data
   },
-  getById: async (id: string) => {
+  getById: async (id: number, store_id: number) => {
     const { axiosWithToken } = useAxios()
     const { data } = await axiosWithToken<IReview>({
-      url: API_URL.reviews(`/${id}`),
+      url: API_URL.reviews(`/${id}/store/${store_id}`),
       method: 'GET',
     })
     return data
@@ -41,10 +41,10 @@ export const reviewService = {
     })
     return response.data
   },
-  update: async (id: string, data: IReviewUpdate) => {
+  update: async (id: number, store_id: number, data: IReviewUpdate) => {
     const { axiosWithToken } = useAxios()
     const response = await axiosWithToken<IReview>({
-      url: API_URL.reviews(`/${id}`),
+      url: API_URL.reviews(`/${id}/store/${store_id}`),
       method: 'PATCH',
       data,
     })

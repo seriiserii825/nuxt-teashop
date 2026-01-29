@@ -1,13 +1,8 @@
 <script setup lang="ts">
   import { categoryService } from '~/api/services/categoryService'
-  import type { ICategory } from '~/interfaces/ICategory'
+  import type { ICategory, ICategoryUpdate } from '~/interfaces/ICategory'
 
   const emits = defineEmits(['emit_close'])
-
-  interface ICategoryUpdate {
-    title: string
-    description: string
-  }
 
   const props = defineProps({
     categoryId: {
