@@ -12,7 +12,8 @@
     "update": "git pull && bun install && bun run build && pm2 restart nuxt-teashop",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "type:check": "vue-tsc --noEmit"
+    "type:check": "vue-tsc --noEmit",
+    "otg": "npx openapi-typescript http://localhost:3300/docs-json -o ./app/generated/schema.ts"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^7.1.0",
@@ -29,6 +30,7 @@
     "dompurify": "^3.3.1",
     "js-cookie": "^3.0.5",
     "nuxt": "^4.2.1",
+    "openapi-fetch": "^0.15.0",
     "pinia": "^3.0.4",
     "pinia-plugin-persistedstate": "^4.7.1",
     "sass": "^1.95.1",
@@ -47,6 +49,7 @@
     "@trivago/prettier-plugin-sort-imports": "^6.0.1",
     "eslint": "^9.39.2",
     "eslint-plugin-vue": "^10.6.2",
+    "openapi-typescript": "^7.10.1",
     "prettier": "^3.7.4",
     "prettier-plugin-tailwindcss": "^0.7.2",
     "typescript": "^5.9.3",
