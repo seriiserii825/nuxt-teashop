@@ -767,6 +767,11 @@ export interface components {
              */
             store_id: number;
             /**
+             * @description An optional test field for additional information
+             * @example Optional test field
+             */
+            test?: number;
+            /**
              * Format: date-time
              * @description The date and time when the category was created
              * @example 2024-01-01T00:00:00Z
