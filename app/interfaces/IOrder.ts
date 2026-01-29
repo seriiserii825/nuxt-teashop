@@ -1,21 +1,9 @@
-export interface IOrder {
-  id: string
-  createdAt: Date
-  updatedAt: Date
-  status: string
-  userId: null
-  items: OrderItem[]
-  total: number
-}
-export interface OrderItem {
-  id: string
-  createdAt: Date
-  updatedAt: Date
-  quantity: number
-  price: number
-  orderId: string
-  productId: string
-  storeId: string
-}
+import type { components } from '~/generated/schema'
 
-export type IOrderCreate = Pick<IOrder, 'items'>
+type OrderSchema = components['schemas']['OrderBasicDto']
+type OrderItemSchema = components['schemas']['OrderItemsBasicDto']
+type OrderCreateSchema = components['schemas']['CreateOrderDto']
+
+export type IOrder = OrderSchema
+export type IOrderItem = OrderItemSchema
+export type IOrderCreate = OrderCreateSchema
