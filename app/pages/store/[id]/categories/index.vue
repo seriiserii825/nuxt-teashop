@@ -27,11 +27,6 @@
 
   const categories = computed(() => {
     if (!response.value) return []
-    response.value.forEach((category) => {
-      if (category.test) {
-        console.log(category.test.toFixed(), 'category.trim')
-      }
-    })
     return response.value.map((category: ICategory) => ({
       ...category,
       store: category.store?.title,
