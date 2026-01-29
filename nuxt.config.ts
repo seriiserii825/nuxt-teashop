@@ -5,6 +5,7 @@ export default defineNuxtConfig({
     public: {
       apiBase: '/api', // изменил на прокси
       serverUrl: process.env.NUXT_PUBLIC_SERVER_URL,
+      serverUploadsUrl: process.env.NUXT_PUBLIC_SERVER_UPLOADS_URL,
     },
   },
   nitro: {

@@ -9,7 +9,7 @@
   })
 
   const page = ref(1)
-  const limit = ref(6)
+  const limit = ref(5)
   const search = ref('')
   const selected_product_id = ref<string | null>(null)
   const row_action = ref<'edit' | 'delete' | null>(null)
