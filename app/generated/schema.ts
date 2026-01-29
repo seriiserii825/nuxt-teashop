@@ -960,43 +960,23 @@ export interface components {
                 accessToken?: string;
             };
         };
-        StatisticsResponseDto: {
+        StatisticItemDto: {
             /**
-             * @description Array of statistics
-             * @example [
-             *       {
-             *         "id": "revenue",
-             *         "name": "Total Revenue",
-             *         "value": 1360
-             *       },
-             *       {
-             *         "id": "products",
-             *         "name": "Products Count",
-             *         "value": 1
-             *       },
-             *       {
-             *         "id": "categories",
-             *         "name": "Categories Count",
-             *         "value": 2
-             *       },
-             *       {
-             *         "id": "colors",
-             *         "name": "Colors Count",
-             *         "value": 1
-             *       },
-             *       {
-             *         "id": "reviews",
-             *         "name": "Reviews Count",
-             *         "value": 1
-             *       },
-             *       {
-             *         "id": "rating",
-             *         "name": "Average Rating",
-             *         "value": 5
-             *       }
-             *     ]
+             * @description Statistic identifier
+             * @example revenue
+             * @enum {string}
              */
-            statistics: Record<string, never>[][];
+            id: "revenue" | "products" | "categories" | "colors" | "reviews" | "rating";
+            /**
+             * @description Statistic name
+             * @example Total Revenue
+             */
+            name: string;
+            /**
+             * @description Statistic value
+             * @example 1360
+             */
+            value: number;
         };
     };
     responses: never;
@@ -2057,7 +2037,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["StatisticsResponseDto"];
+                    "application/json": components["schemas"]["StatisticItemDto"][];
                 };
             };
             /** @description Unauthorized */

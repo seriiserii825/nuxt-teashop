@@ -1,13 +1,9 @@
-export type TStatisticsId =
-  | 'revenue'
-  | 'products'
-  | 'categories'
-  | 'colors'
-  | 'reviews'
-  | 'rating'
+import type { components } from '~/generated/schema'
+
+type StatisticsSchema = components['schemas']['StatisticItemDto']
 
 export interface IMainStatistics {
-  id: TStatisticsId
+  id: StatisticsSchema[]
   name: string
   value: number
 }
