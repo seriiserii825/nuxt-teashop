@@ -1,11 +1,8 @@
-export interface IStore {
-  id: number
-  createdAt: Date
-  updatedAt: Date
-  title: string
-  description: string
-  userId: string
-}
+import type { components } from '~/generated/schema'
 
-export type IStoreCreate = Pick<IStore, 'title'>
-export type IStoreUpdate = Pick<IStore, 'title' | 'description'>
+type StoreSchema = components['schemas']['StoreBasicDto']
+
+export type IStore = StoreSchema
+
+export type IStoreCreate = components['schemas']['CreateStoreDto']
+export type IStoreUpdate = components['schemas']['UpdateStoreDto']
