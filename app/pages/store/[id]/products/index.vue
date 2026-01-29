@@ -53,8 +53,8 @@
     return response.value.data.map((product: IProduct) => ({
       ...product,
       price: `${useFormatPrice(product.price)}`,
-      color: product.color.name,
-      category: product.category.title,
+      color: product.color?.name,
+      category: product.category?.title,
     }))
   })
 

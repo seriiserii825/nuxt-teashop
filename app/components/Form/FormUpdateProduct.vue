@@ -28,8 +28,8 @@
     title: '',
     description: '',
     price: 0,
-    category_id: '',
-    color_id: '',
+    category_id: 0,
+    color_id: 0,
     images: [],
     old_images: [],
   }
@@ -90,11 +90,11 @@
       value: color.id,
       text: color.name,
     }))
-    form.color_id = String(colors_options.value[0]?.value) || ''
+    form.color_id = (colors_options.value[0]?.value as number) || 0
   })
 
   function emitUploadImages(images: File[]) {
-    initialData.images = images
+    initialData.images = images as unknown as string[]
   }
   function emitRemovedImages(files: IFileUpload[]) {
     initialData.old_images = files.map((file) => file.url)

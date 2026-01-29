@@ -29,7 +29,7 @@
   const initialData: IReviewCreate = {
     rating: 0,
     text: '',
-    product_id: '',
+    product_id: 0,
   }
 
   const { form, send, pending } = useForm<IReviewCreate, IReview>(

@@ -13,8 +13,8 @@
     title: '',
     description: '',
     price: 0,
-    category_id: '',
-    color_id: '',
+    category_id: 0,
+    color_id: 0,
     images: [],
   }
 
@@ -63,7 +63,7 @@
   })
 
   function emitUploadImages(files: File[]) {
-    form.images = files
+    form.images = files as unknown as string[]
   }
 </script>
 

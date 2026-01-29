@@ -105,13 +105,15 @@ export const productService = {
     formData.append('title', data.title)
     formData.append('description', data.description)
     formData.append('price', data.price.toString())
-    formData.append('category_id', data.category_id)
-    formData.append('color_id', data.color_id)
+    formData.append('category_id', String(data.category_id))
+    formData.append('color_id', String(data.color_id))
 
     // Добавляем файлы
-    data.images.forEach((file) => {
-      formData.append('images', file)
-    })
+    if (data.images) {
+      data.images.forEach((file) => {
+        formData.append('images', String(file))
+      })
+    }
 
     const response = await axiosWithToken<IProduct>({
       url: API_URL.products(`/store/${storeId}`),
@@ -140,10 +142,10 @@ export const productService = {
       formData.append('price', data.price.toString())
     }
     if (data.category_id !== undefined) {
-      formData.append('category_id', data.category_id)
+      formData.append('category_id', String(data.category_id))
     }
     if (data.color_id !== undefined) {
-      formData.append('color_id', data.color_id)
+      formData.append('color_id', String(data.color_id))
     }
 
     // Добавляем старые изображения (те, что нужно сохранить)

@@ -532,7 +532,7 @@ export interface components {
              * @description Product Images without domain
              * @example ["http://example.com/image1.jpg", "http://example.com/image2.jpg"]
              */
-            images: string;
+            images: string[];
             /**
              * @description Store ID
              * @example 1
@@ -695,7 +695,7 @@ export interface components {
              * @description Product Images without domain
              * @example ["http://example.com/image1.jpg", "http://example.com/image2.jpg"]
              */
-            images: string;
+            images: string[];
             /**
              * @description Store ID
              * @example 1
@@ -963,7 +963,14 @@ export interface components {
         StatisticItemDto: {
             /**
              * @description Statistic identifier
-             * @example revenue
+             * @example [
+             *       "revenue",
+             *       "products",
+             *       "categories",
+             *       "colors",
+             *       "reviews",
+             *       "rating"
+             *     ]
              * @enum {string}
              */
             id: "revenue" | "products" | "categories" | "colors" | "reviews" | "rating";
