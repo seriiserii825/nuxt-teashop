@@ -1,15 +1,5 @@
-import type { IProduct } from './IProduct'
-import type { IStore } from './IStore'
+import type { components } from '~/generated/schema'
 
-export type IUser = {
-  id: string
-  createdAt: Date
-  updatedAt: Date
-  email: string
-  password: string
-  name: string
-  role: 'admin' | 'user'
-  picture: string
-  stores: IStore[]
-  favorites: IProduct[]
-}
+type UserSchema = components['schemas']['UserBasicDto']
+
+export type IUser = UserSchema

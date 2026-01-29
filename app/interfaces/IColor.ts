@@ -1,22 +1,8 @@
-export interface IColor {
-  id: string
-  createdAt: Date
-  updatedAt: Date
-  name: string
-  value: string
-  store_id: string
-}
+import type { components } from '~/generated/schema'
 
-export type IColorCreate = Pick<IColor, 'name' | 'value'>
-export type IColorUpdate = Pick<IColor, 'name' | 'value'>
+type ColorSchema = components['schemas']['ColorBasicDto']
 
-export interface IColorResponse {
-  data: IColor[]
-  meta: Meta
-}
-interface Meta {
-  total: number
-  page: number
-  limit: number
-  totalPages: number
-}
+export type IColor = ColorSchema
+
+export type IColorCreate = components['schemas']['CreateColorDto']
+export type IColorUpdate = components['schemas']['UpdateColorDto']
