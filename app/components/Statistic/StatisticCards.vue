@@ -45,24 +45,28 @@
         title="Products"
         :icon="['fab', 'product-hunt']"
         :count="products.value"
+        :url="`/store/${storeId}/products`"
       />
       <Card
         v-if="categories && categories.value"
         title="Categories"
         :icon="['fas', 'icons']"
         :count="categories.value"
+        :url="`/store/${storeId}/categories`"
       />
       <Card
         v-if="colors && colors.value"
         title="Colors"
         :icon="['fas', 'brush']"
         :count="colors.value"
+        :url="`/store/${storeId}/colors`"
       />
       <Card
         v-if="reviews && reviews.value"
         title="Reviews"
         :icon="['fas', 'chart-simple']"
         :count="reviews.value"
+        :url="`/store/${storeId}/reviews`"
       />
       <Card
         v-if="rating && rating.value"
