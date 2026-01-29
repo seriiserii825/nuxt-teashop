@@ -111,7 +111,7 @@ export const productService = {
     // Добавляем файлы
     if (data.images) {
       data.images.forEach((file) => {
-        formData.append('images', String(file))
+        formData.append('images', file)
       })
     }
 

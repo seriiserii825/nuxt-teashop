@@ -11,5 +11,11 @@ export type IProduct = ProductSchema & {
   color?: IColor
 }
 
-export type IProductCreate = components['schemas']['CreateProductDto']
-export type IProductUpdate = components['schemas']['UpdateProductDto']
+type ProductCreateSchema = components['schemas']['CreateProductDto']
+export type IProductCreate = ProductCreateSchema & {
+  images: File[]
+}
+type ProductUpdateSchema = components['schemas']['UpdateProductDto']
+export type IProductUpdate = ProductUpdateSchema & {
+  images?: File[]
+}

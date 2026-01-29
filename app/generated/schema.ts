@@ -505,8 +505,6 @@ export interface components {
              * @example 3
              */
             color_id: number;
-            /** @description Product images (max 10 files) */
-            images?: string[];
         };
         ProductBasicDto: {
             /**
@@ -593,8 +591,6 @@ export interface components {
              * @example 3
              */
             color_id?: number;
-            /** @description Product images (max 10 files) */
-            images?: string[];
             /** @description Array of existing image URLs to keep */
             old_images?: string[];
         };

@@ -39,15 +39,42 @@ export const storeService = {
   },
   update: async (store_id: string, data: IStoreUpdate) => {
     const { axiosWithToken } = useAxios()
+
+    const formData = new FormData()
+
+    if (data.title) {
+      formData.append('title', data.title)
+    }
+    if (data.description) {
+      formData.append('description', data.description)
+    }
+
+    if (data.old_images && data.old_images.length > 0) {
+      data.old_images.forEach((url) => {
+        formData.append('old_images[]', url)
+      })
+    }
+
+    // Добавляем новые изображения (если есть)
+    if (data.images && data.images.length > 0) {
+      data.images.forEach((file) => {
+        formData.append('images', file)
+      })
+    }
+
     const response = await axiosWithToken<IStore>({
       url: API_URL.stores(`/${store_id}`),
       method: 'PATCH',
       data,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
     })
     return response.data
   },
   delete: async (id: string) => {
     const { axiosWithToken } = useAxios()
+
     const response = await axiosWithToken<IStore>({
       url: API_URL.stores(`/${id}`),
       method: 'DELETE',

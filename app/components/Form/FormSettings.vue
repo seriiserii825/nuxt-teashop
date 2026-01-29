@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import { storeService } from '~/api/services/storeService'
+  import type { IFileUpload } from '~/interfaces/IFileUpload'
   import type { IStore, IStoreUpdate } from '~/interfaces/IStore'
 
   import FormTextarea from './FormTextarea.vue'
@@ -11,8 +12,12 @@
     stores?.find((store) => store.id === +current_store_param.value)
   )
 
+  const images = ref<string[]>([])
+
   const initialData: IStoreUpdate = {
     title: current_store.value?.title || '',
+    images: [],
+    old_images: [],
     description: current_store.value?.description || '',
   }
 
@@ -39,6 +44,13 @@
       }
     }
   }
+
+  function emitUploadImages(images: File[]) {
+    initialData.images = images
+  }
+  function emitRemovedImages(files: IFileUpload[]) {
+    initialData.old_images = files.map((file) => file.url)
+  }
 </script>
 
 <template>
@@ -48,6 +60,14 @@
       v-model="form.description"
       label="Store Description"
       name="settings_description"
+    />
+    <FileUpload
+      label="Images"
+      name="form_images"
+      class="mt-4"
+      :images="images"
+      @emit-uploaded="emitUploadImages"
+      @emit-removed-images="emitRemovedImages"
     />
     <div class="flex w-full justify-between">
       <Btn :loading="pending" @click="send"> Save Settings </Btn>

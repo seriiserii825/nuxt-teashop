@@ -63,7 +63,7 @@
   })
 
   function emitUploadImages(files: File[]) {
-    form.images = files as unknown as string[]
+    form.images = files
   }
 </script>
 

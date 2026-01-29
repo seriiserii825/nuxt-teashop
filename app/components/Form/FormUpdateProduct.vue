@@ -94,7 +94,7 @@
   })
 
   function emitUploadImages(images: File[]) {
-    initialData.images = images as unknown as string[]
+    initialData.images = images 
   }
   function emitRemovedImages(files: IFileUpload[]) {
     initialData.old_images = files.map((file) => file.url)

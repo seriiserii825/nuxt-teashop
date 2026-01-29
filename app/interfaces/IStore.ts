@@ -5,4 +5,9 @@ type StoreSchema = components['schemas']['StoreBasicDto']
 export type IStore = StoreSchema
 
 export type IStoreCreate = components['schemas']['CreateStoreDto']
-export type IStoreUpdate = components['schemas']['UpdateStoreDto']
+type StoreUpdateSchema = components['schemas']['UpdateStoreDto']
+
+export type IStoreUpdate = StoreUpdateSchema & {
+  images: File[]
+  old_images: string[]
+}
