@@ -1,5 +1,10 @@
 import { API_URL } from '~/config/api_url.config'
-import type { IStore, IStoreCreate, IStoreUpdate } from '~/interfaces/IStore'
+import type {
+  IStore,
+  IStoreCreate,
+  IStoreFull,
+  IStoreUpdate,
+} from '~/interfaces/IStore'
 
 import { useAxios } from '../axiosInstance'
 
@@ -20,10 +25,18 @@ export const storeService = {
     })
     return data
   },
-  getById: async (id: string) => {
+  getById: async (id: number) => {
     const { axiosWithToken } = useAxios()
     const { data } = await axiosWithToken<IStore>({
       url: API_URL.stores(`/${id}`),
+      method: 'GET',
+    })
+    return data
+  },
+  getByIdFull: async (id: number) => {
+    const { axiosWithToken } = useAxios()
+    const { data } = await axiosWithToken<IStoreFull>({
+      url: API_URL.stores(`/${id}/with-relations`),
       method: 'GET',
     })
     return data

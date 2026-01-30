@@ -3,6 +3,7 @@ import type { components } from '~/generated/schema'
 type StoreSchema = components['schemas']['StoreBasicDto']
 
 export type IStore = StoreSchema
+export type IStoreFull = components['schemas']['StoreFullDto']
 
 export type IStoreCreate = components['schemas']['CreateStoreDto']
 type StoreUpdateSchema = components['schemas']['UpdateStoreDto']

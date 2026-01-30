@@ -68,6 +68,22 @@ export interface paths {
         patch: operations["StoreController_update"];
         trace?: never;
     };
+    "/api/stores/{id}/with-relations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["StoreController_findOneWithRelations"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/products/store/{store_id}": {
         parameters: {
             query?: never;
@@ -388,22 +404,6 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/files": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: operations["FileController_saveFiles"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/api/statistics/main/store/{store_id}": {
         parameters: {
             query?: never;
@@ -471,41 +471,6 @@ export interface components {
             /** Format: date-time */
             updatedAt: string;
         };
-        UpdateStoreDto: {
-            title?: string;
-            description?: string;
-        };
-        StoreRemoveDto: {
-            /** @example Store with id 4 removed successfully */
-            message: string;
-        };
-        CreateProductDto: {
-            /**
-             * @description Product Title
-             * @example Green Tea
-             */
-            title: string;
-            /**
-             * @description Product Description
-             * @example A refreshing green tea.
-             */
-            description: string;
-            /**
-             * @description Product Price
-             * @example 9.99
-             */
-            price: number;
-            /**
-             * @description Category ID
-             * @example 2
-             */
-            category_id: number;
-            /**
-             * @description ColorBasic ID
-             * @example 3
-             */
-            color_id: number;
-        };
         ProductBasicDto: {
             /**
              * @description Product ID
@@ -564,6 +529,165 @@ export interface components {
              * @example 2024-01-02T00:00:00Z
              */
             updatedAt: string;
+        };
+        CategoryBasicDto: {
+            /**
+             * @description The unique identifier of the category
+             * @example 1
+             */
+            id: number;
+            /**
+             * @description The title of the category
+             * @example Electronics
+             */
+            title: string;
+            /**
+             * @description The description of the category
+             * @example A category for electronic products
+             */
+            description: string;
+            /**
+             * @description The identifier of the store associated with the category
+             * @example 1
+             */
+            store_id: number;
+            /**
+             * Format: date-time
+             * @description The date and time when the category was created
+             * @example 2024-01-01T00:00:00Z
+             */
+            createdAt: string;
+            /**
+             * Format: date-time
+             * @description The date and time when the category was last updated
+             * @example 2024-01-02T00:00:00Z
+             */
+            updatedAt: string;
+        };
+        ReviewBasicDto: {
+            /** @example 1 */
+            id: number;
+            /** @example Great product! */
+            text: string;
+            /**
+             * @description Rating from 1 to 5
+             * @example 5
+             */
+            rating: number;
+            /** @example 1 */
+            user_id: number;
+            /** @example 1 */
+            product_id: number;
+            /** @description List of reviews made by the user */
+            products: components["schemas"]["ProductBasicDto"];
+            /** @example 1 */
+            store_id: number;
+            /**
+             * Format: date-time
+             * @example 2024-01-01T00:00:00Z
+             */
+            createdAt: string;
+            /**
+             * Format: date-time
+             * @example 2024-01-01T00:00:00Z
+             */
+            updatedAt: string;
+        };
+        OrderItemsBasicDto: {
+            /**
+             * @description Order Item ID
+             * @example 1
+             */
+            id: number;
+            /**
+             * @description Order ID
+             * @example 2
+             */
+            order_id: number;
+            /**
+             * @description Quantity of the product
+             * @example 3
+             */
+            quantity: number;
+            /**
+             * @description Price of the product
+             * @example 29.99
+             */
+            price: number;
+            /**
+             * @description Product ID
+             * @example 4
+             */
+            product_id: number;
+            /**
+             * @description Store ID
+             * @example 5
+             */
+            store_id: number;
+            /**
+             * Format: date-time
+             * @description The date and time when the order item was created
+             * @example 2024-01-01T00:00:00Z
+             */
+            createdAt: string;
+            /**
+             * Format: date-time
+             * @description The date and time when the order item was last updated
+             * @example 2024-01-02T00:00:00Z
+             */
+            updatedAt: string;
+        };
+        StoreFullDto: {
+            id: number;
+            title: string;
+            description?: string;
+            user_id: number;
+            picture: string;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            updatedAt: string;
+            products?: components["schemas"]["ProductBasicDto"][];
+            categories?: components["schemas"]["CategoryBasicDto"][];
+            reviews?: components["schemas"]["ReviewBasicDto"][];
+            order_items?: components["schemas"]["OrderItemsBasicDto"][];
+        };
+        UpdateStoreDto: {
+            title?: string;
+            description?: string;
+            /** @description Old picture URL to keep */
+            old_picture?: string;
+        };
+        StoreRemoveDto: {
+            /** @example Store with id 4 removed successfully */
+            message: string;
+        };
+        CreateProductDto: {
+            /**
+             * @description Product Title
+             * @example Green Tea
+             */
+            title: string;
+            /**
+             * @description Product Description
+             * @example A refreshing green tea.
+             */
+            description: string;
+            /**
+             * @description Product Price
+             * @example 9.99
+             */
+            price: number;
+            /**
+             * @description Category ID
+             * @example 2
+             */
+            category_id: number;
+            /**
+             * @description ColorBasic ID
+             * @example 3
+             */
+            color_id: number;
         };
         UpdateProductDto: {
             /**
@@ -633,40 +757,6 @@ export interface components {
              * @example A category for electronic products
              */
             description: string;
-        };
-        CategoryBasicDto: {
-            /**
-             * @description The unique identifier of the category
-             * @example 1
-             */
-            id: number;
-            /**
-             * @description The title of the category
-             * @example Electronics
-             */
-            title: string;
-            /**
-             * @description The description of the category
-             * @example A category for electronic products
-             */
-            description: string;
-            /**
-             * @description The identifier of the store associated with the category
-             * @example 1
-             */
-            store_id: number;
-            /**
-             * Format: date-time
-             * @description The date and time when the category was created
-             * @example 2024-01-01T00:00:00Z
-             */
-            createdAt: string;
-            /**
-             * Format: date-time
-             * @description The date and time when the category was last updated
-             * @example 2024-01-02T00:00:00Z
-             */
-            updatedAt: string;
         };
         UpdateCategoryDto: {
             /**
@@ -749,35 +839,6 @@ export interface components {
             /** @example 1 */
             product_id: number;
         };
-        ReviewBasicDto: {
-            /** @example 1 */
-            id: number;
-            /** @example Great product! */
-            text: string;
-            /**
-             * @description Rating from 1 to 5
-             * @example 5
-             */
-            rating: number;
-            /** @example 1 */
-            user_id: number;
-            /** @example 1 */
-            product_id: number;
-            /** @description List of reviews made by the user */
-            products: components["schemas"]["ProductBasicDto"];
-            /** @example 1 */
-            store_id: number;
-            /**
-             * Format: date-time
-             * @example 2024-01-01T00:00:00Z
-             */
-            createdAt: string;
-            /**
-             * Format: date-time
-             * @example 2024-01-01T00:00:00Z
-             */
-            updatedAt: string;
-        };
         UpdateReviewDto: {
             /** @example Great product! */
             text?: string;
@@ -788,50 +849,6 @@ export interface components {
             rating?: number;
             /** @example 1 */
             product_id?: number;
-        };
-        OrderItemsBasicDto: {
-            /**
-             * @description Order Item ID
-             * @example 1
-             */
-            id: number;
-            /**
-             * @description Order ID
-             * @example 2
-             */
-            order_id: number;
-            /**
-             * @description Quantity of the product
-             * @example 3
-             */
-            quantity: number;
-            /**
-             * @description Price of the product
-             * @example 29.99
-             */
-            price: number;
-            /**
-             * @description Product ID
-             * @example 4
-             */
-            product_id: number;
-            /**
-             * @description Store ID
-             * @example 5
-             */
-            store_id: number;
-            /**
-             * Format: date-time
-             * @description The date and time when the order item was created
-             * @example 2024-01-01T00:00:00Z
-             */
-            createdAt: string;
-            /**
-             * Format: date-time
-             * @description The date and time when the order item was last updated
-             * @example 2024-01-02T00:00:00Z
-             */
-            updatedAt: string;
         };
         CreateOrderDto: {
             /**
@@ -1089,7 +1106,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["UpdateStoreDto"];
+                "multipart/form-data": components["schemas"]["UpdateStoreDto"];
             };
         };
         responses: {
@@ -1099,6 +1116,27 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["StoreBasicDto"];
+                };
+            };
+        };
+    };
+    StoreController_findOneWithRelations: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StoreFullDto"];
                 };
             };
         };
@@ -1966,25 +2004,6 @@ export interface operations {
         requestBody?: never;
         responses: {
             200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    FileController_saveFiles: {
-        parameters: {
-            query: {
-                folder: string;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            201: {
                 headers: {
                     [name: string]: unknown;
                 };
