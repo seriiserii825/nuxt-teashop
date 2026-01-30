@@ -1,51 +1,52 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+  import type { PropType } from 'vue'
+
+  import type { ICategory } from '~/interfaces/ICategory'
+  import type { IColor } from '~/interfaces/IColor'
+
+  const props = defineProps({
+    categories: {
+      type: Array as PropType<ICategory[]>,
+      required: false,
+      default: () => [],
+    },
+    colors: {
+      type: Array as PropType<IColor[]>,
+      required: false,
+      default: () => [],
+    },
+  })
+
+  const selectedCategoriesCheckbox = ref<string[]>([])
+
+  type ICategoryCheckbox = {
+    value: string
+    label: string
+  }
+
+  const categoriesCheckboxes = ref<ICategoryCheckbox[]>([])
+  onMounted(() => {
+    categoriesCheckboxes.value = props.categories.map((category) => ({
+      value: category.id.toString(),
+      label: category.title,
+    }))
+  })
+</script>
 
 <template>
   <aside class="h-screen border-r border-gray-200 bg-white p-6">
     <!-- Категории -->
     <div class="mb-8">
-      <h3 class="mb-4 text-lg font-semibold text-gray-900">Категории</h3>
+      <h3 class="mb-4 text-lg font-semibold text-gray-900">Categories</h3>
       <div class="space-y-2">
-        <label
-          class="flex cursor-pointer items-center rounded p-2 transition hover:bg-gray-50"
-        >
-          <input
-            type="checkbox"
-            class="h-4 w-4 rounded border-gray-300 text-cyan-500 focus:ring-cyan-500"
-          />
-          <span class="ml-3 text-gray-700">Ноутбуки</span>
-          <span class="ml-auto text-sm text-gray-400">(234)</span>
-        </label>
-        <label
-          class="flex cursor-pointer items-center rounded p-2 transition hover:bg-gray-50"
-        >
-          <input
-            type="checkbox"
-            class="h-4 w-4 rounded border-gray-300 text-cyan-500 focus:ring-cyan-500"
-          />
-          <span class="ml-3 text-gray-700">Планшеты</span>
-          <span class="ml-auto text-sm text-gray-400">(156)</span>
-        </label>
-        <label
-          class="flex cursor-pointer items-center rounded p-2 transition hover:bg-gray-50"
-        >
-          <input
-            type="checkbox"
-            class="h-4 w-4 rounded border-gray-300 text-cyan-500 focus:ring-cyan-500"
-          />
-          <span class="ml-3 text-gray-700">Смартфоны</span>
-          <span class="ml-auto text-sm text-gray-400">(423)</span>
-        </label>
-        <label
-          class="flex cursor-pointer items-center rounded p-2 transition hover:bg-gray-50"
-        >
-          <input
-            type="checkbox"
-            class="h-4 w-4 rounded border-gray-300 text-cyan-500 focus:ring-cyan-500"
-          />
-          <span class="ml-3 text-gray-700">Аксессуары</span>
-          <span class="ml-auto text-sm text-gray-400">(89)</span>
-        </label>
+        <FormCheckbox
+          v-for="category in categoriesCheckboxes"
+          :key="category.value"
+          v-model="selectedCategoriesCheckbox"
+          name="categories"
+          :value="category.value"
+          :label="category.label"
+        />
       </div>
     </div>
 
