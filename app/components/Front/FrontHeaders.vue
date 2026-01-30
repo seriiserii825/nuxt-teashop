@@ -19,12 +19,19 @@
       required: false,
       default: '#',
     },
+    center: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   })
 </script>
 
 <template>
   <!-- FrontHeaders -->
-  <div class="mb-8 flex items-center justify-between">
+  <div
+    :class="`mb-8 flex items-center ${center ? 'justify-center text-center' : 'justify-between'}`"
+  >
     <div>
       <h2 class="mb-2 text-3xl font-bold text-gray-900 md:text-4xl">
         {{ title }}
