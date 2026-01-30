@@ -23,7 +23,7 @@
       to="/login"
     >
       <IconILogout />
-      <span>Войти</span>
+      <span>Login</span>
     </NuxtLink>
   </nav>
 </template>

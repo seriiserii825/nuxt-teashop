@@ -15,7 +15,7 @@
 </script>
 
 <template>
-  <div>
+  <div class="p-6">
     <NuxtLink
       to="/"
       class="flex items-center gap-4 transition-opacity hover:opacity-80"
