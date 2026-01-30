@@ -60,7 +60,7 @@
     queryUtils.toArray(route.query.categories)
   )
 
-  const selectedStars = ref<string[]>(queryUtils.toArray(route.query.stars))
+  const selectedStars = ref<string>((route.query.stars as string) || '')
 
   const selectedColors = ref<string | null>(
     queryUtils.toString(route.query.colors)
@@ -86,7 +86,7 @@
     if (selectedCategoriesCheckbox.value.length > 0) {
       query.categories = selectedCategoriesCheckbox.value
     }
-    if (selectedStars.value.length > 0) {
+    if (selectedStars.value) {
       query.stars = selectedStars.value
     }
     if (selectedColors.value) {
@@ -108,10 +108,6 @@
     { deep: true }
   )
 
-  const isColorSelected = (colorId: string) => {
-    return selectedColors.value === colorId
-  }
-
   function selectColor(index: number) {
     const colorId = props.colors[index]?.id.toString()
     if (!colorId) return
@@ -122,13 +118,8 @@
   const resetFilters = () => {
     priceRange.value = [0, 500000]
     selectedCategoriesCheckbox.value = []
-    selectedStars.value = []
+    selectedStars.value = ''
     selectedColors.value = null
-
-    navigateTo({
-      path: route.path,
-      query: {},
-    })
   }
 
   const applyFilters = () => {
@@ -149,7 +140,7 @@
 </script>
 
 <template>
-  <aside class="h-screen border-r border-gray-200 bg-white p-6">
+  <aside class="h-screen overflow-y-auto border-r border-gray-200 bg-white p-6">
     <!-- Категории -->
     <div class="mb-8">
       <h3 class="mb-4 text-lg font-semibold text-gray-900">Categories</h3>
@@ -203,6 +194,22 @@
           @click="selectColor(index)"
         ></button>
       </div>
+    </div>
+
+    <!-- Кнопки -->
+    <div class="space-y-3">
+      <button
+        class="w-full rounded-lg bg-cyan-500 px-4 py-2.5 font-medium text-white transition hover:bg-cyan-600"
+        @click="applyFilters"
+      >
+        Apply Filters
+      </button>
+      <button
+        class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 font-medium text-gray-700 transition hover:bg-gray-50"
+        @click="resetFilters"
+      >
+        Reset Filters
+      </button>
     </div>
   </aside>
 </template>

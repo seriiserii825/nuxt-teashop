@@ -2,7 +2,7 @@
   import { computed } from 'vue'
 
   interface Props {
-    modelValue: string[]
+    modelValue: string
     value: string
     name: string
     disabled?: boolean
@@ -14,20 +14,13 @@
   })
 
   const emit = defineEmits<{
-    'update:modelValue': [value: string[] | number[]]
+    'update:modelValue': [value: string]
   }>()
 
-  const checked = computed({
-    get: () => props.modelValue.includes(props.value),
-    set: (isChecked: boolean) => {
-      if (isChecked) {
-        emit('update:modelValue', [...props.modelValue, props.value])
-      } else {
-        emit(
-          'update:modelValue',
-          props.modelValue.filter((v) => v !== props.value)
-        )
-      }
+  const model = computed({
+    get: () => props.modelValue,
+    set: (val: string) => {
+      emit('update:modelValue', val)
     },
   })
 </script>
@@ -37,8 +30,8 @@
     class="flex cursor-pointer items-center rounded p-2 transition hover:bg-gray-50"
   >
     <input
-      v-model="checked"
-      type="checkbox"
+      v-model="model"
+      type="radio"
       :name="name"
       :value="value"
       class="h-4 w-4 rounded border-gray-300 text-cyan-500 focus:ring-cyan-500"

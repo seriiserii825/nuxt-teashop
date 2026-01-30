@@ -24,6 +24,15 @@
   const minValue = ref(props.modelValue[0])
   const maxValue = ref(props.modelValue[1])
 
+  // Sync local refs when parent changes modelValue (e.g., reset)
+  watch(
+    () => props.modelValue,
+    (newValue) => {
+      minValue.value = newValue[0]
+      maxValue.value = newValue[1]
+    }
+  )
+
   const minPercent = computed(
     () => ((minValue.value - props.min) / (props.max - props.min)) * 100
   )
