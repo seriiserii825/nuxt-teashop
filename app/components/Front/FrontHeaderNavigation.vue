@@ -7,9 +7,6 @@
 
 <template>
   <nav class="flex items-center space-x-6">
-    <NuxtLink to="/catalog" class="text-gray-700 transition hover:text-blue-600"
-      >Catalog</NuxtLink
-    >
     <NuxtLink
       to="/dashboard/favorites"
       class="text-gray-700 transition hover:text-blue-600"

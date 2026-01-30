@@ -4,8 +4,16 @@
 </script>
 
 <template>
-  <div class="container py-12">
-    <h1 class="mb-8 text-center text-4xl font-bold">Store Details Page</h1>
-    <!-- Store details content goes here -->
-  </div>
+  <section class="bg-white py-8">
+    <div class="container mx-auto px-4">
+      <FrontHeaders
+        title="Products Catalog"
+        text="Explore our wide range of products."
+      />
+      <div class="flex items-start gap-8">
+        <ShopSidebar class="w-64 flex-shrink-0 md:w-full" />
+        <ProductGrid class="flex-1" />
+      </div>
+    </div>
+  </section>
 </template>
