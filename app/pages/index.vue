@@ -3,6 +3,8 @@
   import type { IStore } from '~/interfaces/IStore'
 
   const { data: stores, loading } = useQuery<IStore[]>(storeService.getAll)
+
+  useScrollToBlock()
 </script>
 
 <template>
@@ -11,7 +13,11 @@
     <HomeHero />
     <div class="container">
       <Preloader v-if="loading" />
-      <ShopGrid v-else-if="stores && stores.length" :stores="stores" />
+      <ShopGrid
+        v-else-if="stores && stores.length"
+        id="js-down"
+        :stores="stores"
+      />
     </div>
   </div>
 </template>
