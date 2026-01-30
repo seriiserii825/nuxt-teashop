@@ -593,6 +593,40 @@ export interface components {
              */
             updatedAt: string;
         };
+        ColorBasicDto: {
+            /**
+             * @description Color ID
+             * @example 1
+             */
+            id: number;
+            /**
+             * @description Color Name
+             * @example Red
+             */
+            name: string;
+            /**
+             * @description Color Value in HEX format
+             * @example #FF0000
+             */
+            value: string;
+            /**
+             * @description Store ID
+             * @example 1
+             */
+            store_id: number;
+            /**
+             * Format: date-time
+             * @description Creation Date
+             * @example 2024-01-01T00:00:00Z
+             */
+            createdAt: string;
+            /**
+             * Format: date-time
+             * @description Last Update Date
+             * @example 2024-01-02T00:00:00Z
+             */
+            updatedAt: string;
+        };
         OrderItemsBasicDto: {
             /**
              * @description Order Item ID
@@ -650,6 +684,7 @@ export interface components {
             products?: components["schemas"]["ProductBasicDto"][];
             categories?: components["schemas"]["CategoryBasicDto"][];
             reviews?: components["schemas"]["ReviewBasicDto"][];
+            colors?: components["schemas"]["ColorBasicDto"][];
             order_items?: components["schemas"]["OrderItemsBasicDto"][];
         };
         UpdateStoreDto: {
@@ -781,40 +816,6 @@ export interface components {
              * @example #FF0000
              */
             value: string;
-        };
-        ColorBasicDto: {
-            /**
-             * @description Color ID
-             * @example 1
-             */
-            id: number;
-            /**
-             * @description Color Name
-             * @example Red
-             */
-            name: string;
-            /**
-             * @description Color Value in HEX format
-             * @example #FF0000
-             */
-            value: string;
-            /**
-             * @description Store ID
-             * @example 1
-             */
-            store_id: number;
-            /**
-             * Format: date-time
-             * @description Creation Date
-             * @example 2024-01-01T00:00:00Z
-             */
-            createdAt: string;
-            /**
-             * Format: date-time
-             * @description Last Update Date
-             * @example 2024-01-02T00:00:00Z
-             */
-            updatedAt: string;
         };
         UpdateColorDto: {
             /**

@@ -20,7 +20,11 @@
       <div class="flex items-start gap-8">
         <div class="w-64 flex-shrink-0 md:w-full">
           <Preloader v-if="store_loading" />
-          <ShopSidebar v-else-if="store" :categories="store.categories" />
+          <ShopSidebar
+            v-else-if="store"
+            :categories="store.categories"
+            :colors="store.colors"
+          />
           <div v-else>
             <p class="text-red-500">Failed to load store data.</p>
           </div>

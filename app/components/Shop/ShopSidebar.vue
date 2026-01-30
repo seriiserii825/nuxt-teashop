@@ -1,4 +1,6 @@
 <script setup lang="ts">
+  import type { LocationQueryValue } from 'vue-router'
+
   import type { PropType } from 'vue'
 
   import type { ICategory } from '~/interfaces/ICategory'
@@ -17,9 +19,52 @@
     },
   })
 
-  const priceRange = ref<[number, number]>([0, 500000])
+  const route = useRoute()
 
-  const selectedCategoriesCheckbox = ref<string[]>([])
+  // Утилиты для работы с query параметрами
+  const queryUtils = {
+    toArray(
+      param: LocationQueryValue | LocationQueryValue[] | undefined
+    ): string[] {
+      if (!param) return []
+      if (Array.isArray(param)) {
+        return param.filter((v): v is string => typeof v === 'string')
+      }
+      return [param]
+    },
+
+    toNumber(
+      param: LocationQueryValue | LocationQueryValue[] | undefined,
+      defaultValue: number
+    ): number {
+      if (!param || Array.isArray(param)) return defaultValue
+      const num = Number(param)
+      return isNaN(num) ? defaultValue : num
+    },
+
+    toString(
+      param: LocationQueryValue | LocationQueryValue[] | undefined
+    ): string | null {
+      if (!param || Array.isArray(param)) return null
+      return typeof param === 'string' ? param : null
+    },
+  }
+
+  // Инициализация из URL
+  const priceRange = ref<[number, number]>([
+    queryUtils.toNumber(route.query.priceMin, 0),
+    queryUtils.toNumber(route.query.priceMax, 500000),
+  ])
+
+  const selectedCategoriesCheckbox = ref<string[]>(
+    queryUtils.toArray(route.query.categories)
+  )
+
+  const selectedStars = ref<string[]>(queryUtils.toArray(route.query.stars))
+
+  const selectedColors = ref<string | null>(
+    queryUtils.toString(route.query.colors)
+  )
 
   type ICategoryCheckbox = {
     value: string
@@ -28,7 +73,72 @@
 
   const categoriesCheckboxes = ref<ICategoryCheckbox[]>([])
 
-  const selectedStars = ref<string[]>([])
+  // Функция обновления URL
+  const updateURL = () => {
+    const query: Record<string, string | string[]> = {}
+
+    if (priceRange.value[0] !== 0) {
+      query.priceMin = priceRange.value[0].toString()
+    }
+    if (priceRange.value[1] !== 500000) {
+      query.priceMax = priceRange.value[1].toString()
+    }
+    if (selectedCategoriesCheckbox.value.length > 0) {
+      query.categories = selectedCategoriesCheckbox.value
+    }
+    if (selectedStars.value.length > 0) {
+      query.stars = selectedStars.value
+    }
+    if (selectedColors.value) {
+      query.colors = selectedColors.value
+    }
+
+    // В Nuxt используем navigateTo
+    navigateTo({
+      path: route.path,
+      query,
+    })
+  }
+
+  watch(
+    [priceRange, selectedCategoriesCheckbox, selectedStars, selectedColors],
+    () => {
+      updateURL()
+    },
+    { deep: true }
+  )
+
+  const isColorSelected = (colorId: string) => {
+    return selectedColors.value === colorId
+  }
+
+  function selectColor(index: number) {
+    const colorId = props.colors[index]?.id.toString()
+    if (!colorId) return
+
+    selectedColors.value = selectedColors.value === colorId ? null : colorId
+  }
+
+  const resetFilters = () => {
+    priceRange.value = [0, 500000]
+    selectedCategoriesCheckbox.value = []
+    selectedStars.value = []
+    selectedColors.value = null
+
+    navigateTo({
+      path: route.path,
+      query: {},
+    })
+  }
+
+  const applyFilters = () => {
+    console.log('Applied filters:', {
+      priceRange: priceRange.value,
+      categories: selectedCategoriesCheckbox.value,
+      stars: selectedStars.value,
+      colors: selectedColors.value,
+    })
+  }
 
   onMounted(() => {
     categoriesCheckboxes.value = props.categories.map((category) => ({
@@ -78,38 +188,19 @@
     </div>
 
     <!-- Цвет -->
-    <div class="mb-8">
+    <div v-if="colors" class="mb-8">
       <h3 class="mb-4 text-lg font-semibold text-gray-900">Цвет</h3>
       <div class="grid grid-cols-5 gap-3">
         <button
+          v-for="(color, index) in colors"
+          :key="color.id"
           class="h-10 w-10 rounded-full border-2 border-gray-300 bg-gray-800 transition hover:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2"
-        ></button>
-        <button
-          class="h-10 w-10 rounded-full border-2 border-gray-300 bg-gray-400 transition hover:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2"
-        ></button>
-        <button
-          class="h-10 w-10 rounded-full border-2 border-gray-300 bg-white transition hover:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2"
-        ></button>
-        <button
-          class="h-10 w-10 rounded-full border-2 border-gray-300 bg-blue-500 transition hover:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2"
-        ></button>
-        <button
-          class="h-10 w-10 rounded-full border-2 border-gray-300 bg-red-500 transition hover:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2"
-        ></button>
-        <button
-          class="h-10 w-10 rounded-full border-2 border-gray-300 bg-green-500 transition hover:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2"
-        ></button>
-        <button
-          class="h-10 w-10 rounded-full border-2 border-gray-300 bg-yellow-400 transition hover:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2"
-        ></button>
-        <button
-          class="h-10 w-10 rounded-full border-2 border-gray-300 bg-purple-500 transition hover:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2"
-        ></button>
-        <button
-          class="h-10 w-10 rounded-full border-2 border-gray-300 bg-pink-500 transition hover:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2"
-        ></button>
-        <button
-          class="h-10 w-10 rounded-full border-2 border-gray-300 bg-orange-500 transition hover:border-cyan-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2"
+          :class="{
+            'border-cyan-500':
+              selectedColors && selectedColors.includes(color.id.toString()),
+          }"
+          :style="{ backgroundColor: color.value }"
+          @click="selectColor(index)"
         ></button>
       </div>
     </div>
