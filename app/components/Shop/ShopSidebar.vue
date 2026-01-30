@@ -17,6 +17,8 @@
     },
   })
 
+  const priceRange = ref<[number, number]>([0, 500000])
+
   const selectedCategoriesCheckbox = ref<string[]>([])
 
   type ICategoryCheckbox = {
@@ -25,6 +27,9 @@
   }
 
   const categoriesCheckboxes = ref<ICategoryCheckbox[]>([])
+
+  const selectedStars = ref<string[]>([])
+
   onMounted(() => {
     categoriesCheckboxes.value = props.categories.map((category) => ({
       value: category.id.toString(),
@@ -39,7 +44,7 @@
     <div class="mb-8">
       <h3 class="mb-4 text-lg font-semibold text-gray-900">Categories</h3>
       <div class="space-y-2">
-        <FormCheckbox
+        <FormCheckboxGroup
           v-for="category in categoriesCheckboxes"
           :key="category.value"
           v-model="selectedCategoriesCheckbox"
@@ -54,184 +59,22 @@
     <div class="mb-8 border-b border-gray-200 pb-8">
       <h3 class="mb-4 text-lg font-semibold text-gray-900">Рейтинг</h3>
       <div class="space-y-2">
-        <label
-          class="flex cursor-pointer items-center rounded p-2 transition hover:bg-gray-50"
-        >
-          <input
-            type="checkbox"
-            class="h-4 w-4 rounded border-gray-300 text-cyan-500 focus:ring-cyan-500"
-          />
-          <span class="ml-3 flex items-center">
-            <svg
-              class="h-4 w-4 fill-current text-yellow-400"
-              viewBox="0 0 20 20"
-            >
-              <path
-                d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"
-              />
-            </svg>
-            <svg
-              class="h-4 w-4 fill-current text-yellow-400"
-              viewBox="0 0 20 20"
-            >
-              <path
-                d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"
-              />
-            </svg>
-            <svg
-              class="h-4 w-4 fill-current text-yellow-400"
-              viewBox="0 0 20 20"
-            >
-              <path
-                d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"
-              />
-            </svg>
-            <svg
-              class="h-4 w-4 fill-current text-yellow-400"
-              viewBox="0 0 20 20"
-            >
-              <path
-                d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"
-              />
-            </svg>
-            <svg
-              class="h-4 w-4 fill-current text-yellow-400"
-              viewBox="0 0 20 20"
-            >
-              <path
-                d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"
-              />
-            </svg>
-            <span class="ml-2 text-gray-700">и выше</span>
-          </span>
-        </label>
-        <label
-          class="flex cursor-pointer items-center rounded p-2 transition hover:bg-gray-50"
-        >
-          <input
-            type="checkbox"
-            class="h-4 w-4 rounded border-gray-300 text-cyan-500 focus:ring-cyan-500"
-          />
-          <span class="ml-3 flex items-center">
-            <svg
-              class="h-4 w-4 fill-current text-yellow-400"
-              viewBox="0 0 20 20"
-            >
-              <path
-                d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"
-              />
-            </svg>
-            <svg
-              class="h-4 w-4 fill-current text-yellow-400"
-              viewBox="0 0 20 20"
-            >
-              <path
-                d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"
-              />
-            </svg>
-            <svg
-              class="h-4 w-4 fill-current text-yellow-400"
-              viewBox="0 0 20 20"
-            >
-              <path
-                d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"
-              />
-            </svg>
-            <svg
-              class="h-4 w-4 fill-current text-yellow-400"
-              viewBox="0 0 20 20"
-            >
-              <path
-                d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"
-              />
-            </svg>
-            <svg class="h-4 w-4 fill-current text-gray-300" viewBox="0 0 20 20">
-              <path
-                d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"
-              />
-            </svg>
-            <span class="ml-2 text-gray-700">и выше</span>
-          </span>
-        </label>
-        <label
-          class="flex cursor-pointer items-center rounded p-2 transition hover:bg-gray-50"
-        >
-          <input
-            type="checkbox"
-            class="h-4 w-4 rounded border-gray-300 text-cyan-500 focus:ring-cyan-500"
-          />
-          <span class="ml-3 flex items-center">
-            <svg
-              class="h-4 w-4 fill-current text-yellow-400"
-              viewBox="0 0 20 20"
-            >
-              <path
-                d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"
-              />
-            </svg>
-            <svg
-              class="h-4 w-4 fill-current text-yellow-400"
-              viewBox="0 0 20 20"
-            >
-              <path
-                d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"
-              />
-            </svg>
-            <svg
-              class="h-4 w-4 fill-current text-yellow-400"
-              viewBox="0 0 20 20"
-            >
-              <path
-                d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"
-              />
-            </svg>
-            <svg class="h-4 w-4 fill-current text-gray-300" viewBox="0 0 20 20">
-              <path
-                d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"
-              />
-            </svg>
-            <svg class="h-4 w-4 fill-current text-gray-300" viewBox="0 0 20 20">
-              <path
-                d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"
-              />
-            </svg>
-            <span class="ml-2 text-gray-700">и выше</span>
-          </span>
-        </label>
+        <FormStars v-model="selectedStars" :count="5" name="rating" value="5" />
+        <FormStars v-model="selectedStars" :count="4" name="rating" value="4" />
+        <FormStars v-model="selectedStars" :count="3" name="rating" value="3" />
       </div>
     </div>
 
     <!-- Цена -->
     <div class="mb-8 border-b border-gray-200 pb-8">
       <h3 class="mb-4 text-lg font-semibold text-gray-900">Цена</h3>
-      <div class="space-y-4">
-        <div class="flex gap-3">
-          <input
-            type="number"
-            placeholder="От"
-            class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500"
-          />
-          <input
-            type="number"
-            placeholder="До"
-            class="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500"
-          />
-        </div>
-        <!-- Range Slider -->
-        <div class="px-2">
-          <input
-            type="range"
-            min="0"
-            max="500000"
-            value="250000"
-            class="h-2 w-full cursor-pointer appearance-none rounded-lg bg-gray-200 accent-cyan-500"
-          />
-          <div class="mt-2 flex justify-between text-xs text-gray-500">
-            <span>0 ₽</span>
-            <span>500 000 ₽</span>
-          </div>
-        </div>
-      </div>
+      <FormFromRangePrice
+        v-model="priceRange"
+        :min="0"
+        :max="500000"
+        :step="1000"
+        currency="$"
+      />
     </div>
 
     <!-- Цвет -->
