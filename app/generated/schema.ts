@@ -840,6 +840,45 @@ export interface components {
              */
             description: string;
         };
+        CategoryWithProductsCountDto: {
+            /**
+             * @description The unique identifier of the category
+             * @example 1
+             */
+            id: number;
+            /**
+             * @description The title of the category
+             * @example Electronics
+             */
+            title: string;
+            /**
+             * @description The description of the category
+             * @example A category for electronic products
+             */
+            description: string;
+            /**
+             * @description The identifier of the store associated with the category
+             * @example 1
+             */
+            store_id: number;
+            /**
+             * Format: date-time
+             * @description The date and time when the category was created
+             * @example 2024-01-01T00:00:00Z
+             */
+            createdAt: string;
+            /**
+             * Format: date-time
+             * @description The date and time when the category was last updated
+             * @example 2024-01-02T00:00:00Z
+             */
+            updatedAt: string;
+            /**
+             * @description The number of products in this category
+             * @example 10
+             */
+            products_count: number;
+        };
         UpdateCategoryDto: {
             /**
              * @description The title of the category
@@ -1425,7 +1464,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["CategoryWithProductsCountDto"][];
+                };
             };
         };
     };
