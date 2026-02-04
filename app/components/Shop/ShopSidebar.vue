@@ -3,12 +3,12 @@
 
   import type { PropType } from 'vue'
 
-  import type { ICategory } from '~/interfaces/ICategory'
+  import type { ICategoryWithProductsCount } from '~/interfaces/ICategory'
   import type { IColor } from '~/interfaces/IColor'
 
   const props = defineProps({
     categories: {
-      type: Array as PropType<ICategory[]>,
+      type: Array as PropType<ICategoryWithProductsCount[]>,
       required: false,
       default: () => [],
     },
@@ -69,6 +69,7 @@
   type ICategoryCheckbox = {
     value: string
     label: string
+    count?: number
   }
 
   const categoriesCheckboxes = ref<ICategoryCheckbox[]>([])
@@ -135,6 +136,7 @@
     categoriesCheckboxes.value = props.categories.map((category) => ({
       value: category.id.toString(),
       label: category.title,
+      count: category.products_count,
     }))
   })
 </script>
@@ -150,6 +152,7 @@
           :key="category.value"
           v-model="selectedCategoriesCheckbox"
           name="categories"
+          :count="category.count"
           :value="category.value"
           :label="category.label"
         />

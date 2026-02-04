@@ -10,3 +10,5 @@ export type ICategory = CategorySchema & {
 
 export type ICategoryCreate = components['schemas']['CreateCategoryDto']
 export type ICategoryUpdate = components['schemas']['UpdateCategoryDto']
+export type ICategoryWithProductsCount =
+  components['schemas']['CategoryWithProductsCountDto']

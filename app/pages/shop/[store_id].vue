@@ -1,5 +1,7 @@
 <script setup lang="ts">
+  import { categoryService } from '~/api/services/categoryService'
   import { storeService } from '~/api/services/storeService'
+  import type { ICategoryWithProductsCount } from '~/interfaces/ICategory'
   import type { IStoreFull } from '~/interfaces/IStore'
 
   const store_id = useIdParamFromUrl('store_id')
@@ -7,6 +9,10 @@
   const { data: store, loading: store_loading } = useQuery<IStoreFull>(() =>
     storeService.getByIdFull(+store_id.value)
   )
+
+  const { data: categories, loading: categories_loading } = useQuery<
+    ICategoryWithProductsCount[]
+  >(() => categoryService.getAllWithProductsCount(+store_id.value))
 </script>
 
 <template>
@@ -19,10 +25,10 @@
       />
       <div class="flex items-start gap-8">
         <div class="w-64 flex-shrink-0 md:w-full">
-          <Preloader v-if="store_loading" />
+          <Preloader v-if="store_loading || categories_loading" />
           <ShopSidebar
-            v-else-if="store"
-            :categories="store.categories"
+            v-else-if="store && categories"
+            :categories="categories"
             :colors="store.colors"
           />
           <div v-else>

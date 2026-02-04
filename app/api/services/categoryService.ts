@@ -3,6 +3,7 @@ import type {
   ICategory,
   ICategoryCreate,
   ICategoryUpdate,
+  ICategoryWithProductsCount,
 } from '~/interfaces/ICategory'
 
 import { useAxios } from '../axiosInstance'
@@ -12,6 +13,14 @@ export const categoryService = {
     const { axiosWithToken } = useAxios()
     const { data } = await axiosWithToken<ICategory[]>({
       url: API_URL.categories(`/store/${store_id}`),
+      method: 'GET',
+    })
+    return data
+  },
+  getAllWithProductsCount: async (store_id: number) => {
+    const { axiosWithToken } = useAxios()
+    const { data } = await axiosWithToken<ICategoryWithProductsCount[]>({
+      url: API_URL.categories(`/store/${store_id}/with-products-count`),
       method: 'GET',
     })
     return data

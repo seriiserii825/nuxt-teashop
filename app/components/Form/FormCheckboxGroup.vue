@@ -7,10 +7,12 @@
     value: string
     name: string
     disabled?: boolean
+    count?: number
   }
 
   const props = withDefaults(defineProps<Props>(), {
     disabled: false,
+    count: 0,
   })
 
   const emit = defineEmits<{
@@ -45,6 +47,9 @@
       :disabled="disabled"
       class="h-4 w-4 rounded border-gray-300 text-cyan-500 focus:ring-cyan-500 disabled:cursor-not-allowed"
     />
-    <span class="ml-3 text-gray-700">{{ label }}</span>
+    <div class="ml-3 text-gray-700">
+      {{ label }}
+      <span v-if="count">({{ count }})</span>
+    </div>
   </label>
 </template>
