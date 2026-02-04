@@ -148,6 +148,22 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/categories/store/{store_id}/with-products-count": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["CategoryController_findAllWithProductsCount"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/categories/{id}/store/{store_id}": {
         parameters: {
             query?: never;
@@ -671,6 +687,36 @@ export interface components {
              */
             updatedAt: string;
         };
+        OrderBasicDto: {
+            /**
+             * @description Order ID
+             * @example 1
+             */
+            id: number;
+            /**
+             * @description Order status
+             * @example PENDING
+             */
+            status: string;
+            /**
+             * @description Total amount of the order
+             * @example 100.5
+             */
+            total: number;
+            items?: components["schemas"]["OrderItemsBasicDto"][];
+            /**
+             * Format: date-time
+             * @description The date and time when the order was created
+             * @example 2024-01-01T00:00:00Z
+             */
+            createdAt: string;
+            /**
+             * Format: date-time
+             * @description The date and time when the order was created
+             * @example 2024-01-01T00:00:00Z
+             */
+            updatedAt: string;
+        };
         StoreFullDto: {
             id: number;
             title: string;
@@ -686,6 +732,7 @@ export interface components {
             reviews?: components["schemas"]["ReviewBasicDto"][];
             colors?: components["schemas"]["ColorBasicDto"][];
             order_items?: components["schemas"]["OrderItemsBasicDto"][];
+            order?: components["schemas"]["OrderBasicDto"][];
         };
         UpdateStoreDto: {
             title?: string;
@@ -863,36 +910,6 @@ export interface components {
              */
             total: number;
             items?: components["schemas"]["OrderItemsBasicDto"][];
-        };
-        OrderBasicDto: {
-            /**
-             * @description Order ID
-             * @example 1
-             */
-            id: number;
-            /**
-             * @description Order status
-             * @example PENDING
-             */
-            status: string;
-            /**
-             * @description Total amount of the order
-             * @example 100.5
-             */
-            total: number;
-            items?: components["schemas"]["OrderItemsBasicDto"][];
-            /**
-             * Format: date-time
-             * @description The date and time when the order was created
-             * @example 2024-01-01T00:00:00Z
-             */
-            createdAt: string;
-            /**
-             * Format: date-time
-             * @description The date and time when the order was created
-             * @example 2024-01-01T00:00:00Z
-             */
-            updatedAt: string;
         };
         CreateOrderItemDto: {
             /**
@@ -1390,6 +1407,25 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["CategoryBasicDto"];
                 };
+            };
+        };
+    };
+    CategoryController_findAllWithProductsCount: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                store_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
         };
     };
