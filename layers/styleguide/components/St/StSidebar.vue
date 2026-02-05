@@ -57,6 +57,11 @@
             to="/style-guides/components/select-complex"
             :icon="['fas', 'caret-down']"
           />
+          <StSidebarItem
+            label="CheckboxGroup"
+            to="/style-guides/components/checkbox-group"
+            :icon="['fas', 'check']"
+          />
         </template>
       </StSidebarItem>
 
