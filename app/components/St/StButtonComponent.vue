@@ -4,7 +4,8 @@
   const buttonExamples = [
     {
       title: 'Variants',
-      description: 'Different button variants: info, danger, success, warning, outline.',
+      description:
+        'Different button variants: info, danger, success, warning, outline.',
       code: `<Btn variant="btn-info">Info</Btn>
 <Btn variant="btn-danger">Danger</Btn>
 <Btn variant="btn-success">Success</Btn>
