@@ -3,180 +3,94 @@
 
   const buttonExamples = [
     {
-      title: 'Basic button',
-      description: 'Use color, plain, round and circle to set button styles.',
-      code: `<Btn>
-        <span>Default</span>
-      </Btn>
-
-      <Btn @click="clickHandler" :small="true">
-        <span>Small</span>
-      </Btn>`,
+      title: 'Variants',
+      description: 'Different button variants: info, danger, success, warning, outline.',
+      code: `<Btn variant="btn-info">Info</Btn>
+<Btn variant="btn-danger">Danger</Btn>
+<Btn variant="btn-success">Success</Btn>
+<Btn variant="btn-warning">Warning</Btn>
+<Btn variant="btn-outline">Outline</Btn>`,
     },
     {
-      title: 'Colored buttons',
-      description:
-        'Different colored buttons: primary, success, error, contrast.',
-      code: `<Button color="primary" :small="true">
-        <span>Primary</span>
-      </Button>
-
-      <Button color="success" :small="true">
-        <span>Success</span>
-      </Button>
-
-      <Button color="error" :small="true">
-        <span>Error</span>
-      </Button>
-
-      <Button color="contrast" :small="true">
-        <span>Contrast</span>
-      </Button>`,
+      title: 'Button types',
+      description: 'HTML button types: button, submit, reset.',
+      code: `<Btn type="button">Button</Btn>
+<Btn type="submit">Submit</Btn>
+<Btn type="reset">Reset</Btn>`,
     },
     {
-      title: 'Outline buttons',
-      description: 'Button with outline styling.',
-      code: `<Button :outline="true" :small="true">
-        <span>Default Outline</span>
-      </Button>
-
-      <Button :outline="true" color="primary" :small="true">
-        <span>Primary Outline</span>
-      </Button>
-
-      <Button :outline="true" color="success" :small="true">
-        <span>Success Outline</span>
-      </Button>`,
-    },
-    {
-      title: 'Link buttons',
-      description: 'Buttons with navigation functionality.',
-      code: `<!-- External Link -->
-      <Button external_link="https://google.com" :small="true">
-        <span>External Link</span>
-      </Button>
-
-      <!-- Router Link -->
-      <Button router_link="/" :small="true">
-        <span>Router Link</span>
-      </Button>`,
+      title: 'States',
+      description: 'Loading and disabled states.',
+      code: `<Btn :loading="true">Loading</Btn>
+<Btn :disabled="true">Disabled</Btn>`,
     },
   ]
 
   const buttonProps = [
     {
-      name: 'small',
+      name: 'type',
+      type: 'string',
+      values: 'button / submit / reset',
+      default: 'button',
+      description: 'HTML button type attribute',
+    },
+    {
+      name: 'variant',
+      type: 'string',
+      values: 'btn-info / btn-danger / btn-success / btn-warning / btn-outline',
+      default: 'btn-info',
+      description: 'button style variant',
+    },
+    {
+      name: 'loading',
       type: 'boolean',
       values: '—',
       default: 'false',
-      description: 'determine whether it is a small button with auto width',
+      description: 'show loading spinner and disable button',
     },
     {
-      name: 'color',
-      type: 'string',
-      values: 'primary / success / error / contrast',
-      default: '—',
-      description: 'button color',
-    },
-    {
-      name: 'outline',
+      name: 'disabled',
       type: 'boolean',
       values: '—',
       default: 'false',
-      description: 'determine whether it is an outline button',
-    },
-    {
-      name: 'external_link',
-      type: 'string',
-      values: '—',
-      default: '—',
-      description: 'external URL for navigation',
-    },
-    {
-      name: 'router_link',
-      type: 'string',
-      values: '—',
-      default: '—',
-      description: 'Vue Router path for navigation',
+      description: 'disable the button',
     },
   ]
-
-  const clickHandler = () => {
-    console.log('Button clicked!')
-  }
 </script>
 
 <template>
   <div>
     <StComponentDemoGroup
       title="Buttons"
-      description="Use color, outline, and small props to define Button's style."
+      description="Use variant, type, loading and disabled props to define Button's style and behavior."
       :examples="buttonExamples"
       :component-props="buttonProps"
     >
-      <!-- Example 0: Basic buttons -->
+      <!-- Example 0: Variants -->
       <template #example-0>
-        <div class="flex items-start gap-2 gap-4">
-          <Btn>
-            <span>Default Info</span>
-          </Btn>
-          <Btn variant="btn-danger">
-            <span>Danger</span>
-          </Btn>
-          <Btn variant="btn-success">
-            <span>Success</span>
-          </Btn>
-          <Btn variant="btn-warning">
-            <span>Warning</span>
-          </Btn>
-          <Btn variant="btn-outline">
-            <span>Outline</span>
-          </Btn>
+        <div class="flex flex-wrap items-center gap-3">
+          <Btn variant="btn-info">Info</Btn>
+          <Btn variant="btn-danger">Danger</Btn>
+          <Btn variant="btn-success">Success</Btn>
+          <Btn variant="btn-warning">Warning</Btn>
+          <Btn variant="btn-outline">Outline</Btn>
         </div>
       </template>
 
-      <!-- Example 1: Colored buttons -->
+      <!-- Example 1: Button types -->
       <template #example-1>
         <div class="flex flex-wrap items-center gap-3">
-          <Button color="primary" :small="true">
-            <span>Primary</span>
-          </Button>
-          <Button color="success" :small="true">
-            <span>Success</span>
-          </Button>
-          <Button color="error" :small="true">
-            <span>Error</span>
-          </Button>
-          <Button color="contrast" :small="true">
-            <span>Contrast</span>
-          </Button>
+          <Btn type="button">Button</Btn>
+          <Btn type="submit" variant="btn-success">Submit</Btn>
+          <Btn type="reset" variant="btn-warning">Reset</Btn>
         </div>
       </template>
 
-      <!-- Example 2: Outline buttons -->
+      <!-- Example 2: States -->
       <template #example-2>
         <div class="flex flex-wrap items-center gap-3">
-          <Button :outline="true" :small="true">
-            <span>Default Outline</span>
-          </Button>
-          <Button :outline="true" color="primary" :small="true">
-            <span>Primary Outline</span>
-          </Button>
-          <Button :outline="true" color="success" :small="true">
-            <span>Success Outline</span>
-          </Button>
-        </div>
-      </template>
-
-      <!-- Example 3: Link buttons -->
-      <template #example-3>
-        <div class="flex flex-wrap items-center gap-3">
-          <Button external_link="https://google.com" :small="true">
-            <span>External Link</span>
-          </Button>
-          <Button router_link="/" :small="true">
-            <span>Router Link</span>
-          </Button>
+          <Btn :loading="true">Loading</Btn>
+          <Btn :disabled="true">Disabled</Btn>
         </div>
       </template>
     </StComponentDemoGroup>
