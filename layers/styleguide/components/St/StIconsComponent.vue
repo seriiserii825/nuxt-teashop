@@ -19,13 +19,18 @@
   ]
 
   const copied = ref('')
+  const copiedText = ref('')
+  const showToast = ref(false)
 
   function copyIcon(prefix: string, name: string) {
-    const text = `['${prefix}', '${name}']`
+    const text = `<font-awesome-icon :icon="['${prefix}', '${name}']" />`
     navigator.clipboard.writeText(text)
     copied.value = `${prefix}:${name}`
+    copiedText.value = text
+    showToast.value = true
     setTimeout(() => {
       copied.value = ''
+      showToast.value = false
     }, 1500)
   }
 
@@ -86,7 +91,24 @@
 </script>
 
 <template>
-  <div>
+  <div class="relative">
+    <Transition
+      enter-active-class="transition duration-200 ease-out"
+      enter-from-class="translate-y-2 opacity-0"
+      enter-to-class="translate-y-0 opacity-100"
+      leave-active-class="transition duration-150 ease-in"
+      leave-from-class="translate-y-0 opacity-100"
+      leave-to-class="-translate-y-1 opacity-0"
+    >
+      <div
+        v-if="showToast"
+        class="fixed bottom-6 right-6 z-50 flex items-center gap-2 rounded-lg bg-gray-800 px-4 py-3 text-sm text-white shadow-lg"
+      >
+        <font-awesome-icon :icon="['fas', 'check']" class="text-green-400" />
+        <span>Copied <code class="rounded bg-gray-700 px-1.5 py-0.5 text-xs">{{ copiedText }}</code></span>
+      </div>
+    </Transition>
+
     <StComponentDemoGroup
       title="Icons"
       description="FontAwesome icons via font-awesome-icon component. Uses @fortawesome/free-solid-svg-icons (fas) and @fortawesome/free-brands-svg-icons (fab). All icons are registered globally in plugins/fontawesome.ts."
