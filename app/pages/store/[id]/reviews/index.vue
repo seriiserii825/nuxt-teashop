@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { reviewService } from '~/api/services/reviewService'
-  import type { TableColumn } from '~/components/DataTable.vue'
+  import type { TableColumn } from '~~/layers/ui/components/DataTable.vue'
   import type { IReview } from '~/interfaces/IReview'
   import type { TSortColumn } from '~/interfaces/TSortColumn'
 

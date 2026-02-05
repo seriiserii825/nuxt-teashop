@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { colorService } from '~/api/services/colorService'
-  import type { TableColumn } from '~/components/DataTable.vue'
+  import type { TableColumn } from '~~/layers/ui/components/DataTable.vue'
   import type { IColor } from '~/interfaces/IColor'
   import type { TSortColumn } from '~/interfaces/TSortColumn'
 

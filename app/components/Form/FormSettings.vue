@@ -3,7 +3,6 @@
   import type { IFileUpload } from '~/interfaces/IFileUpload'
   import type { IStore, IStoreUpdate } from '~/interfaces/IStore'
 
-  import FormTextarea from './FormTextarea.vue'
 
   const auth_store = useAuthStore()
   const stores = auth_store.user?.stores
