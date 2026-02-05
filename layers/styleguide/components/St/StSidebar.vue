@@ -19,6 +19,12 @@
       <StSidebarItem label="Home" to="/style-guides" :icon="['fas', 'house']" />
 
       <StSidebarItem
+        label="Colors"
+        to="/style-guides/colors"
+        :icon="['fas', 'palette']"
+      />
+
+      <StSidebarItem
         label="Icons"
         to="/style-guides/icons"
         :icon="['fas', 'icons']"
