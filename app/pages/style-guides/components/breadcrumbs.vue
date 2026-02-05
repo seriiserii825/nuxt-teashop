@@ -13,6 +13,6 @@
         { label: 'Breadcrumbs' },
       ]"
     />
-    Breadcrumbs
+    <StBreadcrumbsComponent />
   </div>
 </template>
