@@ -35,6 +35,11 @@
             to="/style-guides/components/inputs"
             :icon="['fas', 'keyboard']"
           />
+          <StSidebarItem
+            label="Selects"
+            to="/style-guides/components/selects"
+            :icon="['fas', 'caret-down']"
+          />
         </template>
       </StSidebarItem>
 
