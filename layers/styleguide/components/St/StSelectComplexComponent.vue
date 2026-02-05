@@ -23,7 +23,8 @@
   const examples = [
     {
       title: 'Basic',
-      description: 'Dropdown select with search, icon, and a group label. Shows up to 5 options by default.',
+      description:
+        'Dropdown select with search, icon, and a group label. Shows up to 5 options by default.',
       code: `<FormSelectComplex
   :icon="['fas', 'store']"
   group-label="Shops"
@@ -33,7 +34,8 @@
     },
     {
       title: 'v-model',
-      description: 'Two-way binding. Selecting an option closes the dropdown automatically.',
+      description:
+        'Two-way binding. Selecting an option closes the dropdown automatically.',
       code: `<FormSelectComplex
   v-model="selectedShop"
   :icon="['fas', 'store']"
@@ -45,7 +47,8 @@
     },
     {
       title: 'Custom labels and icon',
-      description: 'Override groupLabel, buttonLabel and icon to adapt for any entity.',
+      description:
+        'Override groupLabel, buttonLabel and icon to adapt for any entity.',
       code: `<FormSelectComplex
   v-model="selectedCategory"
   :icon="['fas', 'tag']"
@@ -62,7 +65,8 @@
       type: 'string[]',
       values: "FontAwesome icon, e.g. ['fas', 'store']",
       default: '—',
-      description: 'FontAwesome icon shown in the trigger button and next to each option (required).',
+      description:
+        'FontAwesome icon shown in the trigger button and next to each option (required).',
     },
     {
       name: 'options',
@@ -76,14 +80,16 @@
       type: 'string | number',
       values: '—',
       default: "''",
-      description: 'Bound value for v-model. Selecting an option closes the dropdown.',
+      description:
+        'Bound value for v-model. Selecting an option closes the dropdown.',
     },
     {
       name: 'groupLabel',
       type: 'string',
       values: '—',
       default: 'Shops',
-      description: 'Label displayed above the options list inside the dropdown.',
+      description:
+        'Label displayed above the options list inside the dropdown.',
     },
     {
       name: 'buttonLabel',
@@ -97,14 +103,16 @@
       type: 'event',
       values: 'string | number',
       default: '—',
-      description: 'Emitted when an option is selected. Used internally by v-model.',
+      description:
+        'Emitted when an option is selected. Used internally by v-model.',
     },
     {
       name: '@closeDropdown',
       type: 'event',
       values: '—',
       default: '—',
-      description: 'Emitted when the bottom action button is clicked. Use it to handle "create new" logic in the parent.',
+      description:
+        'Emitted when the bottom action button is clicked. Use it to handle "create new" logic in the parent.',
     },
   ]
 </script>
@@ -120,6 +128,7 @@
       <!-- Example 0: Basic -->
       <template #example-0>
         <FormSelectComplex
+          class="relative z-10"
           :icon="['fas', 'store']"
           group-label="Shops"
           button-label="Create new shop"
@@ -138,7 +147,10 @@
             :options="shops"
           />
           <p class="text-sm text-gray-600">
-            Selected: <span class="font-medium text-gray-900">{{ selectedShop || '—' }}</span>
+            Selected:
+            <span class="font-medium text-gray-900">{{
+              selectedShop || '—'
+            }}</span>
           </p>
         </div>
       </template>
@@ -154,7 +166,10 @@
             :options="categories"
           />
           <p class="text-sm text-gray-600">
-            Selected: <span class="font-medium text-gray-900">{{ selectedCategory }}</span>
+            Selected:
+            <span class="font-medium text-gray-900">{{
+              selectedCategory
+            }}</span>
           </p>
         </div>
       </template>
