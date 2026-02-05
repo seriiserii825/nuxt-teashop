@@ -19,7 +19,7 @@
     @apply mx-auto max-w-[1640px] px-4;
   }
   .btn {
-    @apply inline-flex items-center justify-center gap-1 rounded bg-blue-600 px-4 py-2 font-bold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50;
+    @apply inline-flex items-center justify-center gap-1 rounded border-2 border-transparent bg-blue-600 px-4 py-2 font-bold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50;
   }
   .shape {
     @apply rounded-md bg-slate-800 p-4;
@@ -31,7 +31,7 @@
 
 @layer utilities {
   .btn-success {
-    @apply rounded bg-green-600 px-4 py-3 text-white transition hover:bg-green-700;
+    @apply bg-green-600 hover:bg-green-700;
   }
   .btn-danger {
     @apply bg-red-600 text-white hover:bg-red-700;
@@ -43,7 +43,7 @@
     @apply bg-cyan-600 text-white hover:bg-cyan-700;
   }
   .btn-outline {
-    @apply border-2 bg-transparent font-normal text-text-light;
+    @apply border-gray-300 bg-transparent font-normal text-text-light;
     &:hover {
       @apply bg-gray-200;
     }
