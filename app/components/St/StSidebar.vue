@@ -16,11 +16,7 @@
     </div>
 
     <nav class="space-y-2">
-      <StSidebarItem
-        label="Home"
-        to="/style-guides"
-        :icon="['fas', 'house']"
-      />
+      <StSidebarItem label="Home" to="/style-guides" :icon="['fas', 'house']" />
 
       <StSidebarItem label="Componenti" :icon="['fas', 'gear']">
         <template #children>
@@ -34,34 +30,23 @@
             to="/style-guides/components/breadcrumbs"
             :icon="['fas', 'ellipsis']"
           />
+          <StSidebarItem
+            label="Inputs"
+            to="/style-guides/components/inputs"
+            :icon="['fas', 'keyboard']"
+          />
         </template>
       </StSidebarItem>
 
-      <StSidebarItem
-        label="Landing"
-        to="#"
-        :icon="['fas', 'file-lines']"
-      />
+      <StSidebarItem label="Landing" to="#" :icon="['fas', 'file-lines']" />
 
-      <StSidebarItem
-        label="Portale"
-        to="#"
-        :icon="['fas', 'table-cells']"
-      />
+      <StSidebarItem label="Portale" to="#" :icon="['fas', 'table-cells']" />
 
-      <StSidebarItem
-        label="Login"
-        to="#"
-        :icon="['fas', 'right-to-bracket']"
-      />
+      <StSidebarItem label="Login" to="#" :icon="['fas', 'right-to-bracket']" />
 
       <StSidebarItem label="Esempi" :icon="['fas', 'lightbulb']">
         <template #children>
-          <StSidebarItem
-            label="Example 1"
-            to="#"
-            :icon="['fas', 'bolt']"
-          />
+          <StSidebarItem label="Example 1" to="#" :icon="['fas', 'bolt']" />
         </template>
       </StSidebarItem>
     </nav>
