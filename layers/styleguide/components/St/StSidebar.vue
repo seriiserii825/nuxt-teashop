@@ -62,6 +62,11 @@
             to="/style-guides/components/checkbox-group"
             :icon="['fas', 'check']"
           />
+          <StSidebarItem
+            label="Radio"
+            to="/style-guides/components/radio"
+            :icon="['fas', 'circle-dot']"
+          />
         </template>
       </StSidebarItem>
 
