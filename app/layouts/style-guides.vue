@@ -10,7 +10,7 @@
         <p class="text-lg font-semibold text-gray-800">Burduja Sergiu</p>
       </div>
 
-      <!-- Menu -->
+      <!-- Breadcrumbs -->
       <nav class="space-y-2">
         <a
           href="#"
@@ -160,15 +160,6 @@
 
     <!-- Main content -->
     <main class="flex-1 p-8">
-      <!-- Breadcrumbs -->
-      <nav class="mb-6 flex items-center gap-2 text-sm text-gray-600">
-        <a href="#" class="hover:text-gray-900">Home</a>
-        <span>/</span>
-        <a href="#" class="hover:text-gray-900">Componenti</a>
-        <span>/</span>
-        <span class="text-gray-900">Alert</span>
-      </nav>
-
       <slot></slot>
     </main>
   </div>

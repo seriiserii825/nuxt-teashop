@@ -10,7 +10,7 @@
       :items="[
         { label: 'Home', to: '/style-guides/components' },
         { label: 'Components', to: '/style-guides/components' },
-        { label: 'Button' },
+        { label: 'Breadcrumbs' },
       ]"
     />
     <StButtonComponent />
