@@ -1,20 +1,36 @@
 <script setup lang="ts">
   import StComponentDemoGroup from './StComponentDemoGroup.vue'
 
-  const solidIcons = [
-    'house', 'gear', 'plus', 'trash-can', 'pen-to-square',
-    'store', 'chart-line', 'chart-simple', 'chart-bar',
-    'dollar-sign', 'star-half-stroke', 'star',
-    'icons', 'brush', 'bolt', 'lightbulb',
-    'bars', 'ellipsis', 'chevron-down', 'caret-down',
+  // Icons actually used in the project
+  const usedSolidIcons = [
+    'house', 'gear', 'store', 'gauge', 'bars',
+    'plus', 'pen-to-square', 'trash-can',
+    'chart-line', 'chart-simple', 'chart-bar',
+    'dollar-sign', 'star-half-stroke', 'icons', 'brush',
+    'chevron-down', 'caret-down', 'ellipsis',
     'hand-pointer', 'keyboard', 'tag', 'table-cells',
-    'file-lines', 'right-to-bracket', 'gauge',
-    'user', 'magnifying-glass', 'xmark', 'check',
-    'heart', 'cart-shopping', 'arrow-down',
+    'file-lines', 'right-to-bracket',
+    'bolt', 'lightbulb',
   ]
 
-  const brandIcons = [
-    'product-hunt', 'github', 'google', 'twitter',
+  const usedBrandIcons = [
+    'product-hunt',
+  ]
+
+  // Extra useful icons for quick access
+  const extraSolidIcons = [
+    'star', 'heart', 'check', 'xmark',
+    'user', 'magnifying-glass', 'cart-shopping', 'arrow-down',
+    'arrow-up', 'arrow-left', 'arrow-right',
+    'circle-info', 'circle-check', 'circle-xmark', 'triangle-exclamation',
+    'eye', 'eye-slash', 'lock', 'unlock',
+    'envelope', 'phone', 'image', 'download', 'upload',
+    'filter', 'sort', 'clock', 'calendar',
+    'trash', 'copy', 'share', 'link',
+  ]
+
+  const extraBrandIcons = [
+    'github', 'google', 'twitter',
     'facebook', 'instagram', 'youtube', 'linkedin',
   ]
 
@@ -61,13 +77,23 @@
 <font-awesome-icon :icon="['fas', 'gear']" class="text-gray-400" />`,
     },
     {
-      title: 'Solid icons (fas)',
-      description: 'Click any icon to copy its value. All @fortawesome/free-solid-svg-icons are available.',
+      title: 'Used in project (fas)',
+      description: 'Solid icons currently used across the project. Click to copy the full tag.',
       code: `<font-awesome-icon :icon="['fas', 'icon-name']" />`,
     },
     {
-      title: 'Brand icons (fab)',
-      description: 'Brand icons from @fortawesome/free-brands-svg-icons.',
+      title: 'Used in project (fab)',
+      description: 'Brand icons currently used in the project.',
+      code: `<font-awesome-icon :icon="['fab', 'icon-name']" />`,
+    },
+    {
+      title: 'Other solid icons (fas)',
+      description: 'Extra useful solid icons for quick access. All @fortawesome/free-solid-svg-icons are available.',
+      code: `<font-awesome-icon :icon="['fas', 'icon-name']" />`,
+    },
+    {
+      title: 'Other brand icons (fab)',
+      description: 'Extra brand icons from @fortawesome/free-brands-svg-icons.',
       code: `<font-awesome-icon :icon="['fab', 'icon-name']" />`,
     },
   ]
@@ -146,11 +172,11 @@
         </div>
       </template>
 
-      <!-- Example 3: Solid icons gallery -->
+      <!-- Example 3: Used solid icons -->
       <template #example-3>
         <div class="grid grid-cols-6 gap-3 md:grid-cols-4 sm:grid-cols-3">
           <button
-            v-for="name in solidIcons"
+            v-for="name in usedSolidIcons"
             :key="name"
             class="flex cursor-pointer flex-col items-center gap-2 rounded-lg border border-gray-200 p-3 transition-colors hover:border-blue-300 hover:bg-blue-50"
             :class="copied === `fas:${name}` ? 'border-green-400 bg-green-50' : ''"
@@ -162,11 +188,43 @@
         </div>
       </template>
 
-      <!-- Example 4: Brand icons gallery -->
+      <!-- Example 4: Used brand icons -->
       <template #example-4>
         <div class="grid grid-cols-6 gap-3 md:grid-cols-4 sm:grid-cols-3">
           <button
-            v-for="name in brandIcons"
+            v-for="name in usedBrandIcons"
+            :key="name"
+            class="flex cursor-pointer flex-col items-center gap-2 rounded-lg border border-gray-200 p-3 transition-colors hover:border-blue-300 hover:bg-blue-50"
+            :class="copied === `fab:${name}` ? 'border-green-400 bg-green-50' : ''"
+            @click="copyIcon('fab', name)"
+          >
+            <font-awesome-icon :icon="['fab', name]" class="text-xl text-gray-700" />
+            <span class="text-xs text-gray-500">{{ name }}</span>
+          </button>
+        </div>
+      </template>
+
+      <!-- Example 5: Extra solid icons -->
+      <template #example-5>
+        <div class="grid grid-cols-6 gap-3 md:grid-cols-4 sm:grid-cols-3">
+          <button
+            v-for="name in extraSolidIcons"
+            :key="name"
+            class="flex cursor-pointer flex-col items-center gap-2 rounded-lg border border-gray-200 p-3 transition-colors hover:border-blue-300 hover:bg-blue-50"
+            :class="copied === `fas:${name}` ? 'border-green-400 bg-green-50' : ''"
+            @click="copyIcon('fas', name)"
+          >
+            <font-awesome-icon :icon="['fas', name]" class="text-xl text-gray-700" />
+            <span class="text-xs text-gray-500">{{ name }}</span>
+          </button>
+        </div>
+      </template>
+
+      <!-- Example 6: Extra brand icons -->
+      <template #example-6>
+        <div class="grid grid-cols-6 gap-3 md:grid-cols-4 sm:grid-cols-3">
+          <button
+            v-for="name in extraBrandIcons"
             :key="name"
             class="flex cursor-pointer flex-col items-center gap-2 rounded-lg border border-gray-200 p-3 transition-colors hover:border-blue-300 hover:bg-blue-50"
             :class="copied === `fab:${name}` ? 'border-green-400 bg-green-50' : ''"
