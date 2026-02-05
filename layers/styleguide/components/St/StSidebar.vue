@@ -18,6 +18,12 @@
     <nav class="space-y-2">
       <StSidebarItem label="Home" to="/style-guides" :icon="['fas', 'house']" />
 
+      <StSidebarItem
+        label="Icons"
+        to="/style-guides/icons"
+        :icon="['fas', 'icons']"
+      />
+
       <StSidebarItem label="Componenti" :icon="['fas', 'gear']">
         <template #children>
           <StSidebarItem
@@ -47,8 +53,6 @@
           />
         </template>
       </StSidebarItem>
-
-      <StSidebarItem label="Landing" to="#" :icon="['fas', 'file-lines']" />
 
       <StSidebarItem label="Portale" to="#" :icon="['fas', 'table-cells']" />
 
