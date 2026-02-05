@@ -40,6 +40,11 @@
             to="/style-guides/components/selects"
             :icon="['fas', 'caret-down']"
           />
+          <StSidebarItem
+            label="SelectComplex"
+            to="/style-guides/components/select-complex"
+            :icon="['fas', 'caret-down']"
+          />
         </template>
       </StSidebarItem>
 
