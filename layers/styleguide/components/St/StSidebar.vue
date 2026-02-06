@@ -16,7 +16,13 @@
     </div>
 
     <nav class="space-y-2">
-      <StSidebarItem label="Home" to="/style-guides" :icon="['fas', 'house']" />
+      <StSidebarItem label="Home" to="/" :icon="['fas', 'house']" />
+
+      <StSidebarItem
+        label="Style Guides"
+        to="/style-guides"
+        :icon="['fas', 'gauge']"
+      />
 
       <StSidebarItem
         label="Colors"
