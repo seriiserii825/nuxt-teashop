@@ -36,7 +36,11 @@
         :icon="['fas', 'icons']"
       />
 
-      <StSidebarItem label="Components" :icon="['fas', 'gear']">
+      <StSidebarItem
+        label="Components"
+        base-path="/style-guides/components"
+        :icon="['fas', 'gear']"
+      >
         <template #children>
           <StSidebarItem
             label="Buttons"
@@ -76,7 +80,11 @@
         </template>
       </StSidebarItem>
 
-      <StSidebarItem label="Blocks" :icon="['fas', 'cube']">
+      <StSidebarItem
+        label="Blocks"
+        base-path="/style-guides/blocks"
+        :icon="['fas', 'cube']"
+      >
         <template #children>
           <StSidebarItem
             label="ProductGrid"

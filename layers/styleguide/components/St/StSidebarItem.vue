@@ -9,6 +9,11 @@
       required: false,
       default: '',
     },
+    basePath: {
+      type: String,
+      required: false,
+      default: '',
+    },
     icon: {
       type: Array as PropType<string[]>,
       required: false,
@@ -23,7 +28,15 @@
     if (!props.to || props.to === '#') return false
     return route.path === props.to
   })
-  const isOpen = ref(false)
+  const hasActiveChild = computed(() => {
+    if (!props.basePath) return false
+    return route.path.startsWith(props.basePath)
+  })
+  const isOpen = ref(hasActiveChild.value)
+
+  watch(hasActiveChild, (value) => {
+    if (value) isOpen.value = true
+  })
 </script>
 
 <template>
@@ -31,7 +44,9 @@
   <div v-if="isDropdown">
     <button
       class="flex w-full items-center gap-3 rounded-lg px-3 py-2"
-      :class="isActive ? 'bg-blue-50 text-blue-600' : 'text-gray-600 hover:bg-gray-50'"
+      :class="
+        isActive ? 'bg-blue-50 text-blue-600' : 'text-gray-600 hover:bg-gray-50'
+      "
       @click="isOpen = !isOpen"
     >
       <font-awesome-icon v-if="icon" :icon="icon" class="h-5 w-5" />
@@ -52,7 +67,9 @@
     v-else
     :to="to"
     class="flex items-center gap-3 rounded-lg px-3 py-2"
-    :class="isActive ? 'bg-blue-50 text-blue-600' : 'text-gray-600 hover:bg-gray-50'"
+    :class="
+      isActive ? 'bg-blue-50 text-blue-600' : 'text-gray-600 hover:bg-gray-50'
+    "
   >
     <font-awesome-icon v-if="icon" :icon="icon" class="h-5 w-5" />
     <span class="font-medium">{{ label }}</span>
