@@ -50,12 +50,21 @@
     emits('emit_close')
   }
 
-  function liClick(id: number) {
+  async function liClick(id: number) {
     const route = ROUTE_LIST.find((route) => route.id === id)
     useSweetAlert('success', `Navigating to ${route?.path}...`)
     if (route) {
-      // open in new tab
-      window.open(route.path, '_blank')
+      const newTab = await useSweetConfirm(
+        'Open in new tab?',
+        'Do you want to open this page in a new tab?',
+        'Open in new tab',
+        'Open in current tab'
+      )
+      if (newTab.isConfirmed) {
+        window.open(route.path, '_blank')
+      } else {
+        navigateTo(route.path)
+      }
       closePopup()
     }
   }

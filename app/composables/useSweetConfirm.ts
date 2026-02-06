@@ -2,8 +2,7 @@ export default function useSweetConfirm(
   title: string,
   text = 'Are you sure?',
   confirmText = 'Yes',
-  cancelText = 'Cancel',
-  icon: 'warning' | 'question' = 'warning'
+  cancelText = 'Cancel'
 ) {
   const nuxtApp = tryUseNuxtApp()
 
@@ -15,7 +14,6 @@ export default function useSweetConfirm(
   return nuxtApp.$swal.fire({
     title,
     text,
-    icon,
     showCancelButton: true,
     confirmButtonText: confirmText,
     cancelButtonText: cancelText,
