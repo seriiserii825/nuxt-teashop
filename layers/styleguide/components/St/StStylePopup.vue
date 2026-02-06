@@ -52,17 +52,23 @@
 
   function liClick(id: number) {
     const route = ROUTE_LIST.find((route) => route.id === id)
-    useSweetAlert('success', `Navigating to ${route?.label}...`)
+    useSweetAlert('success', `Navigating to ${route?.path}...`)
     if (route) {
-      navigateTo(route.path)
+      // open in new tab
+      window.open(route.path, '_blank')
       closePopup()
     }
   }
 
   onMounted(() => {
-    inputRef.value?.focus()
+    setTimeout(() => {
+      inputRef.value?.focus()
+      document.addEventListener('keydown', handleKeydown)
+    }, 100)
+  })
 
-    document.addEventListener('keydown', handleKeydown)
+  onUnmounted(() => {
+    document.removeEventListener('keydown', handleKeydown)
   })
 </script>
 

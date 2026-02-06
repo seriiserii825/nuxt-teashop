@@ -29,7 +29,7 @@
         @click="is_visible_popup = true"
       >
         <span
-          class="flex-column flex h-10 w-10 items-center justify-center rounded-md bg-blue-100 text-blue-600"
+          class="flex-column flex h-10 w-10 items-center justify-center rounded-md bg-blue-100 font-bold text-blue-600"
         >
           🎨 ctrl+k
         </span>
