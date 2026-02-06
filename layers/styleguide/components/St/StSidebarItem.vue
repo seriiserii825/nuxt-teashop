@@ -15,9 +15,9 @@
       default: '',
     },
     icon: {
-      type: Array as PropType<string[]>,
+      type: Array as PropType<readonly string[]>,
       required: false,
-      default: undefined,
+      default: () => ['fas', 'circle'],
     },
   })
 

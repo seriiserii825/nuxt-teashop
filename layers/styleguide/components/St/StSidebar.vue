@@ -1,4 +1,6 @@
 <script setup lang="ts">
+  import { ROUTES } from '~~/app/data/app_urls'
+
   defineProps({
     name: {
       type: String,
@@ -16,66 +18,70 @@
     </div>
 
     <nav class="space-y-2">
-      <StSidebarItem label="Home" to="/" :icon="['fas', 'house']" />
-
       <StSidebarItem
-        label="Style Guides"
-        to="/style-guides"
-        :icon="['fas', 'gauge']"
+        :label="ROUTES.HOME.label"
+        :to="ROUTES.HOME.path"
+        :icon="ROUTES.HOME.icon"
       />
 
       <StSidebarItem
-        label="Colors"
-        to="/style-guides/colors"
-        :icon="['fas', 'palette']"
+        :label="ROUTES.STYLE_GUIDES.label"
+        :to="ROUTES.STYLE_GUIDES.path"
+        :icon="ROUTES.STYLE_GUIDES.icon"
       />
 
       <StSidebarItem
-        label="Icons"
-        to="/style-guides/icons"
-        :icon="['fas', 'icons']"
+        :label="ROUTES.COLORS.label"
+        :to="ROUTES.COLORS.path"
+        :icon="ROUTES.COLORS.icon"
       />
 
       <StSidebarItem
-        label="Components"
-        base-path="/style-guides/components"
-        :icon="['fas', 'gear']"
+        :label="ROUTES.ICONS.label"
+        :to="ROUTES.ICONS.path"
+        :icon="ROUTES.ICONS.icon"
+      />
+
+      <StSidebarItem
+        :label="ROUTES.COMPONENTS.label"
+        :to="ROUTES.COMPONENTS.path"
+        :icon="ROUTES.COMPONENTS.icon"
       >
         <template #children>
           <StSidebarItem
-            label="Buttons"
-            to="/style-guides/components"
-            :icon="['fas', 'hand-pointer']"
+            :label="ROUTES.BUTTONS.label"
+            :to="ROUTES.BUTTONS.path"
+            :icon="ROUTES.BUTTONS.icon"
           />
           <StSidebarItem
-            label="Breadcrumbs"
-            to="/style-guides/components/breadcrumbs"
-            :icon="['fas', 'ellipsis']"
+            :label="ROUTES.BREADCRUMBS.label"
+            :to="ROUTES.BREADCRUMBS.path"
+            :icon="ROUTES.BREADCRUMBS.icon"
           />
           <StSidebarItem
-            label="Inputs"
-            to="/style-guides/components/inputs"
-            :icon="['fas', 'keyboard']"
+            :label="ROUTES.INPUTS.label"
+            :to="ROUTES.INPUTS.path"
+            :icon="ROUTES.INPUTS.icon"
           />
           <StSidebarItem
-            label="Selects"
-            to="/style-guides/components/selects"
-            :icon="['fas', 'caret-down']"
+            :label="ROUTES.SELECTS.label"
+            :to="ROUTES.SELECTS.path"
+            :icon="ROUTES.SELECTS.icon"
           />
           <StSidebarItem
-            label="SelectComplex"
-            to="/style-guides/components/select-complex"
-            :icon="['fas', 'caret-down']"
+            :label="ROUTES.SELECT_COMPLEX.label"
+            :to="ROUTES.SELECT_COMPLEX.path"
+            :icon="ROUTES.SELECT_COMPLEX.icon"
           />
           <StSidebarItem
-            label="CheckboxGroup"
-            to="/style-guides/components/checkbox-group"
-            :icon="['fas', 'check']"
+            :label="ROUTES.CHECKBOX_GROUP.label"
+            :to="ROUTES.CHECKBOX_GROUP.path"
+            :icon="ROUTES.CHECKBOX_GROUP.icon"
           />
           <StSidebarItem
-            label="Radio"
-            to="/style-guides/components/radio"
-            :icon="['fas', 'circle-dot']"
+            :label="ROUTES.RADIO.label"
+            :to="ROUTES.RADIO.path"
+            :icon="ROUTES.RADIO.icon"
           />
         </template>
       </StSidebarItem>
@@ -87,14 +93,14 @@
       >
         <template #children>
           <StSidebarItem
-            label="ProductGrid"
-            to="/style-guides/blocks/product-grid"
-            :icon="['fas', 'border-all']"
+            :label="ROUTES.PRODUCT_GRID.label"
+            :to="ROUTES.PRODUCT_GRID.path"
+            :icon="ROUTES.PRODUCT_GRID.icon"
           />
           <StSidebarItem
-            label="FrontHeaders"
-            to="/style-guides/blocks/front-headers"
-            :icon="['fas', 'circle-info']"
+            :label="ROUTES.FRONT_HEADERS.label"
+            :to="ROUTES.FRONT_HEADERS.path"
+            :icon="ROUTES.FRONT_HEADERS.icon"
           />
         </template>
       </StSidebarItem>

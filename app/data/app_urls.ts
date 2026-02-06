@@ -25,53 +25,59 @@ export const ROUTES = {
 
   COMPONENTS: {
     path: '/style-guides/components',
+    label: 'Components',
+    icon: ['fas', 'hand-pointer'],
+  },
+
+  BUTTONS: {
+    path: '/style-guides/components',
     label: 'Buttons',
     icon: ['fas', 'hand-pointer'],
   },
 
-  COMPONENTS_BREADCRUMBS: {
+  BREADCRUMBS: {
     path: '/style-guides/components/breadcrumbs',
     label: 'Breadcrumbs',
     icon: ['fas', 'ellipsis'],
   },
 
-  COMPONENTS_INPUTS: {
+  INPUTS: {
     path: '/style-guides/components/inputs',
     label: 'Inputs',
     icon: ['fas', 'keyboard'],
   },
 
-  COMPONENTS_SELECTS: {
+  SELECTS: {
     path: '/style-guides/components/selects',
     label: 'Selects',
     icon: ['fas', 'caret-down'],
   },
 
-  COMPONENTS_SELECT_COMPLEX: {
+  SELECT_COMPLEX: {
     path: '/style-guides/components/select-complex',
     label: 'SelectComplex',
     icon: ['fas', 'caret-down'],
   },
 
-  COMPONENTS_CHECKBOX_GROUP: {
+  CHECKBOX_GROUP: {
     path: '/style-guides/components/checkbox-group',
     label: 'CheckboxGroup',
     icon: ['fas', 'check'],
   },
 
-  COMPONENTS_RADIO: {
+  RADIO: {
     path: '/style-guides/components/radio',
     label: 'Radio',
     icon: ['fas', 'circle-dot'],
   },
 
-  BLOCKS_PRODUCT_GRID: {
+  PRODUCT_GRID: {
     path: '/style-guides/blocks/product-grid',
     label: 'ProductGrid',
     icon: ['fas', 'border-all'],
   },
 
-  BLOCKS_FRONT_HEADERS: {
+  FRONT_HEADERS: {
     path: '/style-guides/blocks/front-headers',
     label: 'FrontHeaders',
     icon: ['fas', 'circle-info'],
