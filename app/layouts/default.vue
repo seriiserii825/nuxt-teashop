@@ -40,5 +40,6 @@
       </template>
     </Drawer>
     <FrontFooter />
+    <StStyleButton />
   </div>
 </template>

@@ -8,5 +8,6 @@
     <main class="flex-1 p-8">
       <slot></slot>
     </main>
+    <StStyleButton />
   </div>
 </template>
