@@ -69,16 +69,6 @@
           />
         </template>
       </StSidebarItem>
-
-      <StSidebarItem label="Portale" to="#" :icon="['fas', 'table-cells']" />
-
-      <StSidebarItem label="Login" to="#" :icon="['fas', 'right-to-bracket']" />
-
-      <StSidebarItem label="Esempi" :icon="['fas', 'lightbulb']">
-        <template #children>
-          <StSidebarItem label="Example 1" to="#" :icon="['fas', 'bolt']" />
-        </template>
-      </StSidebarItem>
     </nav>
   </aside>
 </template>
