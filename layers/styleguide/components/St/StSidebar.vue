@@ -77,6 +77,11 @@
             to="/style-guides/blocks/product-grid"
             :icon="['fas', 'border-all']"
           />
+          <StSidebarItem
+            label="FrontHeaders"
+            to="/style-guides/blocks/front-headers"
+            :icon="['fas', 'circle-info']"
+          />
         </template>
       </StSidebarItem>
     </nav>
