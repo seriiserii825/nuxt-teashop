@@ -30,7 +30,7 @@
         :icon="['fas', 'icons']"
       />
 
-      <StSidebarItem label="Componenti" :icon="['fas', 'gear']">
+      <StSidebarItem label="Components" :icon="['fas', 'gear']">
         <template #children>
           <StSidebarItem
             label="Buttons"
@@ -66,6 +66,16 @@
             label="Radio"
             to="/style-guides/components/radio"
             :icon="['fas', 'circle-dot']"
+          />
+        </template>
+      </StSidebarItem>
+
+      <StSidebarItem label="Blocks" :icon="['fas', 'cube']">
+        <template #children>
+          <StSidebarItem
+            label="ProductGrid"
+            to="/style-guides/blocks/product-grid"
+            :icon="['fas', 'border-all']"
           />
         </template>
       </StSidebarItem>
