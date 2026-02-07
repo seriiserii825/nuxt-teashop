@@ -24,6 +24,7 @@
     search: '',
     sortKey: 'createdAt',
     sortOrder: 'desc',
+    category_ids: parseNumberCsv(route.query.category_ids),
   })
   const {
     data: products_response,
@@ -45,15 +46,18 @@
 
   watch(
     () => route.query,
-    (newQuery) => {
-      // if (typeof newQuery.categories === 'string') {
-      //   query.value.category_id = newQuery.categories
-      // }
+    (q) => {
+      query.value.category_ids = parseNumberCsv(q.category_ids)
       query.value.page = 1
+
       refetch()
-    },
-    { deep: true }
+    }
   )
+
+  function parseNumberCsv(param: unknown): string[] {
+    if (!param) return []
+    return String(param).split(',')
+  }
 </script>
 
 <template>

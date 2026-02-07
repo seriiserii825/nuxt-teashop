@@ -17,6 +17,7 @@ export const productService = {
       search = '',
       sortKey = '',
       sortOrder = 'desc',
+      category_ids = [],
     } = query
     const { axiosWithToken } = useAxios()
 
@@ -27,6 +28,10 @@ export const productService = {
     if (sortKey) {
       params.sortKey = sortKey
       params.sortOrder = sortOrder
+    }
+
+    if (category_ids.length > 0) {
+      params.category_ids = category_ids.join(',')
     }
 
     const { data } = await axiosWithToken<IProductResponse>({

@@ -57,7 +57,9 @@
   ])
 
   const selectedCategoriesCheckbox = ref<string[]>(
-    queryUtils.toArray(route.query.categories)
+    route.query.category_ids
+      ? String(route.query.category_ids).split(',').filter(Boolean)
+      : []
   )
 
   const selectedStars = ref<string>((route.query.stars as string) || '')
@@ -76,29 +78,20 @@
 
   // Функция обновления URL
   const updateURL = () => {
-    const query: Record<string, string | string[]> = {}
+    const query: Record<string, string> = {}
 
-    if (priceRange.value[0] !== 0) {
-      query.priceMin = priceRange.value[0].toString()
-    }
-    if (priceRange.value[1] !== 500000) {
-      query.priceMax = priceRange.value[1].toString()
-    }
+    if (priceRange.value[0] !== 0) query.priceMin = String(priceRange.value[0])
+    if (priceRange.value[1] !== 500000)
+      query.priceMax = String(priceRange.value[1])
+
     if (selectedCategoriesCheckbox.value.length > 0) {
-      query.categories = selectedCategoriesCheckbox.value
-    }
-    if (selectedStars.value) {
-      query.stars = selectedStars.value
-    }
-    if (selectedColors.value) {
-      query.colors = selectedColors.value
+      query.category_ids = selectedCategoriesCheckbox.value.join(',') // ✅ ВАЖНО
     }
 
-    // В Nuxt используем navigateTo
-    navigateTo({
-      path: route.path,
-      query,
-    })
+    if (selectedStars.value) query.stars = selectedStars.value
+    if (selectedColors.value) query.colors = selectedColors.value
+
+    navigateTo({ path: route.path, query }, { replace: true }) // чтобы не засорять history
   }
 
   watch(
