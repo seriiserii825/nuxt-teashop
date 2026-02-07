@@ -43,6 +43,10 @@
   async function updateCurrent(newPage: number) {
     query.value.page = newPage
     await refetch()
+    scrollToTop()
+  }
+
+  function scrollToTop() {
     if (wrapRef.value) {
       wrapRef.value.scrollIntoView({ behavior: 'smooth' })
     }
@@ -61,6 +65,8 @@
       query.value.page = 1
 
       refetch()
+
+      scrollToTop()
     }
   )
 

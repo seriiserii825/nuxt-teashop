@@ -135,7 +135,7 @@
 </script>
 
 <template>
-  <aside class="h-screen overflow-y-auto border-r border-gray-200 bg-white p-6">
+  <aside class="h-full border-r border-gray-200 bg-white p-6">
     <!-- Категории -->
     <div class="mb-8">
       <h3 class="mb-4 text-lg font-semibold text-gray-900">Categories</h3>
