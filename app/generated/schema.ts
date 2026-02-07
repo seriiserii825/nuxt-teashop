@@ -834,6 +834,11 @@ export interface components {
              * @enum {string}
              */
             sortOrder: "asc" | "desc";
+            /**
+             * @description Filter by category IDs (comma-separated)
+             * @example 1,2,3
+             */
+            category_ids?: string[];
         };
         ProductsPaginatedDto: {
             /** @description Array of products */
@@ -1225,6 +1230,8 @@ export interface operations {
                 sortKey?: string;
                 /** @description Sort order (asc or desc) */
                 sortOrder?: "asc" | "desc";
+                /** @description Filter by category IDs (comma-separated) */
+                category_ids?: string[];
             };
             header?: never;
             path: {

@@ -8,6 +8,8 @@
 
   const store_id = useIdParamFromUrl('store_id')
 
+  const route = useRoute()
+
   const { data: store, loading: store_loading } = useQuery<IStoreFull>(() =>
     storeService.getByIdFull(+store_id.value)
   )
@@ -40,6 +42,18 @@
       wrapRef.value.scrollIntoView({ behavior: 'smooth' })
     }
   }
+
+  watch(
+    () => route.query,
+    (newQuery) => {
+      // if (typeof newQuery.categories === 'string') {
+      //   query.value.category_id = newQuery.categories
+      // }
+      query.value.page = 1
+      refetch()
+    },
+    { deep: true }
+  )
 </script>
 
 <template>
