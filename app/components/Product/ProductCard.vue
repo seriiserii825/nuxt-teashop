@@ -6,7 +6,7 @@
     <!-- Image Container -->
     <NuxtLink
       to="/product/123"
-      class="relative block aspect-square overflow-hidden bg-gray-50"
+      class="relative block aspect-[1/0.8] overflow-hidden bg-gray-50"
     >
       <img
         src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400"
