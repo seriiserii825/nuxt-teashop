@@ -839,6 +839,16 @@ export interface components {
              * @example 1,2,3
              */
             category_ids?: string;
+            /**
+             * @description Minimum price
+             * @example 10
+             */
+            price_min?: number;
+            /**
+             * @description Maximum price
+             * @example 10
+             */
+            price_max?: number;
         };
         ProductsPaginatedDto: {
             /** @description Array of products */
@@ -1232,6 +1242,10 @@ export interface operations {
                 sortOrder?: "asc" | "desc";
                 /** @description Filter by category IDs (comma-separated) */
                 category_ids?: string;
+                /** @description Minimum price */
+                price_min?: number;
+                /** @description Maximum price */
+                price_max?: number;
             };
             header?: never;
             path: {

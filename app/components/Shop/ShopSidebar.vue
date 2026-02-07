@@ -52,8 +52,8 @@
 
   // Инициализация из URL
   const priceRange = ref<[number, number]>([
-    queryUtils.toNumber(route.query.priceMin, 0),
-    queryUtils.toNumber(route.query.priceMax, 500000),
+    queryUtils.toNumber(route.query.price_min, 0),
+    queryUtils.toNumber(route.query.price_max, 500000),
   ])
 
   const selectedCategoriesCheckbox = ref<string[]>(
@@ -80,9 +80,9 @@
   const updateURL = () => {
     const query: Record<string, string> = {}
 
-    if (priceRange.value[0] !== 0) query.priceMin = String(priceRange.value[0])
+    if (priceRange.value[0] !== 0) query.price_min = String(priceRange.value[0])
     if (priceRange.value[1] !== 500000)
-      query.priceMax = String(priceRange.value[1])
+      query.price_max = String(priceRange.value[1])
 
     if (selectedCategoriesCheckbox.value.length > 0) {
       query.category_ids = selectedCategoriesCheckbox.value.join(',') // ✅ ВАЖНО
@@ -168,8 +168,8 @@
       <FormFromRangePrice
         v-model="priceRange"
         :min="0"
-        :max="500000"
-        :step="1000"
+        :max="5000"
+        :step="10"
         currency="$"
       />
     </div>

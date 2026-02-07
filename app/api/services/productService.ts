@@ -18,6 +18,8 @@ export const productService = {
       sortKey = '',
       sortOrder = 'desc',
       category_ids = [],
+      price_min = undefined,
+      price_max = undefined,
     } = query
     const { axiosWithToken } = useAxios()
 
@@ -32,6 +34,14 @@ export const productService = {
 
     if (category_ids) {
       params.category_ids = String(category_ids)
+    }
+
+    if (price_min !== undefined) {
+      params.price_min = price_min
+    }
+
+    if (price_max !== undefined) {
+      params.price_max = price_max
     }
 
     const { data } = await axiosWithToken<IProductResponse>({

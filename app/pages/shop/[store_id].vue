@@ -26,6 +26,8 @@
     sortKey: 'createdAt',
     sortOrder: 'desc',
     category_ids: parseNumberCsv(route.query.category_ids),
+    price_min: undefined,
+    price_max: undefined,
   })
   const {
     data: products_response,
@@ -49,6 +51,10 @@
     () => route.query,
     (q) => {
       query.value.category_ids = parseNumberCsv(q.category_ids)
+
+      query.value.price_min = q.price_min ? Number(q.price_min) : undefined
+      query.value.price_max = q.price_max ? Number(q.price_max) : undefined
+
       query.value.page = 1
 
       refetch()

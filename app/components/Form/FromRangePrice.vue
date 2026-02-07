@@ -1,5 +1,14 @@
 <script setup lang="ts">
+  import { useDebounceFn } from '@vueuse/core'
+
   import { computed, ref, watch } from 'vue'
+
+  const emitDebounced = useDebounceFn(
+    (value: [number, number]) => {
+      emit('update:modelValue', value)
+    },
+    300 // ms
+  )
 
   interface Props {
     modelValue?: [number, number]
@@ -43,18 +52,19 @@
   watch([minValue, maxValue], ([newMin, newMax]) => {
     // Проверка границ
     if (newMin > newMax) {
-      minValue.value = newMax
+      setTimeout(() => {
+        minValue.value = newMax
+      }, 500)
     }
     if (newMax < newMin) {
-      maxValue.value = newMin
+      setTimeout(() => {
+        maxValue.value = newMin
+      }, 500)
     }
 
-    emit('update:modelValue', [minValue.value, maxValue.value])
+    // emit('update:modelValue', [minValue.value, maxValue.value])
+    emitDebounced([newMin, newMax])
   })
-
-  const formatPrice = (value: number) => {
-    return new Intl.NumberFormat('ru-RU').format(value)
-  }
 </script>
 
 <template>
