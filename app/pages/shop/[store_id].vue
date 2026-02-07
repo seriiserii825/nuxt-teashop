@@ -2,6 +2,7 @@
   import { categoryService } from '~/api/services/categoryService'
   import { productService } from '~/api/services/productService'
   import { storeService } from '~/api/services/storeService'
+  import Preloader from '~/components/Preloader.vue'
   import type { ICategoryWithProductsCount } from '~/interfaces/ICategory'
   import type { IProductsPaginated, IQueryProduct } from '~/interfaces/IProduct'
   import type { IStoreFull } from '~/interfaces/IStore'
@@ -54,9 +55,9 @@
     }
   )
 
-  function parseNumberCsv(param: unknown): string[] {
-    if (!param) return []
-    return String(param).split(',')
+  function parseNumberCsv(param: unknown): string {
+    if (!param) return ''
+    return String(param)
   }
 </script>
 
