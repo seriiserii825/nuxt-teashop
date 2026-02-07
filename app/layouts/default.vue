@@ -40,6 +40,6 @@
       </template>
     </Drawer>
     <FrontFooter />
-    <StStyleButton />
+    <StStyleButton v-if="useIsAdmin()" />
   </div>
 </template>

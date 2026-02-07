@@ -5,7 +5,11 @@ import { userService } from '~/api/services/userService'
 export default defineNuxtRouteMiddleware(async (to) => {
   const auth_store = useAuthStore()
 
-  if (!to.path.startsWith('/dashboard') && !to.path.startsWith('/store')) {
+  if (
+    !to.path.startsWith('/dashboard') &&
+    !to.path.startsWith('/store') &&
+    !to.path.startsWith('/style-guides')
+  ) {
     return
   }
 
@@ -28,7 +32,10 @@ export default defineNuxtRouteMiddleware(async (to) => {
     const newData = await userService.profile()
     auth_store.setUser(newData)
 
-    if (to.path.startsWith('/store') && authStore.user?.role !== 'admin') {
+    if (
+      (to.path.startsWith('/store') || to.path.startsWith('/style-guides')) &&
+      authStore.user?.role !== 'admin'
+    ) {
       return navigateTo('/dashboard')
     }
 
