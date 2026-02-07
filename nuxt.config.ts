@@ -1,6 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  extends: ['./layers/ui', './layers/styleguide'],
   compatibilityDate: '2025-07-15',
   runtimeConfig: {
     public: {
