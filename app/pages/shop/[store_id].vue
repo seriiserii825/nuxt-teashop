@@ -91,6 +91,12 @@
         </div>
         <Preloader v-if="products_loading" />
         <div v-else-if="products_response?.data.length">
+          <div class="flex py-6">
+            <h2 class="text-md">
+              Products Found:
+              <span class="font-bold">{{ products_response.meta.total }}</span>
+            </h2>
+          </div>
           <ProductGrid
             :products="products_response?.data || []"
             class="mb-12"
