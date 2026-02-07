@@ -1,0 +1,60 @@
+<script setup lang="ts">
+  import type { PropType } from 'vue'
+
+  defineEmits(['btn_click'])
+
+  defineProps({
+    title: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: String,
+      required: false,
+      default: '',
+    },
+    buttonText: {
+      type: String,
+      required: false,
+      default: '',
+    },
+    icon: {
+      type: Array as PropType<string[]>,
+      required: false,
+      default: () => [],
+    },
+    linkUrl: {
+      type: String,
+      required: false,
+      default: '',
+    },
+    linkText: {
+      type: String,
+      required: false,
+      default: '',
+    },
+  })
+</script>
+
+<template>
+  <div class="flex items-start justify-between">
+    <div>
+      <h2 class="mb-4 text-2xl font-bold">
+        {{ title }}
+      </h2>
+      <p v-if="description" class="mb-6 text-gray-600">
+        {{ description }}
+      </p>
+    </div>
+    <Btn v-if="buttonText" variant="btn-info" @click="$emit('btn_click')">
+      <font-awesome-icon v-if="icon.length" :icon="icon" />
+      {{ buttonText }}</Btn
+    >
+    <NuxtLink
+      v-if="linkUrl"
+      :to="linkUrl"
+      class="btn btn-secondary flex items-center"
+      >{{ linkText }}</NuxtLink
+    >
+  </div>
+</template>
