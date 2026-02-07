@@ -29,9 +29,10 @@
         @click="is_visible_popup = true"
       >
         <span
-          class="flex-column flex h-10 w-10 items-center justify-center rounded-md bg-blue-100 font-bold text-blue-600"
+          class="flex-column group flex h-6 w-6 items-center justify-center rounded-md bg-blue-100 font-bold text-blue-600"
         >
-          🎨 ctrl+k
+          <span class="group-hover:hidden"> 🎨 </span>
+          <span class="hidden group-hover:block">ctrl+k</span>
         </span>
       </button>
     </div>

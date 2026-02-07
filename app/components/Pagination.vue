@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
   const emits = defineEmits(['emit_update_current'])
 
   const props = defineProps({

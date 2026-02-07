@@ -23,10 +23,23 @@
     sortKey: 'createdAt',
     sortOrder: 'desc',
   })
-  const { data: products_response, loading: products_loading } =
-    useQuery<IProductsPaginated>(() =>
-      productService.getAll(query.value, +store_id.value)
-    )
+  const {
+    data: products_response,
+    loading: products_loading,
+    refetch,
+  } = useQuery<IProductsPaginated>(() =>
+    productService.getAll(query.value, +store_id.value)
+  )
+
+  const wrapRef = ref<HTMLElement | null>(null)
+
+  async function updateCurrent(newPage: number) {
+    query.value.page = newPage
+    await refetch()
+    if (wrapRef.value) {
+      wrapRef.value.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
 </script>
 
 <template>
@@ -35,9 +48,8 @@
       <FrontHeaders
         title="Products Catalog"
         text="Explore our wide range of products."
-        :center="true"
       />
-      <div class="flex items-start gap-8">
+      <div ref="wrapRef" class="flex items-start gap-8 pb-10">
         <div class="w-64 flex-shrink-0 md:w-full">
           <Preloader v-if="store_loading || categories_loading" />
           <ShopSidebar
@@ -50,11 +62,18 @@
           </div>
         </div>
         <Preloader v-if="products_loading" />
-        <ProductGrid
-          v-else-if="products_response?.data.length"
-          :products="products_response?.data || []"
-          class="flex-1"
-        />
+        <div v-else-if="products_response?.data.length">
+          <ProductGrid
+            :products="products_response?.data || []"
+            class="mb-12"
+          />
+          <Pagination
+            v-if="products_response"
+            :current-page="products_response.meta.page"
+            :total-pages="products_response.meta.totalPages"
+            @emit_update_current="updateCurrent"
+          />
+        </div>
         <h3 v-else class="text-center text-gray-500">
           No products found. Try adjusting your filters.
         </h3>
