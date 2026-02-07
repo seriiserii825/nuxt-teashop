@@ -28,6 +28,7 @@
     category_ids: parseNumberCsv(route.query.category_ids),
     price_min: undefined,
     price_max: undefined,
+    color_id: undefined,
   })
   const {
     data: products_response,
@@ -54,6 +55,8 @@
 
       query.value.price_min = q.price_min ? Number(q.price_min) : undefined
       query.value.price_max = q.price_max ? Number(q.price_max) : undefined
+
+      query.value.color_id = q.color_id ? Number(q.color_id) : undefined
 
       query.value.page = 1
 

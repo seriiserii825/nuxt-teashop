@@ -43,6 +43,12 @@
         class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-black/0 to-black/0 opacity-0 transition duration-300 group-hover:opacity-100"
       ></div>
 
+      <div
+        v-if="product.color"
+        class="absolute left-3 top-3 h-4 w-4 rounded-full border-2 border-white shadow-lg"
+        :style="`background: ${product.color.value}`"
+      ></div>
+
       <!-- Actions -->
       <div
         class="absolute right-3 top-3 flex -translate-y-1 gap-2 opacity-0 transition duration-200 group-hover:translate-y-0 group-hover:opacity-100 md:translate-y-0 md:opacity-100"

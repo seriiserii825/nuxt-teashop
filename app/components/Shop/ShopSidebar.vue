@@ -89,7 +89,7 @@
     }
 
     if (selectedStars.value) query.stars = selectedStars.value
-    if (selectedColors.value) query.colors = selectedColors.value
+    if (selectedColors.value) query.color_id = selectedColors.value
 
     navigateTo({ path: route.path, query }, { replace: true }) // чтобы не засорять history
   }
@@ -103,10 +103,10 @@
   )
 
   function selectColor(index: number) {
-    const colorId = props.colors[index]?.id.toString()
-    if (!colorId) return
+    const color_id = props.colors[index]?.id.toString()
+    if (!color_id) return
 
-    selectedColors.value = selectedColors.value === colorId ? null : colorId
+    selectedColors.value = selectedColors.value === color_id ? null : color_id
   }
 
   const resetFilters = () => {
@@ -121,7 +121,7 @@
       priceRange: priceRange.value,
       categories: selectedCategoriesCheckbox.value,
       stars: selectedStars.value,
-      colors: selectedColors.value,
+      color_id: selectedColors.value,
     })
   }
 
@@ -194,12 +194,6 @@
 
     <!-- Кнопки -->
     <div class="space-y-3">
-      <button
-        class="w-full rounded-lg bg-cyan-500 px-4 py-2.5 font-medium text-white transition hover:bg-cyan-600"
-        @click="applyFilters"
-      >
-        Apply Filters
-      </button>
       <button
         class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 font-medium text-gray-700 transition hover:bg-gray-50"
         @click="resetFilters"

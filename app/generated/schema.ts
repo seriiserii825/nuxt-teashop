@@ -849,6 +849,11 @@ export interface components {
              * @example 10
              */
             price_max?: number;
+            /**
+             * @description Filter by color ID
+             * @example 1
+             */
+            color_id?: number;
         };
         ProductsPaginatedDto: {
             /** @description Array of products */
@@ -1246,6 +1251,8 @@ export interface operations {
                 price_min?: number;
                 /** @description Maximum price */
                 price_max?: number;
+                /** @description Filter by color ID */
+                color_id?: number;
             };
             header?: never;
             path: {

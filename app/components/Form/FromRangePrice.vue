@@ -98,7 +98,7 @@
       </div>
     </div>
 
-    <div class="relative px-2 py-4">
+    <div class="relative overflow-hidden px-2 py-4">
       <div class="relative h-2 rounded-lg bg-gray-200">
         <div
           class="absolute top-0 h-2 rounded-lg bg-gradient-to-r from-cyan-500 to-cyan-400 transition-all"
