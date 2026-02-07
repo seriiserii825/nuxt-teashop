@@ -1,6 +1,14 @@
 <script setup lang="ts">
   import StComponentDemoGroup from './StComponentDemoGroup.vue'
 
+  function goToGoogle() {
+    const config = useRuntimeConfig()
+    const serverUrl = config.public.serverUrl
+    const google_url = `${serverUrl}/auth/google`
+    console.log('google_url', google_url)
+    window.location.href = google_url
+  }
+
   const buttonExamples = [
     {
       title: 'Variants',
@@ -10,7 +18,8 @@
 <Btn variant="btn-danger">Danger</Btn>
 <Btn variant="btn-success">Success</Btn>
 <Btn variant="btn-warning">Warning</Btn>
-<Btn variant="btn-outline">Outline</Btn>`,
+<Btn variant="btn-outline">Outline</Btn>
+      `,
     },
     {
       title: 'Button types',
@@ -24,6 +33,14 @@
       description: 'Loading and disabled states.',
       code: `<Btn :loading="true">Loading</Btn>
 <Btn :disabled="true">Disabled</Btn>`,
+    },
+    {
+      title: 'Google Button',
+      description: 'A button variant for Google authentication.',
+      code: `<Btn variant="btn-outline" class="mb-4 w-full gap-2" @click="goToGoogle">
+    <img src="/images/google.png" alt="Google" class="inline h-4 w-4" />
+    Continue with Google
+  </Btn>`,
     },
   ]
 
@@ -55,6 +72,13 @@
       values: '—',
       default: 'false',
       description: 'disable the button',
+    },
+    {
+      name: 'Google Button',
+      type: 'button',
+      values: '—',
+      default: '—',
+      description: 'A button variant for Google authentication.',
     },
   ]
 </script>
@@ -92,6 +116,20 @@
         <div class="flex flex-wrap items-center gap-3">
           <Btn :loading="true">Loading</Btn>
           <Btn :disabled="true">Disabled</Btn>
+        </div>
+      </template>
+
+      <!-- Example 2: States -->
+      <template #example-3>
+        <div class="flex">
+          <Btn
+            variant="btn-outline"
+            class="mb-4 w-full gap-2"
+            @click="goToGoogle"
+          >
+            <img src="/images/google.png" alt="Google" class="inline h-4 w-4" />
+            Continue with Google
+          </Btn>
         </div>
       </template>
     </StComponentDemoGroup>
