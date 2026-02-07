@@ -19,3 +19,9 @@ type ProductUpdateSchema = components['schemas']['UpdateProductDto']
 export type IProductUpdate = ProductUpdateSchema & {
   images?: File[]
 }
+
+type ProductsPaginatedDto = components['schemas']['ProductsPaginatedDto']
+export type IProductsPaginated = ProductsPaginatedDto
+
+type QueryProductDto = components['schemas']['QueryProductDto']
+export type IQueryProduct = QueryProductDto

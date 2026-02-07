@@ -3,20 +3,21 @@ import type {
   IProduct,
   IProductCreate,
   IProductUpdate,
+  IQueryProduct,
 } from '~/interfaces/IProduct'
 import type { IProductResponse } from '~/interfaces/IProductResponse'
 
 import { useAxios } from '../axiosInstance'
 
 export const productService = {
-  getAll: async (
-    page = 1,
-    limit = 10,
-    search = '',
-    sortKey = '',
-    sortOrder: 'asc' | 'desc' = 'desc',
-    store_id: number
-  ) => {
+  getAll: async (query: IQueryProduct, store_id: number) => {
+    const {
+      page = 1,
+      limit = 10,
+      search = '',
+      sortKey = '',
+      sortOrder = 'desc',
+    } = query
     const { axiosWithToken } = useAxios()
 
     // Формируем параметры, убирая пустые значения

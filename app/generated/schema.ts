@@ -822,11 +822,25 @@ export interface components {
              */
             totalPages: number;
         };
+        QueryProductDto: {
+            /** @default 1 */
+            page: number;
+            /** @default 10 */
+            limit: number;
+            search?: string;
+            sortKey?: string;
+            /**
+             * @default desc
+             * @enum {string}
+             */
+            sortOrder: "asc" | "desc";
+        };
         ProductsPaginatedDto: {
             /** @description Array of products */
             data: components["schemas"]["ProductBasicDto"][];
             /** @description Pagination metadata */
             meta: components["schemas"]["PaginationMetaDto"];
+            query?: components["schemas"]["QueryProductDto"];
         };
         CreateCategoryDto: {
             /**
