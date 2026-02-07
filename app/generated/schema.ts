@@ -838,7 +838,7 @@ export interface components {
              * @description Filter by category IDs (comma-separated)
              * @example 1,2,3
              */
-            category_ids?: string[];
+            category_ids?: string;
         };
         ProductsPaginatedDto: {
             /** @description Array of products */
@@ -1231,7 +1231,7 @@ export interface operations {
                 /** @description Sort order (asc or desc) */
                 sortOrder?: "asc" | "desc";
                 /** @description Filter by category IDs (comma-separated) */
-                category_ids?: string[];
+                category_ids?: string;
             };
             header?: never;
             path: {
