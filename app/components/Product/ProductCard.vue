@@ -21,60 +21,89 @@
 </script>
 <template>
   <div
-    class="group relative flex flex-col overflow-hidden rounded-xl bg-white ring-1 ring-gray-200 transition duration-300 hover:ring-2 hover:ring-blue-400"
+    class="group relative flex h-full flex-col overflow-hidden rounded-2xl bg-white ring-1 ring-gray-200 transition hover:-translate-y-0.5 hover:shadow-xl hover:ring-blue-200"
   >
-    <!-- Image Container -->
+    <!-- Image -->
     <NuxtLink
       :to="`/product/${product.id}`"
-      class="relative block aspect-[1/0.8] overflow-hidden bg-gray-50"
+      class="relative block overflow-hidden bg-gray-50"
     >
-      <img
-        :src="productImageUrl"
-        alt="Apple MacBook Pro"
-        class="h-full w-full scale-[0.8] object-contain transition duration-700 group-hover:scale-110"
-      />
+      <!-- fixed ratio, nice crop -->
+      <div class="aspect-[4/3]">
+        <img
+          :src="productImageUrl"
+          :alt="product.title"
+          class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+          loading="lazy"
+        />
+      </div>
+
+      <!-- subtle overlay -->
       <div
-        class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition duration-300 group-hover:opacity-100"
+        class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-black/0 to-black/0 opacity-0 transition duration-300 group-hover:opacity-100"
       ></div>
+
+      <!-- Actions -->
       <div
-        class="absolute bottom-4 left-1/2 flex -translate-x-1/2 translate-y-4 gap-2 opacity-0 transition duration-300 group-hover:translate-y-0 group-hover:opacity-100"
+        class="absolute right-3 top-3 flex -translate-y-1 gap-2 opacity-0 transition duration-200 group-hover:translate-y-0 group-hover:opacity-100 md:translate-y-0 md:opacity-100"
       >
         <NuxtLink
           :to="`/product/${product.id}`"
-          class="flex items-center gap-1.5 rounded-lg bg-white px-4 py-2 text-sm font-semibold text-gray-900 shadow-lg transition hover:bg-gray-50"
+          class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/95 shadow-lg ring-1 ring-black/5 backdrop-blur transition hover:bg-white"
+          aria-label="View"
         >
           <IconIView />
-          <span>View</span>
         </NuxtLink>
+
         <button
-          class="flex items-center gap-1.5 rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-lg transition hover:bg-blue-700"
+          class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-white shadow-lg transition hover:bg-blue-700"
+          aria-label="Add to cart"
         >
           <IconICartView />
-          <span>Cart</span>
         </button>
       </div>
     </NuxtLink>
 
     <!-- Content -->
-    <div class="flex flex-1 flex-col p-3">
-      <p v-if="product.category" class="mb-2 text-sm text-gray-500">
-        {{ product.category.title }}
-      </p>
-      <NuxtLink to="/product/123">
+    <div class="flex flex-1 flex-col p-4">
+      <div class="mb-2 flex items-start justify-between gap-3">
+        <p
+          v-if="product.category"
+          class="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-1 text-xs font-medium text-gray-600"
+        >
+          {{ product.category.title }}
+        </p>
+
+        <button
+          class="rounded-full p-2 text-gray-400 transition hover:bg-gray-50 hover:text-red-500"
+          aria-label="Like"
+        >
+          <IconILike />
+        </button>
+      </div>
+
+      <NuxtLink :to="`/product/${product.id}`" class="group/title">
         <h3
-          class="mb-3 text-xl font-bold text-gray-900 transition hover:text-blue-600"
+          class="line-clamp-2 text-base font-semibold leading-snug text-gray-900 transition group-hover/title:text-blue-600"
         >
           {{ product.title }}
         </h3>
       </NuxtLink>
 
-      <div class="mt-auto flex items-center justify-between">
-        <p class="text-2xl font-bold text-blue-600">
-          {{ useFormatPrice(product.price) }}
-        </p>
-        <button class="text-gray-400 transition hover:text-red-500">
-          <IconILike />
-        </button>
+      <!-- bottom row -->
+      <div class="mt-auto pt-4">
+        <div class="flex items-end justify-between gap-3">
+          <p class="text-xl font-bold tracking-tight text-blue-600">
+            {{ useFormatPrice(product.price) }}
+          </p>
+
+          <NuxtLink
+            :to="`/product/${product.id}`"
+            class="text-sm font-medium text-gray-500 transition hover:text-gray-700"
+          >
+            Details →
+          </NuxtLink>
+        </div>
       </div>
     </div>
   </div>

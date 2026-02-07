@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import { productService } from '~/api/services/productService'
+  import type { TableColumn } from '~/components/DataTable.vue'
   import type { IProduct } from '~/interfaces/IProduct'
   import type { IProductResponse } from '~/interfaces/IProductResponse'
   import type { TSortColumn } from '~/interfaces/TSortColumn'
@@ -9,7 +10,7 @@
   })
 
   const page = ref(1)
-  const limit = ref(5)
+  const limit = ref(25)
   const search = ref('')
   const selected_product_id = ref<string | null>(null)
   const row_action = ref<'edit' | 'delete' | null>(null)
@@ -32,7 +33,8 @@
     )
   )
 
-  const columns = ref<Record<'key' | 'label', string>[]>([
+  const columns = ref<TableColumn[]>([
+    { key: 'image', label: 'Image', html: true, sortable: false },
     { key: 'title', label: 'Title' },
     { key: 'color', label: 'Color' },
     { key: 'category', label: 'Category' },
@@ -52,6 +54,9 @@
     if (!response.value) return []
     return response.value.data.map((product: IProduct) => ({
       ...product,
+      image: product.images[0]
+        ? `<img width="100" src="${userGetServerUrl(product.images[0])}" alt="product" />`
+        : null,
       price: `${useFormatPrice(product.price)}`,
       color: product.color?.name,
       category: product.category?.title,
