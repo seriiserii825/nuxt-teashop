@@ -30,8 +30,8 @@ export const productService = {
       params.sortOrder = sortOrder
     }
 
-    if (category_ids.length > 0) {
-      params.category_ids = category_ids.join(',')
+    if (category_ids) {
+      params.category_ids = String(category_ids)
     }
 
     const { data } = await axiosWithToken<IProductResponse>({
