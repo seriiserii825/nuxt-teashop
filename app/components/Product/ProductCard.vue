@@ -21,7 +21,7 @@
 </script>
 <template>
   <div
-    class="group relative flex h-full flex-col overflow-hidden rounded-2xl bg-white ring-1 ring-gray-200 transition hover:-translate-y-0.5 hover:shadow-xl hover:ring-blue-200"
+    class="group relative flex h-full flex-col overflow-hidden rounded-md bg-white ring-1 ring-gray-200 transition hover:-translate-y-0.5 hover:shadow-xl hover:ring-blue-200"
   >
     <!-- Image -->
     <NuxtLink
