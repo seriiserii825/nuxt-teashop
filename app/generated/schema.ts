@@ -1201,10 +1201,15 @@ export interface operations {
     ProductController_findAll: {
         parameters: {
             query?: {
+                /** @description Page number */
                 page?: number;
+                /** @description Number of items per page */
                 limit?: number;
+                /** @description Search term for product title or description */
                 search?: string;
+                /** @description Field to sort by (e.g., title, price) */
                 sortKey?: string;
+                /** @description Sort order (asc or desc) */
                 sortOrder?: "asc" | "desc";
             };
             header?: never;
