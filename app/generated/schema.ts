@@ -534,6 +534,11 @@ export interface components {
              */
             user_id: number;
             /**
+             * @description Average Rating
+             * @example 4.5
+             */
+            avg_rating: number;
+            /**
              * Format: date-time
              * @description Creation Date
              * @example 2024-01-01T00:00:00Z
