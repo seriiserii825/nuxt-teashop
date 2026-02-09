@@ -539,6 +539,11 @@ export interface components {
              */
             avg_rating: number;
             /**
+             * @description Total Reviews Count
+             * @example 10
+             */
+            reviews_count: number;
+            /**
              * Format: date-time
              * @description Creation Date
              * @example 2024-01-01T00:00:00Z

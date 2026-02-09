@@ -96,6 +96,18 @@
         </h3>
       </NuxtLink>
 
+      <!-- Rating -->
+      <div class="mb-4 mt-2 flex items-center gap-2">
+        <div class="flex items-center gap-0.5">
+          <IconIStar
+            v-for="i in 5"
+            :key="i"
+            :active="i <= product.avg_rating"
+          />
+        </div>
+        <span class="text-sm text-gray-500">({{ product.reviews_count }})</span>
+      </div>
+
       <!-- bottom row -->
       <div class="mt-auto pt-4">
         <div class="flex items-end justify-between gap-3">

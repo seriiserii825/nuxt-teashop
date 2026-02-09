@@ -37,7 +37,7 @@
       class="h-4 w-4 rounded border-gray-300 text-cyan-500 focus:ring-cyan-500"
     />
     <span class="ml-3 flex items-center">
-      <IStar v-for="i in 5" :key="i" :active="i <= count" />
+      <IconIStar v-for="i in 5" :key="i" :active="i <= count" />
       <span class="ml-2 text-gray-700">и выше</span>
     </span>
   </label>
