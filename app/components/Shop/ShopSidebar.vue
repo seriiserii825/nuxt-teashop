@@ -90,6 +90,7 @@
 
     if (selectedStars.value) query.stars = selectedStars.value
     if (selectedColors.value) query.color_id = selectedColors.value
+    if (selectedStars.value) query.stars = selectedStars.value
 
     navigateTo({ path: route.path, query }, { replace: true }) // чтобы не засорять history
   }
@@ -114,15 +115,6 @@
     selectedCategoriesCheckbox.value = []
     selectedStars.value = ''
     selectedColors.value = null
-  }
-
-  const applyFilters = () => {
-    console.log('Applied filters:', {
-      priceRange: priceRange.value,
-      categories: selectedCategoriesCheckbox.value,
-      stars: selectedStars.value,
-      color_id: selectedColors.value,
-    })
   }
 
   onMounted(() => {
@@ -156,9 +148,11 @@
     <div class="mb-8 border-b border-gray-200 pb-8">
       <h3 class="mb-4 text-lg font-semibold text-gray-900">Рейтинг</h3>
       <div class="space-y-2">
-        <FormStars v-model="selectedStars" :count="4" name="rating" value="5" />
-        <FormStars v-model="selectedStars" :count="3" name="rating" value="4" />
-        <FormStars v-model="selectedStars" :count="2" name="rating" value="3" />
+        <FormStars v-model="selectedStars" :count="5" name="rating" value="5" />
+        <FormStars v-model="selectedStars" :count="4" name="rating" value="4" />
+        <FormStars v-model="selectedStars" :count="3" name="rating" value="3" />
+        <FormStars v-model="selectedStars" :count="2" name="rating" value="2" />
+        <FormStars v-model="selectedStars" :count="1" name="rating" value="1" />
       </div>
     </div>
 

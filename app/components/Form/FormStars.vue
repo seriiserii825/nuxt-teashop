@@ -38,7 +38,7 @@
     />
     <span class="ml-3 flex items-center">
       <IconIStar v-for="i in 5" :key="i" :active="i <= count" />
-      <span class="ml-2 text-gray-700">и выше</span>
+      <span class="ml-2 text-gray-700">and higher</span>
     </span>
   </label>
 </template>

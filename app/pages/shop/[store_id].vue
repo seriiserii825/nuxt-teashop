@@ -29,6 +29,7 @@
     price_min: undefined,
     price_max: undefined,
     color_id: undefined,
+    stars: undefined,
   })
   const {
     data: products_response,
@@ -61,6 +62,8 @@
       query.value.price_max = q.price_max ? Number(q.price_max) : undefined
 
       query.value.color_id = q.color_id ? Number(q.color_id) : undefined
+
+      query.value.stars = q.stars ? Number(q.stars) : undefined
 
       query.value.page = 1
 

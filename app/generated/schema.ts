@@ -864,6 +864,11 @@ export interface components {
              * @example 1
              */
             color_id?: number;
+            /**
+             * @description Filter by minimum star rating
+             * @example 4
+             */
+            stars?: number;
         };
         ProductsPaginatedDto: {
             /** @description Array of products */
@@ -1263,6 +1268,8 @@ export interface operations {
                 price_max?: number;
                 /** @description Filter by color ID */
                 color_id?: number;
+                /** @description Filter by minimum star rating */
+                stars?: number;
             };
             header?: never;
             path: {

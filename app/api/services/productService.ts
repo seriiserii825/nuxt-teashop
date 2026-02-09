@@ -21,6 +21,7 @@ export const productService = {
       price_min = undefined,
       price_max = undefined,
       color_id = undefined,
+      stars = undefined,
     } = query
     const { axiosWithToken } = useAxios()
 
@@ -47,6 +48,10 @@ export const productService = {
 
     if (color_id !== undefined) {
       params.color_id = color_id
+    }
+
+    if (stars !== undefined) {
+      params.stars = stars
     }
 
     const { data } = await axiosWithToken<IProductResponse>({
