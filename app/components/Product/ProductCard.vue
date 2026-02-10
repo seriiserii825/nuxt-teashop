@@ -8,6 +8,10 @@
       type: Object as PropType<IProduct>,
       required: true,
     },
+    isFavorite: {
+      type: Boolean,
+      default: false,
+    },
   })
 
   const productImageUrl = computed(() => {
@@ -83,6 +87,7 @@
         <button
           class="rounded-full p-2 text-gray-400 transition hover:bg-gray-50 hover:text-red-500"
           aria-label="Like"
+          :class="{ 'text-red-500': isFavorite }"
         >
           <IconILike />
         </button>
