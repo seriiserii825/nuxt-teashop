@@ -15,8 +15,8 @@ export const productService = {
       page = 1,
       limit = 10,
       search = '',
-      sortKey = '',
-      sortOrder = 'desc',
+      sort_key = '',
+      sort_order = 'desc',
       category_ids = [],
       price_min = undefined,
       price_max = undefined,
@@ -25,13 +25,15 @@ export const productService = {
     } = query
     const { axiosWithToken } = useAxios()
 
+    console.log(JSON.stringify(query, null, 4))
+
     // Формируем параметры, убирая пустые значения
     const params: Record<string, string | number> = { page, limit }
 
     if (search) params.search = search
-    if (sortKey) {
-      params.sortKey = sortKey
-      params.sortOrder = sortOrder
+    if (sort_key) {
+      params.sort_key = sort_key
+      params.sort_order = sort_order
     }
 
     if (category_ids) {
@@ -75,8 +77,8 @@ export const productService = {
     page = 1,
     limit = 10,
     search = '',
-    sortKey = '',
-    sortOrder: 'asc' | 'desc' = 'desc'
+    sort_key = '',
+    sort_order: 'asc' | 'desc' = 'desc'
   ) => {
     const { axiosWithToken } = useAxios()
 
@@ -84,9 +86,9 @@ export const productService = {
     const params: Record<string, string | number> = { page, limit }
 
     if (search) params.search = search
-    if (sortKey) {
-      params.sortKey = sortKey
-      params.sortOrder = sortOrder
+    if (sort_key) {
+      params.sort_key = sort_key
+      params.sort_order = sort_order
     }
 
     const { data } = await axiosWithToken<IProductResponse>({

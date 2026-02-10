@@ -23,8 +23,8 @@
     page: 1,
     limit: 12,
     search: '',
-    sortKey: 'createdAt',
-    sortOrder: 'desc',
+    sort_key: 'createdAt',
+    sort_order: 'desc',
     category_ids: parseNumberCsv(route.query.category_ids),
     price_min: undefined,
     price_max: undefined,
@@ -64,6 +64,12 @@
       query.value.color_id = q.color_id ? Number(q.color_id) : undefined
 
       query.value.stars = q.stars ? Number(q.stars) : undefined
+
+      query.value.sort_key = q.sort_key ? String(q.sort_key) : 'createdAt'
+
+      query.value.sort_order = q.sort_order
+        ? (String(q.sort_order) as 'asc' | 'desc')
+        : 'desc'
 
       query.value.page = 1
 

@@ -29,7 +29,11 @@
     if (selectedSortKey.value) query.sort_key = selectedSortKey.value
     if (selectedSortOrder.value) query.sort_order = selectedSortOrder.value
 
-    navigateTo({ path: route.path, query }, { replace: true }) // чтобы не засорять history
+    // get old query from url and merge with new one
+
+    const new_query = { ...route.query, ...query }
+
+    navigateTo({ path: route.path, query: new_query }, { replace: true }) // чтобы не засорять history
   }
 
   watch(
@@ -39,6 +43,9 @@
     },
     { deep: true }
   )
+  onMounted(() => {
+    updateURL()
+  })
 </script>
 
 <template>

@@ -838,12 +838,12 @@ export interface components {
             /** @default 10 */
             limit: number;
             search?: string;
-            sortKey?: string;
+            sort_key?: string;
             /**
              * @default desc
              * @enum {string}
              */
-            sortOrder: "asc" | "desc";
+            sort_order: "asc" | "desc";
             /**
              * @description Filter by category IDs (comma-separated)
              * @example 1,2,3
@@ -865,7 +865,7 @@ export interface components {
              */
             color_id?: number;
             /**
-             * @description Filter by minimum star rating
+             * @description Filter by star rating
              * @example 4
              */
             stars?: number;
@@ -1256,10 +1256,8 @@ export interface operations {
                 limit?: number;
                 /** @description Search term for product title or description */
                 search?: string;
-                /** @description Field to sort by (e.g., title, price) */
-                sortKey?: string;
-                /** @description Sort order (asc or desc) */
-                sortOrder?: "asc" | "desc";
+                sort_key?: string;
+                sort_order?: "asc" | "desc";
                 /** @description Filter by category IDs (comma-separated) */
                 category_ids?: string;
                 /** @description Minimum price */
@@ -1268,8 +1266,12 @@ export interface operations {
                 price_max?: number;
                 /** @description Filter by color ID */
                 color_id?: number;
-                /** @description Filter by minimum star rating */
+                /** @description Filter by star rating */
                 stars?: number;
+                /** @description Sort order (asc or desc) */
+                sortOrder?: string;
+                /** @description Field to sort by (e.g., title, price) */
+                sortKey?: string;
             };
             header?: never;
             path: {

@@ -92,7 +92,9 @@
     if (selectedColors.value) query.color_id = selectedColors.value
     if (selectedStars.value) query.stars = selectedStars.value
 
-    navigateTo({ path: route.path, query }, { replace: true }) // чтобы не засорять history
+    const new_query = { ...route.query, ...query }
+
+    navigateTo({ path: route.path, query: new_query }, { replace: true }) // чтобы не засорять history
   }
 
   watch(
