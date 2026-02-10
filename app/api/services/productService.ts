@@ -25,8 +25,6 @@ export const productService = {
     } = query
     const { axiosWithToken } = useAxios()
 
-    console.log(JSON.stringify(query, null, 4))
-
     // Формируем параметры, убирая пустые значения
     const params: Record<string, string | number> = { page, limit }
 
