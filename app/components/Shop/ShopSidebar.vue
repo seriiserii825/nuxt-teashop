@@ -78,23 +78,26 @@
 
   // Функция обновления URL
   const updateURL = () => {
-    const query: Record<string, string> = {}
+    const query: Record<string, string | undefined> = { ...route.query }
+
+    // Удаляем все ключи фильтров, затем добавляем только активные
+    delete query.price_min
+    delete query.price_max
+    delete query.category_ids
+    delete query.stars
+    delete query.color_id
 
     if (priceRange.value[0] !== 0) query.price_min = String(priceRange.value[0])
     if (priceRange.value[1] !== 500000)
       query.price_max = String(priceRange.value[1])
 
-    if (selectedCategoriesCheckbox.value.length > 0) {
-      query.category_ids = selectedCategoriesCheckbox.value.join(',') // ✅ ВАЖНО
-    }
+    if (selectedCategoriesCheckbox.value.length > 0)
+      query.category_ids = selectedCategoriesCheckbox.value.join(',')
 
     if (selectedStars.value) query.stars = selectedStars.value
     if (selectedColors.value) query.color_id = selectedColors.value
-    if (selectedStars.value) query.stars = selectedStars.value
 
-    const new_query = { ...route.query, ...query }
-
-    navigateTo({ path: route.path, query: new_query }, { replace: true }) // чтобы не засорять history
+    navigateTo({ path: route.path, query }, { replace: true })
   }
 
   watch(
