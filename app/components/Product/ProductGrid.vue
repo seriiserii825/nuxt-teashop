@@ -16,7 +16,6 @@
       v-for="product in products"
       :key="product.id"
       :product="product"
-      :is-favorite="useProductIsInUserFavorites(product.id)"
     />
   </div>
 </template>

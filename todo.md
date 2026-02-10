@@ -1,0 +1,1 @@
+favorites with local storage
