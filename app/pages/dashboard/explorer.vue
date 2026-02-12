@@ -7,7 +7,6 @@
   <section class="bg-white py-16">
     <div v-if="search_query" class="container mx-auto px-4">
       <FrontHeaders :title="`Search for '${search_query}'`" />
-      <ProductGrid />
     </div>
     <div v-else class="container mx-auto px-4">
       <h2 class="mb-4 text-2xl font-bold">

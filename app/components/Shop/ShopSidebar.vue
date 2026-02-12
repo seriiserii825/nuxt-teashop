@@ -78,7 +78,7 @@
 
   // Функция обновления URL
   const updateURL = () => {
-    const query: Record<string, string | undefined> = { ...route.query }
+    const query = { ...route.query }
 
     // Удаляем все ключи фильтров, затем добавляем только активные
     delete query.price_min

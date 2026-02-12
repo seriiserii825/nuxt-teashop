@@ -19,17 +19,17 @@
     }
   }
 
-  function goTo(page) {
+  function goTo(page: number | string) {
     if (typeof page === 'number' && page !== props.currentPage) {
       emits('emit_update_current', page)
     }
   }
 
-  function buildPages(current, total, win = 1, edge = 2) {
+  function buildPages(current: number, total: number, win = 1, edge = 2) {
     if (total <= 0) return []
 
     const cur = Math.max(1, Math.min(current, total))
-    const set = new Set()
+    const set = new Set<number>()
 
     for (let i = 1; i <= Math.min(edge, total); i++) set.add(i)
     for (let i = Math.max(1, cur - win); i <= Math.min(total, cur + win); i++)
