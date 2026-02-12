@@ -838,7 +838,8 @@ export interface components {
             /** @default 10 */
             limit: number;
             search?: string;
-            sort_key?: string;
+            /** @enum {string} */
+            sort_key?: "title" | "price" | "stars" | "createdAt";
             /**
              * @default desc
              * @enum {string}
@@ -1256,7 +1257,7 @@ export interface operations {
                 limit?: number;
                 /** @description Search term for product title or description */
                 search?: string;
-                sort_key?: string;
+                sort_key?: "title" | "price" | "stars" | "createdAt";
                 sort_order?: "asc" | "desc";
                 /** @description Filter by category IDs (comma-separated) */
                 category_ids?: string;
