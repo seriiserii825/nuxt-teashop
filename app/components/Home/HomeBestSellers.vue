@@ -9,7 +9,6 @@
         link-text="Find out more"
         link-url="/catalog"
       />
-      <ProductGrid />
     </div>
   </section>
 </template>

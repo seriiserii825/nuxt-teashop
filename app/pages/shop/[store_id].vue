@@ -65,7 +65,9 @@
 
       query.value.stars = q.stars ? Number(q.stars) : undefined
 
-      query.value.sort_key = q.sort_key ? String(q.sort_key) : 'createdAt'
+      query.value.sort_key = q.sort_key
+        ? (String(q.sort_key) as IQueryProduct['sort_key'])
+        : 'createdAt'
 
       query.value.sort_order = q.sort_order
         ? (String(q.sort_order) as 'asc' | 'desc')

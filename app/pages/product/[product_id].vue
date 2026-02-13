@@ -20,7 +20,6 @@
         title="Similar Products"
         text="You may like these products also"
       />
-      <ProductGrid />
     </div>
 
     <div class="mt-20">
