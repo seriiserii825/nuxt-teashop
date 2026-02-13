@@ -1,11 +1,26 @@
 <script setup lang="ts">
   import { productService } from '~/api/services/productService'
-  import type { IProduct } from '~/interfaces/IProduct'
+  import type {
+    IProduct,
+    IProductsPaginated,
+    IQueryProduct,
+  } from '~/interfaces/IProduct'
 
   const product_id = useIdParamFromUrl('product_id')
+  const current_category_id = ref<number | null>(null)
 
   const { data: product, loading } = useQuery<IProduct>(() =>
     productService.getById(product_id.value)
+  )
+
+  watch(
+    () => product.value,
+    (newProduct) => {
+      if (newProduct) {
+        current_category_id.value = newProduct.category_id
+      }
+    },
+    { immediate: true }
   )
 </script>
 

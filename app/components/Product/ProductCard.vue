@@ -1,7 +1,6 @@
 <script setup lang="ts">
   import type { PropType } from 'vue'
 
-  import { userService } from '~/api/services/userService'
   import type { IProduct } from '~/interfaces/IProduct'
 
   const emits = defineEmits(['toggle-favorite'])
@@ -14,6 +13,10 @@
     isFavorite: {
       type: Boolean,
       default: false,
+    },
+    storeId: {
+      type: Number,
+      required: true,
     },
   })
 
@@ -36,7 +39,7 @@
   >
     <!-- Image -->
     <NuxtLink
-      :to="`/product/${product.id}`"
+      :to="`/shop/${storeId}/product/${product.id}`"
       class="relative block overflow-hidden bg-gray-50"
     >
       <!-- fixed ratio, nice crop -->

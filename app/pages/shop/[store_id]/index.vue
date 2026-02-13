@@ -141,6 +141,7 @@
           </div>
           <ProductGrid
             :products="products_response?.data || []"
+            :store-id="+store_id"
             class="mb-12"
             @toggle-favorite="toggleFavorite"
           />

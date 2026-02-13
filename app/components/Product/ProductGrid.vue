@@ -5,6 +5,7 @@
 
   interface Props {
     products: IProduct[]
+    storeId: number
   }
 
   withDefaults(defineProps<Props>(), {})
@@ -25,6 +26,7 @@
       v-for="product in products"
       :key="product.id"
       :product="product"
+      :store-id="storeId"
       :is-favorite="favorite_products_ids.includes(product.id)"
       @toggle-favorite="toggleFavorite"
     />
