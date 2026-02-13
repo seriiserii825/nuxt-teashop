@@ -681,6 +681,10 @@ export interface components {
             /** @description List of favorite products */
             favorite_products: components["schemas"]["ProductBasicDto"][];
         };
+        UserFavoriteDto: {
+            message: string;
+            isFavorite: boolean;
+        };
         CreateProductDto: {
             /**
              * @description Product Title
@@ -1159,7 +1163,9 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content?: never;
+                content: {
+                    "application/json": components["schemas"]["UserFavoriteDto"];
+                };
             };
         };
     };

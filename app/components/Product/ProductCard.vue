@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import type { PropType } from 'vue'
 
+  import { userService } from '~/api/services/userService'
   import type { IProduct } from '~/interfaces/IProduct'
 
   const props = defineProps({
@@ -14,6 +15,8 @@
     },
   })
 
+  const is_favorite = ref(props.isFavorite)
+
   const productImageUrl = computed(() => {
     const image = props.product.images[0] || null
     if (!image) {
@@ -22,6 +25,18 @@
       return userGetServerUrl(image)
     }
   })
+
+  const store_id = useIdParamFromUrl('store_id')
+
+  async function toggleFavorite(product_id: number) {
+    try {
+      const data = await userService.toggleFavorite(product_id, +store_id.value)
+      useSweetAlert('success', data.message)
+      is_favorite.value = data.isFavorite
+    } catch (error) {
+      handleAxiosError(error)
+    }
+  }
 </script>
 <template>
   <div
@@ -81,13 +96,14 @@
           v-if="product.category"
           class="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-1 text-xs font-medium text-gray-600"
         >
-          {{ product.category.title }}
+          {{ product.category.title }} ({{ product.id }})
         </p>
 
         <button
           class="rounded-full p-2 text-gray-400 transition hover:bg-gray-50 hover:text-red-500"
           aria-label="Like"
-          :class="{ 'text-red-500': isFavorite }"
+          :class="{ 'text-red-500': is_favorite }"
+          @click="toggleFavorite(product.id)"
         >
           <IconILike />
         </button>

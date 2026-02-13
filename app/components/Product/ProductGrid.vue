@@ -6,6 +6,9 @@
   }
 
   withDefaults(defineProps<Props>(), {})
+
+  const auth_store = useAuthStore()
+  const { favorite_products_ids } = storeToRefs(auth_store)
 </script>
 
 <template>
@@ -16,6 +19,7 @@
       v-for="product in products"
       :key="product.id"
       :product="product"
+      :is-favorite="favorite_products_ids.includes(product.id)"
     />
   </div>
 </template>

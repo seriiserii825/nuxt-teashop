@@ -1,5 +1,5 @@
 import { API_URL } from '~/config/api_url.config'
-import type { IUser } from '~/interfaces/IUser'
+import type { IUser, IUserFavorite } from '~/interfaces/IUser'
 
 import { useAxios } from '../axiosInstance'
 
@@ -20,12 +20,12 @@ export const userService = {
     })
     return data
   },
-  favorites: async () => {
+  toggleFavorite: async (product_id: number, store_id: number) => {
     const { axiosWithToken } = useAxios()
-    const { data } = await axiosWithToken<IUser[]>({
-      url: API_URL.users('/favorites'),
+    const response = await axiosWithToken<IUserFavorite>({
+      url: API_URL.users(`/favorites/${product_id}/store/${store_id}`),
       method: 'PATCH',
     })
-    return data
+    return response.data
   },
 }
