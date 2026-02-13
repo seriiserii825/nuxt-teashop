@@ -113,10 +113,10 @@ export const productService = {
     })
     return data || []
   },
-  getById: async (id: string, store_id: number) => {
+  getById: async (id: string) => {
     const { axiosWithToken } = useAxios()
     const { data } = await axiosWithToken<IProduct>({
-      url: API_URL.products(`/${id}/store/${store_id}`),
+      url: API_URL.products(`/${id}`),
       method: 'GET',
     })
     return data
