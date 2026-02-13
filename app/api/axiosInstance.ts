@@ -20,6 +20,26 @@ function createAxiosInstances() {
   axiosClassic = axios.create(options)
   axiosWithToken = axios.create(options)
 
+  const isDev = import.meta.dev
+  if (isDev) {
+    const MIN_DELAY = 400
+    const addDelayInterceptors = (instance: AxiosInstance) => {
+      instance.interceptors.request.use((config) => {
+        ;(config as any)._startTime = Date.now()
+        return config
+      })
+      instance.interceptors.response.use(async (response) => {
+        const elapsed = Date.now() - ((response.config as any)._startTime || 0)
+        if (elapsed < MIN_DELAY) {
+          await new Promise((r) => setTimeout(r, MIN_DELAY - elapsed))
+        }
+        return response
+      })
+    }
+    addDelayInterceptors(axiosClassic)
+    addDelayInterceptors(axiosWithToken)
+  }
+
   axiosWithToken.interceptors.request.use((config) => {
     const accessToken = getAccessToken()
     if (accessToken && config.headers) {
