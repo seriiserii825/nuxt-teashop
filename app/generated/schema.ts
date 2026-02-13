@@ -36,52 +36,20 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/stores": {
+    "/api/users/favorites/{product_id}/store/{store_id}": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        get: operations["StoreController_findAll"];
-        put?: never;
-        post: operations["StoreController_create"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/stores/{id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["StoreController_findOne"];
-        put?: never;
-        post?: never;
-        delete: operations["StoreController_remove"];
-        options?: never;
-        head?: never;
-        patch: operations["StoreController_update"];
-        trace?: never;
-    };
-    "/api/stores/{id}/with-relations": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["StoreController_findOneWithRelations"];
+        get?: never;
         put?: never;
         post?: never;
         delete?: never;
         options?: never;
         head?: never;
-        patch?: never;
+        patch: operations["UserController_toggleFavorite"];
         trace?: never;
     };
     "/api/products/store/{store_id}": {
@@ -124,6 +92,54 @@ export interface paths {
             cookie?: never;
         };
         get: operations["ProductController_findAllArray"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/stores": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["StoreController_findAll"];
+        put?: never;
+        post: operations["StoreController_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/stores/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["StoreController_findOne"];
+        put?: never;
+        post?: never;
+        delete: operations["StoreController_remove"];
+        options?: never;
+        head?: never;
+        patch: operations["StoreController_update"];
+        trace?: never;
+    };
+    "/api/stores/{id}/with-relations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["StoreController_findOneWithRelations"];
         put?: never;
         post?: never;
         delete?: never;
@@ -456,37 +472,6 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
-        UserBasicDto: {
-            id: number;
-            name?: string;
-            /** Format: email */
-            email: string;
-            /** @example http://example.com/profile.jpg */
-            picture: string;
-            /**
-             * @description Role of the user
-             * @example user
-             */
-            role: string;
-            /** Format: date-time */
-            createdAt: string;
-            /** Format: date-time */
-            updatedAt: string;
-        };
-        CreateStoreDto: {
-            title: string;
-        };
-        StoreBasicDto: {
-            id: number;
-            title: string;
-            description?: string;
-            user_id: number;
-            picture: string;
-            /** Format: date-time */
-            createdAt: string;
-            /** Format: date-time */
-            updatedAt: string;
-        };
         ProductBasicDto: {
             /**
              * @description Product ID
@@ -556,40 +541,6 @@ export interface components {
              */
             updatedAt: string;
         };
-        CategoryBasicDto: {
-            /**
-             * @description The unique identifier of the category
-             * @example 1
-             */
-            id: number;
-            /**
-             * @description The title of the category
-             * @example Electronics
-             */
-            title: string;
-            /**
-             * @description The description of the category
-             * @example A category for electronic products
-             */
-            description: string;
-            /**
-             * @description The identifier of the store associated with the category
-             * @example 1
-             */
-            store_id: number;
-            /**
-             * Format: date-time
-             * @description The date and time when the category was created
-             * @example 2024-01-01T00:00:00Z
-             */
-            createdAt: string;
-            /**
-             * Format: date-time
-             * @description The date and time when the category was last updated
-             * @example 2024-01-02T00:00:00Z
-             */
-            updatedAt: string;
-        };
         ReviewBasicDto: {
             /** @example 1 */
             id: number;
@@ -616,40 +567,6 @@ export interface components {
             /**
              * Format: date-time
              * @example 2024-01-01T00:00:00Z
-             */
-            updatedAt: string;
-        };
-        ColorBasicDto: {
-            /**
-             * @description Color ID
-             * @example 1
-             */
-            id: number;
-            /**
-             * @description Color Name
-             * @example Red
-             */
-            name: string;
-            /**
-             * @description Color Value in HEX format
-             * @example #FF0000
-             */
-            value: string;
-            /**
-             * @description Store ID
-             * @example 1
-             */
-            store_id: number;
-            /**
-             * Format: date-time
-             * @description Creation Date
-             * @example 2024-01-01T00:00:00Z
-             */
-            createdAt: string;
-            /**
-             * Format: date-time
-             * @description Last Update Date
-             * @example 2024-01-02T00:00:00Z
              */
             updatedAt: string;
         };
@@ -727,7 +644,7 @@ export interface components {
              */
             updatedAt: string;
         };
-        StoreFullDto: {
+        StoreBasicDto: {
             id: number;
             title: string;
             description?: string;
@@ -737,22 +654,32 @@ export interface components {
             createdAt: string;
             /** Format: date-time */
             updatedAt: string;
-            products?: components["schemas"]["ProductBasicDto"][];
-            categories?: components["schemas"]["CategoryBasicDto"][];
-            reviews?: components["schemas"]["ReviewBasicDto"][];
-            colors?: components["schemas"]["ColorBasicDto"][];
-            order_items?: components["schemas"]["OrderItemsBasicDto"][];
-            order?: components["schemas"]["OrderBasicDto"][];
         };
-        UpdateStoreDto: {
-            title?: string;
-            description?: string;
-            /** @description Old picture URL to keep */
-            old_picture?: string;
-        };
-        StoreRemoveDto: {
-            /** @example Store with id 4 removed successfully */
-            message: string;
+        UserBasicDto: {
+            id: number;
+            name?: string;
+            /** Format: email */
+            email: string;
+            /** @example http://example.com/profile.jpg */
+            picture: string;
+            /**
+             * @description Role of the user
+             * @example user
+             * @enum {string}
+             */
+            role: "user" | "admin";
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            updatedAt: string;
+            /** @description List of reviews made by the user */
+            reviews: components["schemas"]["ReviewBasicDto"][];
+            /** @description List of orders made by the user */
+            orders: components["schemas"]["OrderBasicDto"][];
+            /** @description List of stores owned by the user */
+            store: components["schemas"]["StoreBasicDto"][];
+            /** @description List of favorite products */
+            favorite_products: components["schemas"]["ProductBasicDto"][];
         };
         CreateProductDto: {
             /**
@@ -877,6 +804,104 @@ export interface components {
             /** @description Pagination metadata */
             meta: components["schemas"]["PaginationMetaDto"];
             query?: components["schemas"]["QueryProductDto"];
+        };
+        CreateStoreDto: {
+            title: string;
+        };
+        CategoryBasicDto: {
+            /**
+             * @description The unique identifier of the category
+             * @example 1
+             */
+            id: number;
+            /**
+             * @description The title of the category
+             * @example Electronics
+             */
+            title: string;
+            /**
+             * @description The description of the category
+             * @example A category for electronic products
+             */
+            description: string;
+            /**
+             * @description The identifier of the store associated with the category
+             * @example 1
+             */
+            store_id: number;
+            /**
+             * Format: date-time
+             * @description The date and time when the category was created
+             * @example 2024-01-01T00:00:00Z
+             */
+            createdAt: string;
+            /**
+             * Format: date-time
+             * @description The date and time when the category was last updated
+             * @example 2024-01-02T00:00:00Z
+             */
+            updatedAt: string;
+        };
+        ColorBasicDto: {
+            /**
+             * @description Color ID
+             * @example 1
+             */
+            id: number;
+            /**
+             * @description Color Name
+             * @example Red
+             */
+            name: string;
+            /**
+             * @description Color Value in HEX format
+             * @example #FF0000
+             */
+            value: string;
+            /**
+             * @description Store ID
+             * @example 1
+             */
+            store_id: number;
+            /**
+             * Format: date-time
+             * @description Creation Date
+             * @example 2024-01-01T00:00:00Z
+             */
+            createdAt: string;
+            /**
+             * Format: date-time
+             * @description Last Update Date
+             * @example 2024-01-02T00:00:00Z
+             */
+            updatedAt: string;
+        };
+        StoreFullDto: {
+            id: number;
+            title: string;
+            description?: string;
+            user_id: number;
+            picture: string;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            updatedAt: string;
+            products?: components["schemas"]["ProductBasicDto"][];
+            categories?: components["schemas"]["CategoryBasicDto"][];
+            reviews?: components["schemas"]["ReviewBasicDto"][];
+            colors?: components["schemas"]["ColorBasicDto"][];
+            order_items?: components["schemas"]["OrderItemsBasicDto"][];
+            order?: components["schemas"]["OrderBasicDto"][];
+        };
+        UpdateStoreDto: {
+            title?: string;
+            description?: string;
+            /** @description Old picture URL to keep */
+            old_picture?: string;
+        };
+        StoreRemoveDto: {
+            /** @example Store with id 4 removed successfully */
+            message: string;
         };
         CreateCategoryDto: {
             /**
@@ -1118,54 +1143,13 @@ export interface operations {
             };
         };
     };
-    StoreController_findAll: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["StoreBasicDto"][];
-                };
-            };
-        };
-    };
-    StoreController_create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["CreateStoreDto"];
-            };
-        };
-        responses: {
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["StoreBasicDto"];
-                };
-            };
-        };
-    };
-    StoreController_findOne: {
+    UserController_toggleFavorite: {
         parameters: {
             query?: never;
             header?: never;
             path: {
-                id: string;
+                product_id: string;
+                store_id: string;
             };
             cookie?: never;
         };
@@ -1175,76 +1159,7 @@ export interface operations {
                 headers: {
                     [name: string]: unknown;
                 };
-                content: {
-                    "application/json": components["schemas"]["StoreBasicDto"];
-                };
-            };
-        };
-    };
-    StoreController_remove: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["StoreRemoveDto"];
-                };
-            };
-        };
-    };
-    StoreController_update: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "multipart/form-data": components["schemas"]["UpdateStoreDto"];
-            };
-        };
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["StoreBasicDto"];
-                };
-            };
-        };
-    };
-    StoreController_findOneWithRelations: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                id: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["StoreFullDto"];
-                };
+                content?: never;
             };
         };
     };
@@ -1467,6 +1382,136 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content?: never;
+            };
+        };
+    };
+    StoreController_findAll: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StoreBasicDto"][];
+                };
+            };
+        };
+    };
+    StoreController_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateStoreDto"];
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StoreBasicDto"];
+                };
+            };
+        };
+    };
+    StoreController_findOne: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StoreBasicDto"];
+                };
+            };
+        };
+    };
+    StoreController_remove: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StoreRemoveDto"];
+                };
+            };
+        };
+    };
+    StoreController_update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "multipart/form-data": components["schemas"]["UpdateStoreDto"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StoreBasicDto"];
+                };
+            };
+        };
+    };
+    StoreController_findOneWithRelations: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StoreFullDto"];
+                };
             };
         };
     };
