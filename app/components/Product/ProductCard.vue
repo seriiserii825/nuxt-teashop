@@ -4,6 +4,8 @@
   import { userService } from '~/api/services/userService'
   import type { IProduct } from '~/interfaces/IProduct'
 
+  const emits = defineEmits(['toggle-favorite'])
+
   const props = defineProps({
     product: {
       type: Object as PropType<IProduct>,
@@ -15,8 +17,6 @@
     },
   })
 
-  const is_favorite = ref(props.isFavorite)
-
   const productImageUrl = computed(() => {
     const image = props.product.images[0] || null
     if (!image) {
@@ -26,16 +26,8 @@
     }
   })
 
-  const store_id = useIdParamFromUrl('store_id')
-
   async function toggleFavorite(product_id: number) {
-    try {
-      const data = await userService.toggleFavorite(product_id, +store_id.value)
-      useSweetAlert('success', data.message)
-      is_favorite.value = data.isFavorite
-    } catch (error) {
-      handleAxiosError(error)
-    }
+    emits('toggle-favorite', product_id)
   }
 </script>
 <template>
@@ -52,7 +44,7 @@
         <img
           :src="productImageUrl"
           :alt="product.title"
-          class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+          class="h-full w-full object-contain transition duration-500 group-hover:scale-[1.03]"
           loading="lazy"
         />
       </div>
@@ -100,9 +92,10 @@
         </p>
 
         <button
+          v-if="useIsLoggedIn()"
           class="rounded-full p-2 text-gray-400 transition hover:bg-gray-50 hover:text-red-500"
           aria-label="Like"
-          :class="{ 'text-red-500': is_favorite }"
+          :class="{ 'text-red-500': isFavorite }"
           @click="toggleFavorite(product.id)"
         >
           <IconILike />

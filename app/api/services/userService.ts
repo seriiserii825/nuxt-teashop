@@ -20,10 +20,10 @@ export const userService = {
     })
     return data
   },
-  toggleFavorite: async (product_id: number, store_id: number) => {
+  toggleFavorite: async (product_id: number) => {
     const { axiosWithToken } = useAxios()
     const response = await axiosWithToken<IUserFavorite>({
-      url: API_URL.users(`/favorites/${product_id}/store/${store_id}`),
+      url: API_URL.users(`/favorites/${product_id}`),
       method: 'PATCH',
     })
     return response.data

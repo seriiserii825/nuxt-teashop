@@ -28,13 +28,12 @@ export default defineNuxtRouteMiddleware(async (to) => {
   }
 
   try {
-    const authStore = useAuthStore()
     const newData = await userService.profile()
     auth_store.setUser(newData)
 
     if (
       (to.path.startsWith('/store') || to.path.startsWith('/style-guides')) &&
-      authStore.user?.role !== 'admin'
+      auth_store.user?.role !== 'admin'
     ) {
       return navigateTo('/dashboard')
     }

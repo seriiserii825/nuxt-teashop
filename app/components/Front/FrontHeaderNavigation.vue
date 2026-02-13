@@ -8,6 +8,7 @@
 <template>
   <nav class="flex items-center space-x-6">
     <NuxtLink
+      v-if="useIsLoggedIn()"
       to="/dashboard/favorites"
       class="text-gray-700 transition hover:text-blue-600"
       >Favorites</NuxtLink

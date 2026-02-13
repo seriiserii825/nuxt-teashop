@@ -2,6 +2,7 @@
   import { categoryService } from '~/api/services/categoryService'
   import { productService } from '~/api/services/productService'
   import { storeService } from '~/api/services/storeService'
+  import { userService } from '~/api/services/userService'
   import Preloader from '~/components/Preloader.vue'
   import type { ICategoryWithProductsCount } from '~/interfaces/ICategory'
   import type { IProductsPaginated, IQueryProduct } from '~/interfaces/IProduct'
@@ -85,6 +86,27 @@
     if (!param) return ''
     return String(param)
   }
+
+  const favorites_is_loading = ref(false)
+
+  async function getProfile() {
+    const auth_store = useAuthStore()
+    const newData = await userService.profile()
+    auth_store.setUser(newData)
+  }
+
+  async function toggleFavorite(product_id: number) {
+    favorites_is_loading.value = true
+    try {
+      const data = await userService.toggleFavorite(product_id)
+      await getProfile()
+      useSweetAlert('success', data.message)
+    } catch (error) {
+      handleAxiosError(error)
+    } finally {
+      favorites_is_loading.value = false
+    }
+  }
 </script>
 
 <template>
@@ -106,7 +128,7 @@
             <p class="text-red-500">Failed to load store data.</p>
           </div>
         </div>
-        <Preloader v-if="products_loading" />
+        <Preloader v-if="products_loading || favorites_is_loading" />
         <div v-else-if="products_response?.data.length">
           <div class="flex justify-between py-6">
             <h2 class="text-md">
@@ -118,6 +140,7 @@
           <ProductGrid
             :products="products_response?.data || []"
             class="mb-12"
+            @toggle-favorite="toggleFavorite"
           />
           <Pagination
             v-if="products_response"
