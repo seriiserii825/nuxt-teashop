@@ -8,7 +8,9 @@
   import type { IProductsPaginated, IQueryProduct } from '~/interfaces/IProduct'
   import type { IStoreFull } from '~/interfaces/IStore'
 
+  const auth_store = useAuthStore()
   const store_id = useIdParamFromUrl('store_id')
+  auth_store.setLastStoreId(+store_id.value)
 
   const route = useRoute()
 

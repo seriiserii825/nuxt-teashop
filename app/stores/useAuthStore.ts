@@ -14,9 +14,16 @@ export const useAuthStore = defineStore('auth', () => {
   function setUser(newUser: IUser | null) {
     user.value = newUser
   }
+
+  const last_store_id = ref<number | null>(null)
+  function setLastStoreId(storeId: number | null) {
+    last_store_id.value = storeId
+  }
   return {
     user,
     setUser,
     favorite_products_ids,
+    last_store_id,
+    setLastStoreId,
   }
 })
