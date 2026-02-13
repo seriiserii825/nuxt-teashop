@@ -15,7 +15,7 @@
     <div class="flex gap-8 py-16">
       <!-- Left Column - Product Images -->
       <div class="flex-1/3">
-        <ProductSlider />
+        <ProductSlider :images="product.images" />
       </div>
 
       <!-- Right Column - Product Info -->
