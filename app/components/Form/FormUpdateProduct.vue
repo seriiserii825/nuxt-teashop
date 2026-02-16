@@ -21,7 +21,7 @@
   const images = ref<string[]>([])
 
   const { data: product, loading: product_loading } = useQuery<IProduct>(() =>
-    productService.getById(props.productId, +storeId.value)
+    productService.getById(props.productId)
   )
 
   const initialData: IProductUpdate = {
@@ -94,7 +94,7 @@
   })
 
   function emitUploadImages(images: File[]) {
-    initialData.images = images 
+    initialData.images = images
   }
   function emitRemovedImages(files: IFileUpload[]) {
     initialData.old_images = files.map((file) => file.url)

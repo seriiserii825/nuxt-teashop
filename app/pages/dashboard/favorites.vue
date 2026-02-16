@@ -34,11 +34,11 @@
         text="Our customers' favorite products."
       />
       <Preloader v-if="favorites_is_loading" />
-      <ProductGrid
-        v-else-if="user && user.favorite_products.length"
-        :products="user.favorite_products"
-        @toggle-favorite="toggleFavorite"
-      />
+      <!-- <ProductGrid -->
+      <!--   v-else-if="user &#38;&#38; user.favorite_products.length" -->
+      <!--   :products="user.favorite_products" -->
+      <!--   @toggle-favorite="toggleFavorite" -->
+      <!-- /> -->
     </div>
   </section>
 </template>

@@ -36,7 +36,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/users/favorites/{product_id}/store/{store_id}": {
+    "/api/users/favorites/{product_id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -92,6 +92,22 @@ export interface paths {
             cookie?: never;
         };
         get: operations["ProductController_findAllArray"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/products/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["ProductController_getProduct"];
         put?: never;
         post?: never;
         delete?: never;
@@ -677,7 +693,7 @@ export interface components {
             /** @description List of orders made by the user */
             orders: components["schemas"]["OrderBasicDto"][];
             /** @description List of stores owned by the user */
-            store: components["schemas"]["StoreBasicDto"][];
+            stores: components["schemas"]["StoreBasicDto"][];
             /** @description List of favorite products */
             favorite_products: components["schemas"]["ProductBasicDto"][];
         };
@@ -1153,7 +1169,6 @@ export interface operations {
             header?: never;
             path: {
                 product_id: string;
-                store_id: string;
             };
             cookie?: never;
         };
@@ -1384,6 +1399,42 @@ export interface operations {
             };
             /** @description Unauthorized */
             401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    ProductController_getProduct: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Product ID */
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProductBasicDto"];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Product not found */
+            404: {
                 headers: {
                     [name: string]: unknown;
                 };

@@ -21,8 +21,8 @@
     <!-- Main Product Image -->
     <div class="mb-4 rounded-2xl bg-gray-100 p-8">
       <img
-        v-if="images.length > 0"
-        :src="userGetServerUrl(images[current_index])"
+        v-if="images.length > 0 && images[current_index]"
+        :src="userGetServerUrl(images[current_index] as string)"
         alt="Nike Flex Experience Run 11"
         class="h-auto w-full object-contain"
       />
