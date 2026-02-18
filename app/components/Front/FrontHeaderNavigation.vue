@@ -4,6 +4,7 @@
   function showMiniCart() {
     mini_cart_store.setVisibleDrawer(true)
   }
+  const store_id = useIdParamFromUrl('store_id')
 </script>
 
 <template>
@@ -20,12 +21,12 @@
       >Store</NuxtLink
     >
     <NuxtLink
-      v-if="useIsLoggedIn()"
-      to="/dashboard/favorites"
+      v-if="useIsLoggedIn() && store_id"
+      :to="`/dashboard/shop/${store_id}/favorites`"
       class="text-gray-700 transition hover:text-blue-600"
       :class="{
         'font-bold text-blue-600': $route.path.startsWith(
-          '/dashboard/favorites'
+          `/dashboard/shop/${store_id}/favorites`
         ),
       }"
       >Favorites</NuxtLink

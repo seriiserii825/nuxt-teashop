@@ -1,8 +1,10 @@
 <script setup lang="ts">
   import { userService } from '~/api/services/userService'
 
-  const user_store = useAuthStore()
-  const { user } = storeToRefs(user_store)
+  const store_id = useIdParamFromUrl('store_id')
+
+  const auth_store = useAuthStore()
+  const { user } = storeToRefs(auth_store)
 
   const favorites_is_loading = ref(false)
 
@@ -34,11 +36,26 @@
         text="Our customers' favorite products."
       />
       <Preloader v-if="favorites_is_loading" />
-      <!-- <ProductGrid -->
-      <!--   v-else-if="user &#38;&#38; user.favorite_products.length" -->
-      <!--   :products="user.favorite_products" -->
-      <!--   @toggle-favorite="toggleFavorite" -->
-      <!-- /> -->
+      <ProductGrid
+        v-else-if="user && user.favorite_products.length"
+        :products="user.favorite_products"
+        :store-id="+store_id"
+        @toggle-favorite="toggleFavorite"
+      />
+      <div
+        v-else
+        class="flex flex-col items-center space-y-4 rounded-lg border border-gray-300 bg-gray-50 p-8 text-center"
+      >
+        <font-awesome-icon
+          :icon="['fas', 'heart-pulse']"
+          class="size-8 text-red-500"
+        />
+        <h2 class="text-2xl font-semibold text-gray-700">No Favorites Yet</h2>
+        <p class="text-gray-500">
+          You haven't added any products to your favorites yet. Start exploring
+          our store and add your favorite items!
+        </p>
+      </div>
     </div>
   </section>
 </template>
