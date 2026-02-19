@@ -5,6 +5,7 @@
     mini_cart_store.setVisibleDrawer(true)
   }
   const store_id = useIdParamFromUrl('store_id')
+  const { isActive } = useMenuActive()
 </script>
 
 <template>
@@ -22,12 +23,10 @@
     >
     <NuxtLink
       v-if="useIsLoggedIn() && store_id"
-      :to="`/dashboard/shop/${store_id}/favorites`"
+      :to="$routes.favorites(+store_id)"
       class="text-gray-700 transition hover:text-blue-600"
       :class="{
-        'font-bold text-blue-600': $route.path.startsWith(
-          `/dashboard/shop/${store_id}/favorites`
-        ),
+        'font-bold text-blue-600': isActive('favorites'),
       }"
       >Favorites</NuxtLink
     >

@@ -2,6 +2,9 @@
   import { authService } from '~/api/services/authService'
 
   const user = useGetUserFromStore()
+  const store_id = useIdParamFromUrl('store_id')
+
+  const { isActive } = useMenuActive()
 
   const route = useRoute()
 
@@ -113,9 +116,12 @@
           </NuxtLink>
 
           <NuxtLink
-            to="/dashboard/favorites"
-            class="flex items-center gap-3 px-4 py-3 text-gray-700 transition hover:bg-gray-50"
-            exact-active-class="!bg-gray-200"
+            v-if="store_id"
+            :to="$routes.favorites(+store_id)"
+            class="flex items-center gap-3 px-4 py-3 transition hover:bg-gray-50"
+            :class="{
+              'font-bold text-blue-600': isActive('favorites'),
+            }"
           >
             <IconIFavorites />
             <span class="text-sm font-medium">Favorites</span>

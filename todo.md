@@ -1,1 +1,1 @@
-favorites with local storage
+in documentation about routes and active route
