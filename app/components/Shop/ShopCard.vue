@@ -33,7 +33,7 @@
         <h3 class="mb-2 text-2xl font-bold text-gray-900">{{ store.title }}</h3>
         <!-- Action Button -->
         <NuxtLink
-          :to="`/shop/${store.id}`"
+          :to="$routes.store(store.id)"
           class="flex items-center justify-center rounded-lg bg-blue-600 px-4 py-3 font-semibold text-white transition-colors duration-200 hover:bg-blue-700"
         >
           Visit Store
