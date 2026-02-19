@@ -46,7 +46,7 @@
     <div class="text-center text-xs">
       Don't have an account?
       <NuxtLink
-        to="/register"
+        :to="$routes.register()"
         class="cursor-pointer text-accent-dark hover:underline"
         >Create</NuxtLink
       >

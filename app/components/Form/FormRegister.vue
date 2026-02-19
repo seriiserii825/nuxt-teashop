@@ -53,7 +53,7 @@
     <div class="text-center text-xs">
       Have an account?
       <NuxtLink
-        to="/login"
+        :to="$routes.login()"
         class="cursor-pointer text-accent-dark hover:underline"
         >Sign in</NuxtLink
       >

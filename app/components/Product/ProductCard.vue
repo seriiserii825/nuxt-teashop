@@ -38,10 +38,7 @@
     class="group relative flex h-full flex-col overflow-hidden rounded-md bg-white ring-1 ring-gray-200 transition hover:-translate-y-0.5 hover:shadow-xl hover:ring-blue-200"
   >
     <!-- Image -->
-    <NuxtLink
-      :to="`/shop/${storeId}/product/${product.id}`"
-      class="relative block overflow-hidden bg-gray-50"
-    >
+    <div class="relative block overflow-hidden bg-gray-50">
       <!-- fixed ratio, nice crop -->
       <div class="aspect-[4/3]">
         <img
@@ -68,7 +65,7 @@
         class="absolute right-3 top-3 flex -translate-y-1 gap-2 opacity-0 transition duration-200 group-hover:translate-y-0 group-hover:opacity-100 md:translate-y-0 md:opacity-100"
       >
         <NuxtLink
-          :to="`/product/${product.id}`"
+          :to="$routes.product_detail(storeId, product.id)"
           class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/95 shadow-lg ring-1 ring-black/5 backdrop-blur transition hover:bg-white"
           aria-label="View"
         >
@@ -82,7 +79,7 @@
           <IconICartView />
         </button>
       </div>
-    </NuxtLink>
+    </div>
 
     <!-- Content -->
     <div class="flex flex-1 flex-col p-4">
@@ -105,7 +102,10 @@
         </button>
       </div>
 
-      <NuxtLink :to="`/product/${product.id}`" class="group/title">
+      <NuxtLink
+        :to="$routes.product_detail(storeId, product.id)"
+        class="group/title"
+      >
         <h3
           class="line-clamp-2 text-base font-semibold leading-snug text-gray-900 transition group-hover/title:text-blue-600"
         >
@@ -133,7 +133,7 @@
           </p>
 
           <NuxtLink
-            :to="`/product/${product.id}`"
+            :to="$routes.product_detail(storeId, product.id)"
             class="text-sm font-medium text-gray-500 transition hover:text-gray-700"
           >
             Details →
