@@ -5,7 +5,8 @@
   function showMiniCart() {
     mini_cart_store.setVisibleDrawer(true)
   }
-  const store_id = useIdParamFromUrl('store_id')
+  const route = useRoute()
+  const store_id = computed(() => ('store_id' in route.params ? +route.params.store_id : null))
 </script>
 
 <template>
