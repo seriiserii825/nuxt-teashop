@@ -6,14 +6,18 @@
     mini_cart_store.setVisibleDrawer(true)
   }
   const route = useRoute()
-  const store_id = computed(() => ('store_id' in route.params ? +route.params.store_id : null))
+  const store_id = computed(() => {
+    const store_id = 'store_id' in route.params ? +route.params.store_id : null
+    console.log('store_id', store_id)
+    return store_id
+  })
 </script>
 
 <template>
   <nav class="flex items-center space-x-6">
     <NuxtLink
-      v-if="auth_store.last_store_id"
-      :to="$routes.store(+auth_store.last_store_id)"
+      v-if="store_id"
+      :to="$routes.store(+store_id)"
       class="text-gray-700 transition hover:text-blue-600"
       :class="{
         'font-bold text-blue-600': isActive('store'),
