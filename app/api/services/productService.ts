@@ -113,6 +113,16 @@ export const productService = {
     })
     return data || []
   },
+  searchProducts: async (search: string) => {
+    const { axiosWithToken } = useAxios()
+    const { data } = await axiosWithToken<IProduct[]>({
+      url: API_URL.products(
+        `/search-products?search=${encodeURIComponent(search)}`
+      ),
+      method: 'GET',
+    })
+    return data || []
+  },
   getById: async (id: string) => {
     const { axiosWithToken } = useAxios()
     const { data } = await axiosWithToken<IProduct>({

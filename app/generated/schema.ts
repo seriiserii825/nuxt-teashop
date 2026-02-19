@@ -100,6 +100,22 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/products/search-products": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["ProductController_findProducts"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/products/{id}": {
         parameters: {
             query?: never;
@@ -488,6 +504,61 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        OrderItemsBasicDto: {
+            /**
+             * @description Order Item ID
+             * @example 1
+             */
+            id: number;
+            /**
+             * @description Order ID
+             * @example 2
+             */
+            order_id: number;
+            /**
+             * @description Quantity of the product
+             * @example 3
+             */
+            quantity: number;
+            /**
+             * @description Price of the product
+             * @example 29.99
+             */
+            price: number;
+            /**
+             * @description Product ID
+             * @example 4
+             */
+            product_id: number;
+            /**
+             * @description Store ID
+             * @example 5
+             */
+            store_id: number;
+            /**
+             * Format: date-time
+             * @description The date and time when the order item was created
+             * @example 2024-01-01T00:00:00Z
+             */
+            createdAt: string;
+            /**
+             * Format: date-time
+             * @description The date and time when the order item was last updated
+             * @example 2024-01-02T00:00:00Z
+             */
+            updatedAt: string;
+        };
+        StoreBasicDto: {
+            id: number;
+            title: string;
+            description?: string;
+            user_id: number;
+            picture: string;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            updatedAt: string;
+        };
         ProductBasicDto: {
             /**
              * @description Product ID
@@ -556,6 +627,12 @@ export interface components {
              * @example 2024-01-02T00:00:00Z
              */
             updatedAt: string;
+            /** @description Product reviews */
+            reviews?: components["schemas"]["ReviewBasicDto"][];
+            /** @description Order items */
+            order_items?: components["schemas"]["OrderItemsBasicDto"][];
+            /** @description Store information */
+            store?: components["schemas"]["StoreBasicDto"];
         };
         ReviewBasicDto: {
             /** @example 1 */
@@ -583,50 +660,6 @@ export interface components {
             /**
              * Format: date-time
              * @example 2024-01-01T00:00:00Z
-             */
-            updatedAt: string;
-        };
-        OrderItemsBasicDto: {
-            /**
-             * @description Order Item ID
-             * @example 1
-             */
-            id: number;
-            /**
-             * @description Order ID
-             * @example 2
-             */
-            order_id: number;
-            /**
-             * @description Quantity of the product
-             * @example 3
-             */
-            quantity: number;
-            /**
-             * @description Price of the product
-             * @example 29.99
-             */
-            price: number;
-            /**
-             * @description Product ID
-             * @example 4
-             */
-            product_id: number;
-            /**
-             * @description Store ID
-             * @example 5
-             */
-            store_id: number;
-            /**
-             * Format: date-time
-             * @description The date and time when the order item was created
-             * @example 2024-01-01T00:00:00Z
-             */
-            createdAt: string;
-            /**
-             * Format: date-time
-             * @description The date and time when the order item was last updated
-             * @example 2024-01-02T00:00:00Z
              */
             updatedAt: string;
         };
@@ -658,17 +691,6 @@ export interface components {
              * @description The date and time when the order was created
              * @example 2024-01-01T00:00:00Z
              */
-            updatedAt: string;
-        };
-        StoreBasicDto: {
-            id: number;
-            title: string;
-            description?: string;
-            user_id: number;
-            picture: string;
-            /** Format: date-time */
-            createdAt: string;
-            /** Format: date-time */
             updatedAt: string;
         };
         UserBasicDto: {
@@ -906,7 +928,7 @@ export interface components {
             createdAt: string;
             /** Format: date-time */
             updatedAt: string;
-            products?: components["schemas"]["ProductBasicDto"][];
+            products?: unknown[][];
             categories?: components["schemas"]["CategoryBasicDto"][];
             reviews?: components["schemas"]["ReviewBasicDto"][];
             colors?: components["schemas"]["ColorBasicDto"][];
@@ -1399,6 +1421,42 @@ export interface operations {
             };
             /** @description Unauthorized */
             401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    ProductController_findProducts: {
+        parameters: {
+            query?: {
+                /** @description Search term for product title or description */
+                search?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ProductBasicDto"][];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description No products found matching the search criteria */
+            404: {
                 headers: {
                     [name: string]: unknown;
                 };
