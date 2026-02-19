@@ -89,7 +89,7 @@
         <!-- Menu Items -->
         <div class="py-2">
           <NuxtLink
-            to="/dashboard"
+            :to="$routes.dashboard()"
             class="flex items-center gap-3 px-4 py-3 text-gray-700 transition hover:bg-gray-50"
             exact-active-class="!bg-gray-200"
           >
@@ -98,7 +98,7 @@
           </NuxtLink>
 
           <NuxtLink
-            to="/dashboard/profile"
+            :to="$routes.dashboard_profile()"
             class="flex items-center gap-3 px-4 py-3 text-gray-700 transition hover:bg-gray-50"
             exact-active-class="!bg-gray-200"
           >
@@ -107,7 +107,7 @@
           </NuxtLink>
 
           <NuxtLink
-            to="/dashboard/orders"
+            :to="$routes.dashboard_orders()"
             class="flex items-center gap-3 px-4 py-3 text-gray-700 transition hover:bg-gray-50"
             exact-active-class="!bg-gray-200"
           >
@@ -128,7 +128,7 @@
           </NuxtLink>
 
           <NuxtLink
-            to="/dashboard/settings"
+            :to="$routes.dashboard_settings()"
             class="flex items-center gap-3 px-4 py-3 text-gray-700 transition hover:bg-gray-50"
             exact-active-class="!bg-gray-200"
           >
@@ -138,7 +138,7 @@
 
           <NuxtLink
             v-if="useIsAdmin()"
-            to="/store"
+            :to="$routes.store_admin()"
             exact-active-class="!bg-gray-200"
             class="flex items-center gap-3 px-4 py-3 text-gray-700 transition hover:bg-gray-50"
           >

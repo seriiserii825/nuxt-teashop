@@ -2,6 +2,8 @@
   import { storeService } from '~/api/services/storeService'
   import type { IStore, IStoreCreate } from '~/interfaces/IStore'
 
+  const { $routes } = useNuxtApp()
+
   const store = useStoreStore()
 
   const auth_store = useAuthStore()
@@ -42,7 +44,7 @@
 
   watch(selectedStore, (new_store_id) => {
     if (new_store_id) {
-      navigateTo(`/store/${new_store_id}`)
+      navigateTo($routes.store_admin_id(new_store_id))
       store.setStoreId(new_store_id)
     }
   })

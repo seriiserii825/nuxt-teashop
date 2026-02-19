@@ -17,6 +17,8 @@
     },
   })
 
+  const { $routes } = useNuxtApp()
+
   const storeId = useIdParamFromUrl()
   const images = ref<string[]>([])
 
@@ -51,7 +53,7 @@
     initialData,
     () => {
       useSweetAlert('success', 'Product updated successfully')
-      navigateTo(`/store/${storeId.value}/products`)
+      navigateTo($routes.store_admin_products(+storeId.value))
     }
   )
 

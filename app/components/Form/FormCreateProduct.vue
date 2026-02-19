@@ -7,6 +7,8 @@
   import type { IProduct, IProductCreate } from '~/interfaces/IProduct'
   import type { ISelectOption } from '~/interfaces/ISelectOption'
 
+  const { $routes } = useNuxtApp()
+
   const storeId = useIdParamFromUrl()
 
   const initialData: IProductCreate = {
@@ -23,7 +25,7 @@
     initialData,
     () => {
       useSweetAlert('success', 'Product created successfully')
-      navigateTo(`/store/${storeId.value}/products`)
+      navigateTo($routes.store_admin_products(+storeId.value))
     }
   )
 

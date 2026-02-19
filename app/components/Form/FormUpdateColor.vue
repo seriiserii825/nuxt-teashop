@@ -9,6 +9,8 @@
     },
   })
 
+  const { $routes } = useNuxtApp()
+
   const storeId = useIdParamFromUrl()
 
   const { data: color, loading: color_loading } = useQuery<IColor>(() =>
@@ -32,7 +34,7 @@
     initialData,
     () => {
       useSweetAlert('success', 'Color updated successfully')
-      navigateTo(`/store/${storeId.value}/colors`)
+      navigateTo($routes.store_admin_colors(+storeId.value))
     }
   )
 </script>

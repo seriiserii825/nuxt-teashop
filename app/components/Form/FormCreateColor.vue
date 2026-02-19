@@ -2,6 +2,8 @@
   import { colorService } from '~/api/services/colorService'
   import type { IColor, IColorCreate } from '~/interfaces/IColor'
 
+  const { $routes } = useNuxtApp()
+
   const storeId = useIdParamFromUrl()
 
   const initialData: IColorCreate = {
@@ -14,7 +16,7 @@
     initialData,
     () => {
       useSweetAlert('success', 'Color created successfully')
-      navigateTo(`/store/${storeId.value}/colors`)
+      navigateTo($routes.store_admin_colors(+storeId.value))
     }
   )
 </script>

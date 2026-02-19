@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <NuxtLink to="/" class="flex items-center space-x-2">
+  <NuxtLink :to="$routes.home()" class="flex items-center space-x-2">
     <div
       class="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600"
     >

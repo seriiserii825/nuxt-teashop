@@ -17,7 +17,7 @@
 <template>
   <div class="p-6">
     <NuxtLink
-      to="/"
+      :to="$routes.home()"
       class="flex items-center gap-4 transition-opacity hover:opacity-80"
     >
       <IconILogo />

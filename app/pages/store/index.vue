@@ -19,7 +19,7 @@
         :key="store.id"
         class="rounded border bg-white transition-shadow hover:shadow-lg"
       >
-        <NuxtLink :to="`/store/${store.id}`" class="block">
+        <NuxtLink :to="$routes.store_admin_id(store.id)" class="block">
           <div class="p-4">
             <h2 class="mb-2 text-lg font-semibold">{{ store.title }}</h2>
             <p v-if="store.description" class="text-gray-600">

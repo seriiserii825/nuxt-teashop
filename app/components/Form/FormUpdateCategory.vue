@@ -11,6 +11,8 @@
     },
   })
 
+  const { $routes } = useNuxtApp()
+
   const storeId = useIdParamFromUrl()
 
   const { data: category, loading: category_loading } = useQuery<ICategory>(
@@ -39,7 +41,7 @@
     () => {
       useSweetAlert('success', 'Category updated successfully')
       emits('emit_close')
-      navigateTo(`/store/${storeId.value}/categories`)
+      navigateTo($routes.store_admin_categories(+storeId.value))
     }
   )
 </script>

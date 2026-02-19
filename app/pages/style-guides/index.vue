@@ -18,7 +18,7 @@
     <!-- Quick links -->
     <div class="mb-12 grid grid-cols-3 gap-4 md:grid-cols-2 sm:grid-cols-1">
       <NuxtLink
-        to="/style-guides/icons"
+        :to="$routes.style_guides_icons()"
         class="group rounded-xl border border-gray-200 p-5 transition-all hover:border-blue-300 hover:shadow-md"
       >
         <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-purple-50 text-purple-500 transition-colors group-hover:bg-purple-100">
@@ -29,7 +29,7 @@
       </NuxtLink>
 
       <NuxtLink
-        to="/style-guides/components"
+        :to="$routes.style_guides_components()"
         class="group rounded-xl border border-gray-200 p-5 transition-all hover:border-blue-300 hover:shadow-md"
       >
         <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50 text-blue-500 transition-colors group-hover:bg-blue-100">
@@ -40,7 +40,7 @@
       </NuxtLink>
 
       <NuxtLink
-        to="/style-guides/components/breadcrumbs"
+        :to="$routes.style_guides_components_breadcrumbs()"
         class="group rounded-xl border border-gray-200 p-5 transition-all hover:border-blue-300 hover:shadow-md"
       >
         <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-amber-50 text-amber-500 transition-colors group-hover:bg-amber-100">
@@ -51,7 +51,7 @@
       </NuxtLink>
 
       <NuxtLink
-        to="/style-guides/components/inputs"
+        :to="$routes.style_guides_components_inputs()"
         class="group rounded-xl border border-gray-200 p-5 transition-all hover:border-blue-300 hover:shadow-md"
       >
         <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-green-50 text-green-500 transition-colors group-hover:bg-green-100">
@@ -62,7 +62,7 @@
       </NuxtLink>
 
       <NuxtLink
-        to="/style-guides/components/selects"
+        :to="$routes.style_guides_components_selects()"
         class="group rounded-xl border border-gray-200 p-5 transition-all hover:border-blue-300 hover:shadow-md"
       >
         <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-cyan-50 text-cyan-500 transition-colors group-hover:bg-cyan-100">
@@ -73,7 +73,7 @@
       </NuxtLink>
 
       <NuxtLink
-        to="/style-guides/components/select-complex"
+        :to="$routes.style_guides_components_select_complex()"
         class="group rounded-xl border border-gray-200 p-5 transition-all hover:border-blue-300 hover:shadow-md"
       >
         <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-rose-50 text-rose-500 transition-colors group-hover:bg-rose-100">

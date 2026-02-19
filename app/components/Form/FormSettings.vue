@@ -4,6 +4,8 @@
   import type { IStore, IStoreUpdate } from '~/interfaces/IStore'
 
 
+  const { $routes } = useNuxtApp()
+
   const auth_store = useAuthStore()
   const stores = auth_store.user?.stores
   const current_store_param = useIdParamFromUrl()
@@ -25,7 +27,7 @@
     initialData,
     () => {
       useSweetAlert('success', 'Settings updated successfully!')
-      navigateTo('/store')
+      navigateTo($routes.store_admin())
     }
   )
 
@@ -37,7 +39,7 @@
       try {
         await storeService.delete(current_store_param.value || '')
         useSweetAlert('success', 'Store deleted successfully!')
-        navigateTo('/store')
+        navigateTo($routes.store_admin())
       } catch (error) {
         handleAxiosError(error)
       }

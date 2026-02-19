@@ -16,6 +16,8 @@
   const row_action = ref<'edit' | 'delete' | null>(null)
   const sortKey = ref<string>('') // Добавлено
   const sortOrder = ref<'asc' | 'desc'>('desc') // Добавлено
+  const { $routes } = useNuxtApp()
+
   const storeId = useIdParamFromUrl()
 
   const {
@@ -69,8 +71,7 @@
   }, 500)
 
   function editRow(product_id: string) {
-    const url = `/store/${storeId.value}/products/${product_id}/edit`
-    navigateTo(url)
+    navigateTo($routes.store_admin_product_edit(+storeId.value, +product_id))
   }
   async function deleteRow(id: string) {
     selected_product_id.value = id
@@ -109,9 +110,7 @@
   }
 
   function goToCreateProductPage() {
-    const current_store_id = useIdParamFromUrl()
-    console.log('current_store_id', current_store_id)
-    navigateTo(`/store/${current_store_id.value}/products/create`)
+    navigateTo($routes.store_admin_products_create(+storeId.value))
   }
 </script>
 

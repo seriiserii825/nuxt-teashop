@@ -12,6 +12,8 @@
   const row_action = ref<'edit' | 'delete' | null>(null)
   const sortKey = ref<string>('') // Добавлено
   const sortOrder = ref<'asc' | 'desc'>('desc') // Добавлено
+  const { $routes } = useNuxtApp()
+
   const store_id = useIdParamFromUrl()
 
   const {
@@ -35,8 +37,7 @@
   })
 
   function editRow(color_id: number) {
-    const url = `/store/${store_id.value}/colors/${color_id}/edit`
-    navigateTo(url)
+    navigateTo($routes.store_admin_color_edit(+store_id.value, color_id))
   }
   async function deleteRow(id: string) {
     selected_color_id.value = id
@@ -70,8 +71,7 @@
   }
 
   function goToCreateColorPage() {
-    const current_store_id = useIdParamFromUrl()
-    navigateTo(`/store/${current_store_id.value}/colors/create`)
+    navigateTo($routes.store_admin_colors_create(+store_id.value))
   }
 </script>
 

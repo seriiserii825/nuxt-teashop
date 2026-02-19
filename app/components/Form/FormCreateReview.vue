@@ -5,6 +5,8 @@
   import type { IReview, IReviewCreate } from '~/interfaces/IReview'
   import type { ISelectOption } from '~/interfaces/ISelectOption'
 
+  const { $routes } = useNuxtApp()
+
   const store_id = useIdParamFromUrl()
 
   const { data: products } = useQuery<IProduct[]>(() =>
@@ -37,7 +39,7 @@
     initialData,
     () => {
       useSweetAlert('success', 'Review created successfully')
-      navigateTo(`/store/${store_id.value}/reviews`)
+      navigateTo($routes.store_admin_reviews(+store_id.value))
     }
   )
 </script>

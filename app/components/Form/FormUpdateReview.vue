@@ -12,6 +12,8 @@
     },
   })
 
+  const { $routes } = useNuxtApp()
+
   const store_id = useIdParamFromUrl()
 
   const { data: review, loading: review_loading } = useQuery<IReview>(() =>
@@ -60,7 +62,7 @@
     initialData,
     () => {
       useSweetAlert('success', 'Review updated successfully')
-      navigateTo(`/store/${store_id.value}/reviews`)
+      navigateTo($routes.store_admin_reviews(+store_id.value))
     }
   )
 </script>

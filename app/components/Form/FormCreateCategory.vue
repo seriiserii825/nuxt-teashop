@@ -2,6 +2,8 @@
   import { categoryService } from '~/api/services/categoryService'
   import type { ICategory, ICategoryCreate } from '~/interfaces/ICategory'
 
+  const { $routes } = useNuxtApp()
+
   const storeId = useIdParamFromUrl()
 
   const initialData: ICategoryCreate = {
@@ -14,7 +16,7 @@
     initialData,
     () => {
       useSweetAlert('success', 'Category created successfully')
-      navigateTo(`/store/${storeId.value}/categories`)
+      navigateTo($routes.store_admin_categories(+storeId.value))
     }
   )
 </script>

@@ -8,12 +8,14 @@
     password: '',
   }
 
+  const { $routes } = useNuxtApp()
+
   const { form, send, pending } = useForm<ILoginPayload, ILoginResponse>(
     authService.login,
     initialData,
     () => {
       useSweetAlert('success', 'Logged in successfully!')
-      navigateTo('/')
+      navigateTo($routes.home())
     }
   )
 </script>
