@@ -1,23 +1,21 @@
 <script setup lang="ts">
+  const { isActive } = useMenuActive()
   const auth_store = useAuthStore()
   const mini_cart_store = useMiniCartStore()
   function showMiniCart() {
     mini_cart_store.setVisibleDrawer(true)
   }
   const store_id = useIdParamFromUrl('store_id')
-  const { isActive } = useMenuActive()
 </script>
 
 <template>
   <nav class="flex items-center space-x-6">
     <NuxtLink
       v-if="auth_store.last_store_id"
-      :to="`/shop/${auth_store.last_store_id}`"
+      :to="$routes.store(+auth_store.last_store_id)"
       class="text-gray-700 transition hover:text-blue-600"
       :class="{
-        'font-bold text-blue-600': $route.path.startsWith(
-          `/shop/${auth_store.last_store_id}`
-        ),
+        'font-bold text-blue-600': isActive('store'),
       }"
       >Store</NuxtLink
     >

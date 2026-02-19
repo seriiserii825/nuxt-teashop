@@ -3,6 +3,7 @@ type ActivePattern = string | readonly string[]
 const MENU_ACTIVE = {
   favorites: 'dashboard-shop-store_id-favorites*',
   orders: 'dashboard-shop-store_id-orders*',
+  store: 'shop-store_id',
   profile: ['profile', 'profile-edit'],
 } as const
 
