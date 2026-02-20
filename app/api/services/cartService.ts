@@ -45,8 +45,8 @@ export const cartService = {
   clear: async () => {
     const { axiosWithToken } = useAxios()
     await axiosWithToken({
-      url: API_URL.cart(`/clear`),
-      method: 'POST',
+      url: API_URL.cart(),
+      method: 'DELETE',
     })
   },
 }

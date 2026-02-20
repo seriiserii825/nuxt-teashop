@@ -1,4 +1,6 @@
 <script setup lang="ts">
+  import { cartService } from '~/api/services/cartService'
+
   const mini_cart_store = useMiniCartStore()
   const { cart } = storeToRefs(mini_cart_store)
 
@@ -16,6 +18,17 @@
 
   function removeItem(cart_item_id: number) {
     mini_cart_store.removeCartItem(cart_item_id)
+  }
+
+  async function clearCart() {
+    const agree = await useSweetConfirm('Are you sure you want to clear the cart?')
+    if (!agree.isConfirmed) return
+    try {
+      await cartService.clear()
+      mini_cart_store.setCart(null)
+    } catch (error) {
+      handleAxiosError(error)
+    }
   }
 </script>
 
@@ -49,7 +62,7 @@
     </div>
 
     <!-- Cart Footer -->
-    <div class="border-t border-gray-200 px-6 py-5">
+    <div class="border-t border-gray-200">
       <!-- Total -->
       <div class="mb-4">
         <div class="flex items-center justify-between text-lg">
@@ -58,12 +71,10 @@
         </div>
       </div>
 
-      <!-- Checkout Button -->
-      <button
-        class="w-full rounded-lg bg-blue-600 py-4 text-lg font-semibold text-white transition duration-200 hover:bg-blue-700"
-      >
-        Proceed to payment
-      </button>
+      <div class="flex justify-between gap-4">
+        <button class="btn btn-danger" @click="clearCart">Clear cart</button>
+        <button class="btn btn-primary">Proceed to payment</button>
+      </div>
     </div>
   </div>
 </template>
