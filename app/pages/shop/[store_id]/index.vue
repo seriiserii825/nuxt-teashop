@@ -10,6 +10,7 @@
   import type { IStoreFull } from '~/interfaces/IStore'
 
   const auth_store = useAuthStore()
+  const mini_cart_store = useMiniCartStore()
   const store_id = useIdParamFromUrl('store_id')
   auth_store.setLastStoreId(+store_id.value)
 
@@ -117,6 +118,7 @@
         quantity: 1,
       })
       const cart = await cartService.get()
+      mini_cart_store.setCart(cart)
 
       useSweetAlert('success', 'Product added to cart!')
     } catch (error) {

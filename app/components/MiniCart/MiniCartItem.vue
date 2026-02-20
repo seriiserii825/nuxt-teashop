@@ -15,7 +15,6 @@
 
   async function setCartQuantity(cart_item_id: number, delta: number) {
     const new_quantity = current_quantity.value + delta
-    console.log('new_quantity', new_quantity)
     if (new_quantity <= 0) return // Prevent negative quantity
 
     try {
