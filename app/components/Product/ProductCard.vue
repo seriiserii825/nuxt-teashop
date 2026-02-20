@@ -3,7 +3,7 @@
 
   import type { IProduct } from '~/interfaces/IProduct'
 
-  const emits = defineEmits(['toggle-favorite'])
+  const emits = defineEmits(['toggle-favorite', 'add-to-cart'])
 
   const props = defineProps({
     product: {
@@ -31,6 +31,10 @@
 
   async function toggleFavorite(product_id: number) {
     emits('toggle-favorite', product_id)
+  }
+
+  function addToCart(product_id: number) {
+    emits('add-to-cart', product_id)
   }
 </script>
 <template>
@@ -73,8 +77,10 @@
         </NuxtLink>
 
         <button
+          v-if="useIsLoggedIn()"
           class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-white shadow-lg transition hover:bg-blue-700"
           aria-label="Add to cart"
+          @click="addToCart(product.id)"
         >
           <IconICartView />
         </button>

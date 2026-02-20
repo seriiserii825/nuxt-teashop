@@ -7,7 +7,6 @@
   const route = useRoute()
   const store_id = computed(() => {
     const store_id = 'store_id' in route.params ? +route.params.store_id : null
-    console.log('store_id', store_id)
     return store_id
   })
 </script>

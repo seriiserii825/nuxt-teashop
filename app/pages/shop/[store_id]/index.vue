@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import { cartService } from '~/api/services/cartService'
   import { categoryService } from '~/api/services/categoryService'
   import { productService } from '~/api/services/productService'
   import { storeService } from '~/api/services/storeService'
@@ -109,6 +110,17 @@
       favorites_is_loading.value = false
     }
   }
+  async function addToCart(product_id: number) {
+    try {
+      await cartService.add({
+        product_id,
+        quantity: 1,
+      })
+      useSweetAlert('success', 'Product added to cart!')
+    } catch (error) {
+      handleAxiosError(error)
+    }
+  }
 </script>
 
 <template>
@@ -144,6 +156,7 @@
             :store-id="+store_id"
             class="mb-12"
             @toggle-favorite="toggleFavorite"
+            @add-to-cart="addToCart"
           />
           <Pagination
             v-if="products_response"
