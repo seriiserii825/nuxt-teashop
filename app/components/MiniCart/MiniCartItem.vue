@@ -1,5 +1,8 @@
 <script setup lang="ts">
+  import { cartService } from '~/api/services/cartService'
   import type { ICartItem } from '~/interfaces/ICart'
+
+  const emits = defineEmits(['quantity-updated'])
 
   const props = defineProps({
     item: {
@@ -9,6 +12,23 @@
   })
 
   const current_quantity = ref(props.item.quantity)
+
+  async function setCartQuantity(cart_item_id: number, delta: number) {
+    const new_quantity = current_quantity.value + delta
+    console.log('new_quantity', new_quantity)
+    if (new_quantity <= 0) return // Prevent negative quantity
+
+    try {
+      await cartService.update(cart_item_id, {
+        quantity: new_quantity,
+      })
+      useSweetAlert('success', 'Quantity updated successfully')
+      current_quantity.value = new_quantity
+      emits('quantity-updated', { cart_item_id, new_quantity })
+    } catch (error) {
+      handleAxiosError(error)
+    }
+  }
 </script>
 
 <template>
@@ -34,6 +54,7 @@
       <div class="flex items-center gap-3">
         <button
           class="flex h-8 w-8 items-center justify-center rounded-lg border border-gray-300 transition hover:bg-gray-50"
+          @click="setCartQuantity(item.id, -1)"
         >
           <IconIMinus />
         </button>
@@ -42,6 +63,7 @@
         }}</span>
         <button
           class="flex h-8 w-8 items-center justify-center rounded-lg border border-gray-300 transition hover:bg-gray-50"
+          @click="setCartQuantity(item.id, 1)"
         >
           <IconIPlus />
         </button>

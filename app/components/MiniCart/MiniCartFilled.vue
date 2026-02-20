@@ -3,6 +3,16 @@
   const { cart } = storeToRefs(mini_cart_store)
 
   defineEmits(['emit-close'])
+
+  function updateQuantity({
+    cart_item_id,
+    new_quantity,
+  }: {
+    cart_item_id: number
+    new_quantity: number
+  }) {
+    mini_cart_store.setCartItemQuantity(cart_item_id, new_quantity)
+  }
 </script>
 
 <template>
@@ -22,7 +32,12 @@
 
     <!-- Cart Items -->
     <div v-if="cart && cart.items" class="flex-1 overflow-y-auto py-4">
-      <MiniCartItem v-for="item in cart.items" :key="item.id" :item="item" />
+      <MiniCartItem
+        v-for="item in cart.items"
+        :key="item.id"
+        :item="item"
+        @quantity-updated="updateQuantity"
+      />
     </div>
 
     <!-- Cart Footer -->

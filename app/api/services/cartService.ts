@@ -1,5 +1,10 @@
 import { API_URL } from '~/config/api_url.config'
-import type { IAddCartItem, ICart, ICartItem } from '~/interfaces/ICart'
+import type {
+  IAddCartItem,
+  ICart,
+  ICartItem,
+  IUpdateCart,
+} from '~/interfaces/ICart'
 
 import { useAxios } from '../axiosInstance'
 
@@ -17,6 +22,15 @@ export const cartService = {
     const { data } = await axiosWithToken<ICartItem>({
       url: API_URL.cart(`/items`),
       method: 'POST',
+      data: dto,
+    })
+    return data
+  },
+  update: async (item_cart_id: number, dto: IUpdateCart) => {
+    const { axiosWithToken } = useAxios()
+    const { data } = await axiosWithToken<ICartItem>({
+      url: API_URL.cart(`/items/${item_cart_id}`),
+      method: 'PATCH',
       data: dto,
     })
     return data

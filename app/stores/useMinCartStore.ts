@@ -13,10 +13,21 @@ export const useMiniCartStore = defineStore('miniCart', () => {
   function setVisibleDrawer(visible: boolean) {
     is_visible_drawer.value = visible
   }
+
+  function setCartItemQuantity(itemId: number, quantity: number) {
+    if (cart.value && cart.value.items) {
+      const item_index = cart.value.items.findIndex((i) => i.id === itemId)
+      const item = cart.value.items[item_index]
+      if (item_index !== -1 && item) {
+        item.quantity = quantity
+      }
+    }
+  }
   return {
     is_visible_drawer,
     setVisibleDrawer,
     cart,
     setCart,
+    setCartItemQuantity,
   }
 })
