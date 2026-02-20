@@ -741,11 +741,23 @@ export interface components {
              */
             updatedAt: string;
         };
+        CartItemDto: {
+            /** @description The ID of the cart item */
+            id: number;
+            /** @description The product in the cart item */
+            cart_id: number;
+            /** @description Product */
+            product: components["schemas"]["ProductBasicDto"];
+            /** @description The ID of the product */
+            product_id: number;
+            /** @description Quantity */
+            quantity: number;
+        };
         CartBaseDto: {
             /** @description The ID of the cart item */
             id: number;
-            /** @description The items in the cart */
-            items: string[];
+            /** @description List of cart items */
+            items: components["schemas"]["CartItemDto"][];
             /**
              * Format: date-time
              * @description Last Update Date
@@ -1213,18 +1225,6 @@ export interface components {
              * @description The quantity of the product to add
              * @default 1
              */
-            quantity: number;
-        };
-        CartItemDto: {
-            /** @description The ID of the cart item */
-            id: number;
-            /** @description The product in the cart item */
-            cart_id: number;
-            /** @description Product */
-            product: components["schemas"]["ProductBasicDto"];
-            /** @description The ID of the product */
-            product_id: number;
-            /** @description Quantity */
             quantity: number;
         };
         UpdateCartItemDto: {

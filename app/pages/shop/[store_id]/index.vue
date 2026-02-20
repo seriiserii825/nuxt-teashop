@@ -116,6 +116,8 @@
         product_id,
         quantity: 1,
       })
+      const cart = await cartService.get()
+
       useSweetAlert('success', 'Product added to cart!')
     } catch (error) {
       handleAxiosError(error)

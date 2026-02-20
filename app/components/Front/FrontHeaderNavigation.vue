@@ -1,6 +1,13 @@
 <script setup lang="ts">
   const { isActive } = useMenuActive()
   const mini_cart_store = useMiniCartStore()
+  const { cart } = storeToRefs(mini_cart_store)
+
+  const cart_items_count = computed(() => {
+    if (!cart.value) return 0
+    return cart.value.items.reduce((total, item) => total + item.quantity, 0)
+  })
+
   function showMiniCart() {
     mini_cart_store.setVisibleDrawer(true)
   }
@@ -31,7 +38,7 @@
       }"
       >Favorites</NuxtLink
     >
-    <Btn @click="showMiniCart">Cart(4)</Btn>
+    <Btn @click="showMiniCart">Cart({{ cart_items_count }})</Btn>
     <UserProfile v-if="useIsLoggedIn()" />
     <NuxtLink
       v-else

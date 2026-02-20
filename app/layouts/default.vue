@@ -3,6 +3,7 @@
   import type { IUser } from '~/interfaces/IUser'
 
   const auth_store = useAuthStore()
+  const mini_cart_store = useMiniCartStore()
 
   const { data } = useQuery<IUser>(() => userService.profile(), {
     silent: true,
@@ -11,9 +12,10 @@
     if (newData) {
       auth_store.setUser(newData)
     }
+    if (newData?.cart && newData.cart.items.length > 0) {
+      mini_cart_store.setCart(newData.cart)
+    }
   })
-
-  const mini_cart_store = useMiniCartStore()
 
   const show_empty_cart = ref(false)
 
