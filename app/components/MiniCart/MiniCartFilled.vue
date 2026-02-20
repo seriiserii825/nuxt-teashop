@@ -1,4 +1,7 @@
 <script setup lang="ts">
+  const mini_cart_store = useMiniCartStore()
+  const { cart } = storeToRefs(mini_cart_store)
+
   defineEmits(['emit-close'])
 </script>
 
@@ -18,11 +21,8 @@
     </div>
 
     <!-- Cart Items -->
-    <div class="flex-1 overflow-y-auto py-4">
-      <MiniCartItem />
-      <MiniCartItem />
-      <MiniCartItem />
-      <MiniCartItem />
+    <div v-if="cart && cart.items" class="flex-1 overflow-y-auto py-4">
+      <MiniCartItem v-for="item in cart.items" :key="item.id" :item="item" />
     </div>
 
     <!-- Cart Footer -->

@@ -757,7 +757,7 @@ export interface components {
             /** @description The ID of the cart item */
             id: number;
             /** @description List of cart items */
-            items: components["schemas"]["CartItemDto"][];
+            items?: components["schemas"]["CartItemDto"][];
             /**
              * Format: date-time
              * @description Last Update Date

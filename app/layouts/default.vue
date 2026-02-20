@@ -12,7 +12,7 @@
     if (newData) {
       auth_store.setUser(newData)
     }
-    if (newData?.cart && newData.cart.items.length > 0) {
+    if (newData?.cart && newData.cart.items && newData.cart.items.length > 0) {
       mini_cart_store.setCart(newData.cart)
     }
   })

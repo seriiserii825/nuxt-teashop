@@ -5,6 +5,7 @@
 
   const cart_items_count = computed(() => {
     if (!cart.value) return 0
+    if (!cart.value.items || cart.value.items.length === 0) return 0
     return cart.value.items.reduce((total, item) => total + item.quantity, 0)
   })
 
