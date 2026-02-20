@@ -33,6 +33,7 @@
     <Drawer
       v-if="mini_cart_store.is_visible_drawer"
       :has-close-icon="false"
+      class="z-50"
       position="right"
       @emit-close="hideMiniCart"
     >

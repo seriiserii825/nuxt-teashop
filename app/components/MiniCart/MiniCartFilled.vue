@@ -31,7 +31,10 @@
     </div>
 
     <!-- Cart Items -->
-    <div v-if="cart && cart.items" class="flex-1 overflow-y-auto py-4">
+    <div
+      v-if="cart && cart.items"
+      class="max-h-[70vh] flex-1 overflow-y-auto py-4"
+    >
       <MiniCartItem
         v-for="item in cart.items"
         :key="item.id"
