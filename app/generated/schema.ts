@@ -500,6 +500,54 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/cart": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["CartController_getCart"];
+        put?: never;
+        post?: never;
+        delete: operations["CartController_clearCart"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/cart/items": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["CartController_addItem"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/cart/items/{itemId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete: operations["CartController_removeItem"];
+        options?: never;
+        head?: never;
+        patch: operations["CartController_updateItem"];
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -693,6 +741,24 @@ export interface components {
              */
             updatedAt: string;
         };
+        CartBaseDto: {
+            /** @description The ID of the cart item */
+            id: number;
+            /** @description The items in the cart */
+            items: string[];
+            /**
+             * Format: date-time
+             * @description Last Update Date
+             * @example 2024-01-01T00:00:00Z
+             */
+            updatedAt: string;
+            /**
+             * Format: date-time
+             * @description Creation Date
+             * @example 2024-01-01T00:00:00Z
+             */
+            createdAt: string;
+        };
         UserBasicDto: {
             id: number;
             name?: string;
@@ -718,6 +784,8 @@ export interface components {
             stores: components["schemas"]["StoreBasicDto"][];
             /** @description List of favorite products */
             favorite_products: components["schemas"]["ProductBasicDto"][];
+            /** @description Cart of the user */
+            cart: components["schemas"]["CartBaseDto"];
         };
         UserFavoriteDto: {
             message: string;
@@ -1137,6 +1205,34 @@ export interface components {
              * @example 1360
              */
             value: number;
+        };
+        AddCartItemDto: {
+            /** @description The ID of the product to add */
+            product_id: number;
+            /**
+             * @description The quantity of the product to add
+             * @default 1
+             */
+            quantity: number;
+        };
+        CartItemDto: {
+            /** @description The ID of the cart item */
+            id: number;
+            /** @description The product in the cart item */
+            cart_id: number;
+            /** @description Product */
+            product: components["schemas"]["ProductBasicDto"];
+            /** @description The ID of the product */
+            product_id: number;
+            /** @description Quantity */
+            quantity: number;
+        };
+        UpdateCartItemDto: {
+            /**
+             * @description New quantity of the product in the cart
+             * @example 3
+             */
+            quantity: number;
         };
     };
     responses: never;
@@ -2368,6 +2464,112 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content?: never;
+            };
+        };
+    };
+    CartController_getCart: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CartBaseDto"];
+                };
+            };
+        };
+    };
+    CartController_clearCart: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Cart cleared */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    CartController_addItem: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["AddCartItemDto"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CartItemDto"];
+                };
+            };
+        };
+    };
+    CartController_removeItem: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description ID of the cart item to remove */
+                itemId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Item removed from cart */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    CartController_updateItem: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                itemId: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateCartItemDto"];
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CartItemDto"];
+                };
             };
         };
     };
