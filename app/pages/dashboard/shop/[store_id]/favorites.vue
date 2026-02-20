@@ -1,5 +1,8 @@
 <script setup lang="ts">
+  import { cartService } from '~/api/services/cartService'
   import { userService } from '~/api/services/userService'
+
+  const mini_cart_store = useMiniCartStore()
 
   const store_id = useIdParamFromUrl('store_id')
 
@@ -26,6 +29,21 @@
       favorites_is_loading.value = false
     }
   }
+
+  async function addToCart(product_id: number) {
+    try {
+      await cartService.add({
+        product_id,
+        quantity: 1,
+      })
+      const cart = await cartService.get()
+      mini_cart_store.setCart(cart)
+
+      useSweetAlert('success', 'Product added to cart!')
+    } catch (error) {
+      handleAxiosError(error)
+    }
+  }
 </script>
 
 <template>
@@ -41,6 +59,7 @@
         :products="user.favorite_products"
         :store-id="+store_id"
         @toggle-favorite="toggleFavorite"
+        @add-to-cart="addToCart"
       />
       <div
         v-else
