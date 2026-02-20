@@ -4,6 +4,13 @@
   const mini_cart_store = useMiniCartStore()
   const { cart } = storeToRefs(mini_cart_store)
 
+  const total = computed(() =>
+    (cart.value?.items ?? []).reduce(
+      (sum, item) => sum + item.product.price * item.quantity,
+      0
+    )
+  )
+
   defineEmits(['emit-close'])
 
   function updateQuantity({
@@ -21,7 +28,9 @@
   }
 
   async function clearCart() {
-    const agree = await useSweetConfirm('Are you sure you want to clear the cart?')
+    const agree = await useSweetConfirm(
+      'Are you sure you want to clear the cart?'
+    )
     if (!agree.isConfirmed) return
     try {
       await cartService.clear()
@@ -62,12 +71,14 @@
     </div>
 
     <!-- Cart Footer -->
-    <div class="border-t border-gray-200">
+    <div v-if="cart && cart.items" class="border-t border-gray-200">
       <!-- Total -->
       <div class="mb-4">
         <div class="flex items-center justify-between text-lg">
           <span class="text-gray-700">Total payable:</span>
-          <span class="font-bold text-gray-900">62 398 ₽</span>
+          <span class="font-bold text-gray-900">{{
+            useFormatPrice(total)
+          }}</span>
         </div>
       </div>
 
@@ -75,6 +86,10 @@
         <button class="btn btn-danger" @click="clearCart">Clear cart</button>
         <button class="btn btn-primary">Proceed to payment</button>
       </div>
+    </div>
+    <div v-else class="flex flex-col items-center gap-4 py-10">
+      <IconIShoppingCart class="h-12 w-12 text-gray-400" />
+      <p class="text-gray-500">Your cart is empty</p>
     </div>
   </div>
 </template>
