@@ -13,6 +13,10 @@
   }) {
     mini_cart_store.setCartItemQuantity(cart_item_id, new_quantity)
   }
+
+  function removeItem(cart_item_id: number) {
+    mini_cart_store.removeCartItem(cart_item_id)
+  }
 </script>
 
 <template>
@@ -40,6 +44,7 @@
         :key="item.id"
         :item="item"
         @quantity-updated="updateQuantity"
+        @item-removed="removeItem"
       />
     </div>
 

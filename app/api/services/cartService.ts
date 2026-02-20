@@ -35,4 +35,18 @@ export const cartService = {
     })
     return data
   },
+  removeItem: async (item_cart_id: number) => {
+    const { axiosWithToken } = useAxios()
+    await axiosWithToken({
+      url: API_URL.cart(`/items/${item_cart_id}`),
+      method: 'DELETE',
+    })
+  },
+  clear: async () => {
+    const { axiosWithToken } = useAxios()
+    await axiosWithToken({
+      url: API_URL.cart(`/clear`),
+      method: 'POST',
+    })
+  },
 }

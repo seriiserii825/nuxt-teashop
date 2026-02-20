@@ -2,7 +2,7 @@
   import { cartService } from '~/api/services/cartService'
   import type { ICartItem } from '~/interfaces/ICart'
 
-  const emits = defineEmits(['quantity-updated'])
+  const emits = defineEmits(['quantity-updated', 'item-removed'])
 
   const props = defineProps({
     item: {
@@ -12,6 +12,20 @@
   })
 
   const current_quantity = ref(props.item.quantity)
+
+  async function removeItem(cart_item_id: number) {
+    const agree = await useSweetConfirm(
+      'Are you sure you want to remove this item from the cart?'
+    )
+    if (!agree.isConfirmed) return
+    try {
+      await cartService.removeItem(cart_item_id)
+      emits('item-removed', cart_item_id)
+      useSweetAlert('success', 'Item removed from cart')
+    } catch (error) {
+      handleAxiosError(error)
+    }
+  }
 
   async function setCartQuantity(cart_item_id: number, delta: number) {
     const new_quantity = current_quantity.value + delta
@@ -43,8 +57,16 @@
     </div>
 
     <!-- Product Info -->
-    <div class="flex-1">
-      <h3 class="mb-1 font-semibold text-gray-900">{{ item.product.title }}</h3>
+    <div class="flex flex-1 flex-col">
+      <div class="mb-1 flex items-start justify-between gap-2">
+        <h3 class="font-semibold text-gray-900">{{ item.product.title }}</h3>
+        <button
+          class="flex-shrink-0 rounded-md p-1 text-gray-400 transition hover:bg-red-50 hover:text-red-500"
+          @click="removeItem(item.id)"
+        >
+          <font-awesome-icon :icon="['fas', 'trash']" />
+        </button>
+      </div>
       <p class="mb-3 text-sm text-gray-600">
         {{ useFormatPrice(item.product.price) }}
       </p>

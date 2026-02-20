@@ -23,11 +23,19 @@ export const useMiniCartStore = defineStore('miniCart', () => {
       }
     }
   }
+
+  function removeCartItem(itemId: number) {
+    if (cart.value && cart.value.items) {
+      cart.value.items = cart.value.items.filter((i) => i.id !== itemId)
+    }
+  }
+
   return {
     is_visible_drawer,
     setVisibleDrawer,
     cart,
     setCart,
     setCartItemQuantity,
+    removeCartItem,
   }
 })
