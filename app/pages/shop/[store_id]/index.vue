@@ -1,5 +1,4 @@
 <script setup lang="ts">
-  import { cartService } from '~/api/services/cartService'
   import { categoryService } from '~/api/services/categoryService'
   import { productService } from '~/api/services/productService'
   import { storeService } from '~/api/services/storeService'
@@ -10,8 +9,8 @@
   import type { IStoreFull } from '~/interfaces/IStore'
 
   const auth_store = useAuthStore()
-  const mini_cart_store = useMiniCartStore()
   const store_id = useIdParamFromUrl('store_id')
+  const { addToCart } = useAddToCart()
   auth_store.setLastStoreId(+store_id.value)
 
   const route = useRoute()
@@ -109,20 +108,6 @@
       handleAxiosError(error)
     } finally {
       favorites_is_loading.value = false
-    }
-  }
-  async function addToCart(product_id: number) {
-    try {
-      await cartService.add({
-        product_id,
-        quantity: 1,
-      })
-      const cart = await cartService.get()
-      mini_cart_store.setCart(cart)
-
-      useSweetAlert('success', 'Product added to cart!')
-    } catch (error) {
-      handleAxiosError(error)
     }
   }
 </script>

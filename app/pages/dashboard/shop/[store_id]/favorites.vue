@@ -1,10 +1,8 @@
 <script setup lang="ts">
-  import { cartService } from '~/api/services/cartService'
   import { userService } from '~/api/services/userService'
 
-  const mini_cart_store = useMiniCartStore()
-
   const store_id = useIdParamFromUrl('store_id')
+  const { addToCart } = useAddToCart()
 
   const auth_store = useAuthStore()
   const { user } = storeToRefs(auth_store)
@@ -30,20 +28,6 @@
     }
   }
 
-  async function addToCart(product_id: number) {
-    try {
-      await cartService.add({
-        product_id,
-        quantity: 1,
-      })
-      const cart = await cartService.get()
-      mini_cart_store.setCart(cart)
-
-      useSweetAlert('success', 'Product added to cart!')
-    } catch (error) {
-      handleAxiosError(error)
-    }
-  }
 </script>
 
 <template>
