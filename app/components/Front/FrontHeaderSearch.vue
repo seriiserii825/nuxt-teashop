@@ -2,10 +2,51 @@
   import { productService } from '~/api/services/productService'
   import type { IProduct } from '~/interfaces/IProduct'
 
+  const { $routes } = useNuxtApp()
+
   const loading = ref(false)
   const search = ref('')
   const open = ref(false)
   const results = ref<IProduct[]>([])
+
+  const inputRef = ref<HTMLInputElement | null>(null)
+  const activeIndex = ref(0)
+
+  function handleKeydown(event: KeyboardEvent) {
+    if (event.key === 'Escape') {
+      closePopup()
+    }
+
+    if (event.key === 'ArrowDown') {
+      event.preventDefault()
+      if (activeIndex.value < results.value.length - 1) {
+        activeIndex.value++
+      }
+    }
+
+    if (event.key === 'ArrowUp') {
+      event.preventDefault()
+      if (activeIndex.value > 0) {
+        activeIndex.value--
+      }
+    }
+
+    if (event.key === 'Enter') {
+      event.preventDefault()
+      const route = results.value[activeIndex.value]
+      if (route) {
+        liClick(route.id)
+      }
+    }
+  }
+
+  function liClick(id: number) {
+    const product = results.value.find((p) => p.id === id)
+    if (!product) return
+    const go_to = $routes.product_detail(product.store_id, product.id)
+    navigateTo(go_to)
+    closePopup()
+  }
 
   function closePopup() {
     open.value = false
@@ -29,6 +70,7 @@
       const data = await productService.searchProducts(search.value)
       results.value = data
       open.value = true
+      activeIndex.value = 0
     } catch (error) {
       handleAxiosError(error)
     } finally {
@@ -45,6 +87,7 @@
       const target = e.target as HTMLElement
       if (target && !target.closest('.relative')) open.value = false
     })
+    document.addEventListener('keydown', handleKeydown)
   })
 </script>
 
@@ -54,6 +97,7 @@
       <div class="relative">
         <!-- Search input -->
         <input
+          ref="inputRef"
           v-model="search"
           type="text"
           placeholder="Поиск товаров"
@@ -75,10 +119,11 @@
         <!-- Results -->
         <ul v-if="results.length" class="max-h-96 overflow-y-auto">
           <ProductSearched
-            v-for="item in results"
+            v-for="(item, index) in results"
             :key="item.id"
             :product="item"
-            @emit_close_popup="closePopup"
+            :active-index="activeIndex"
+            :index="index"
           />
         </ul>
 

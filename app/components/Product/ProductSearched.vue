@@ -1,32 +1,26 @@
 <script setup lang="ts">
   import type { IProduct } from '~/interfaces/IProduct'
 
-  const emits = defineEmits(['emit_close_popup'])
-
-  const { $routes } = useNuxtApp()
-
-  const props = defineProps({
+  defineProps({
     product: {
       type: Object as PropType<IProduct>,
       required: true,
     },
+    activeIndex: {
+      type: Number,
+      required: true,
+    },
+    index: {
+      type: Number,
+      required: true,
+    },
   })
-
-  function onClick() {
-    const go_to = $routes.product_detail(
-      props.product.store_id,
-      props.product.id
-    )
-    console.log(go_to, 'go_to')
-    navigateTo(go_to)
-    emits('emit_close_popup')
-  }
 </script>
 
 <template>
   <li
     class="group flex cursor-pointer items-center gap-4 px-4 py-3 transition hover:bg-gray-50"
-    @click="onClick()"
+    :class="activeIndex === index ? 'bg-gray-100' : ''"
   >
     <!-- Image -->
     <div
