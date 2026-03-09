@@ -18,19 +18,30 @@
     selectedChatId.value = id
   }
 
-  const { data: conversations } = useQuery<IConversation[]>(() =>
+  const { data: conversations, refetch } = useQuery<IConversation[]>(() =>
     conversationService.getAll()
   )
 
   watch(conversations, (newConversations) => {
     if (!newConversations) return
+
+    const prevIds = new Set(chats.value.map((c) => c.id))
     chats.value = newConversations
-    if (!selectedChatId.value && newConversations.length > 0) {
+
+    // Первая загрузка — выбираем первый чат
+    if (!selectedChatId.value) {
       selectedChatId.value = newConversations[0]?.id ?? null
+      return
+    }
+
+    // После refetch — если появился новый чат, выбираем его
+    const newChat = newConversations.find((c) => !prevIds.has(c.id))
+    if (newChat) {
+      selectedChatId.value = newChat.id
     }
   })
 
-  const { connect, disconnect, sendReply } = useAdminChat(chats)
+  const { connect, disconnect, sendReply } = useAdminChat(chats, refetch)
 
   onMounted(() => connect())
   onUnmounted(() => disconnect())

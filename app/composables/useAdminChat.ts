@@ -4,7 +4,10 @@ import { io } from 'socket.io-client'
 import { getAccessToken } from '~/api/api_tokens'
 import type { IConversation, IConversationMessage } from '~/interfaces/IConversation'
 
-export const useAdminChat = (conversations: Ref<IConversation[]>) => {
+export const useAdminChat = (
+  conversations: Ref<IConversation[]>,
+  refetch: () => void,
+) => {
   const socket = shallowRef<Socket | null>(null)
   const isConnected = ref(false)
 
@@ -27,11 +30,24 @@ export const useAdminChat = (conversations: Ref<IConversation[]>) => {
     socket.value.on(
       'newMessage',
       (data: { conversationId: string; message: IConversationMessage }) => {
-        const conv = conversations.value.find((c) => c.id === data.conversationId)
-        if (conv) {
-          conv.messages = [...(conv.messages ?? []), data.message]
+        const index = conversations.value.findIndex((c) => c.id === data.conversationId)
+
+        if (index === -1) {
+          // Новый чат которого ещё нет в списке — перезапрашиваем
+          refetch()
+          return
         }
-      }
+
+        const conv = conversations.value[index]
+        if (!conv) return
+        conv.messages = [...(conv.messages ?? []), data.message]
+
+        // Перемещаем чат с новым сообщением наверх
+        if (index !== 0) {
+          conversations.value.splice(index, 1)
+          conversations.value.unshift(conv)
+        }
+      },
     )
   }
 

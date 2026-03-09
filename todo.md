@@ -1,1 +1,2 @@
-in documentation about routes and active route
+focus chat widget hide
+new message hide
