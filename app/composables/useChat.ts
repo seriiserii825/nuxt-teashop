@@ -1,6 +1,7 @@
 // composables/useChat.ts
 import type { Socket } from 'socket.io-client'
 import { io } from 'socket.io-client'
+import { getAccessToken } from '~/api/api_tokens'
 
 interface Message {
   id: string
@@ -17,8 +18,10 @@ export const useChat = () => {
   const socket = shallowRef<Socket | null>(null)
 
   const connect = () => {
-    const token = localStorage.getItem('token')
+    const token = getAccessToken()
+    console.log('[useChat] token from cookie:', token ? token.slice(0, 30) + '...' : 'NULL')
     const serverUrl = useRuntimeConfig().public.serverUrl.replace(/\/api$/, '')
+    console.log('[useChat] connecting to:', serverUrl)
     socket.value = io(serverUrl, {
       auth: {
         token: token ?? null,
