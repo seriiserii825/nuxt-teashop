@@ -12,7 +12,8 @@ export default defineNuxtPlugin(() => {
     dashboard_profile: () => '/dashboard/profile',
     dashboard_orders: () => '/dashboard/orders',
     dashboard_settings: () => '/dashboard/settings',
-    dashboard_favorites: (store_id: number) => `/dashboard/shop/${store_id}/favorites`,
+    dashboard_favorites: (store_id: number) =>
+      `/dashboard/shop/${store_id}/favorites`,
 
     // ─── Front Shop ───────────────────────────────────────────────────────────
     store: (store_id: number) => `/shop/${store_id}`,
@@ -23,6 +24,7 @@ export default defineNuxtPlugin(() => {
     // ─── Admin: Store list & orders ───────────────────────────────────────────
     store_admin: () => '/store',
     store_admin_orders: () => '/store/orders',
+    store_admin_chats: () => '/store/chats',
 
     // ─── Admin: Store [id] ────────────────────────────────────────────────────
     store_admin_id: (id: number) => `/store/${id}`,
@@ -36,7 +38,8 @@ export default defineNuxtPlugin(() => {
 
     // ─── Admin: Categories ────────────────────────────────────────────────────
     store_admin_categories: (id: number) => `/store/${id}/categories`,
-    store_admin_categories_create: (id: number) => `/store/${id}/categories/create`,
+    store_admin_categories_create: (id: number) =>
+      `/store/${id}/categories/create`,
     store_admin_category_edit: (id: number, category_id: number) =>
       `/store/${id}/categories/${category_id}/edit`,
 
@@ -56,14 +59,18 @@ export default defineNuxtPlugin(() => {
     style_guides: () => '/style-guides',
     style_guides_icons: () => '/style-guides/icons',
     style_guides_colors: () => '/style-guides/colors',
-    style_guides_blocks_front_headers: () => '/style-guides/blocks/front-headers',
+    style_guides_blocks_front_headers: () =>
+      '/style-guides/blocks/front-headers',
     style_guides_blocks_product_grid: () => '/style-guides/blocks/product-grid',
     style_guides_components: () => '/style-guides/components',
-    style_guides_components_breadcrumbs: () => '/style-guides/components/breadcrumbs',
+    style_guides_components_breadcrumbs: () =>
+      '/style-guides/components/breadcrumbs',
     style_guides_components_inputs: () => '/style-guides/components/inputs',
     style_guides_components_selects: () => '/style-guides/components/selects',
-    style_guides_components_select_complex: () => '/style-guides/components/select-complex',
-    style_guides_components_checkbox_group: () => '/style-guides/components/checkbox-group',
+    style_guides_components_select_complex: () =>
+      '/style-guides/components/select-complex',
+    style_guides_components_checkbox_group: () =>
+      '/style-guides/components/checkbox-group',
     style_guides_components_radio: () => '/style-guides/components/radio',
   } as const
 

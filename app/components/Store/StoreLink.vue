@@ -20,9 +20,21 @@
       required: false,
       default: () => ['fas', 'chart-bar'],
     },
+    directRoute: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   })
 
-  type SlugKey = '' | 'products' | 'categories' | 'colors' | 'reviews' | 'settings'
+  type SlugKey =
+    | ''
+    | 'products'
+    | 'categories'
+    | 'colors'
+    | 'reviews'
+    | 'settings'
+    | 'chats'
 
   const slugToRoute: Record<SlugKey, (id: number) => string> = {
     '': $routes.store_admin_id,
@@ -31,9 +43,18 @@
     colors: $routes.store_admin_colors,
     reviews: $routes.store_admin_reviews,
     settings: $routes.store_admin_settings,
+    chats: $routes.store_admin_chats,
   }
 
-  const to = computed(() => slugToRoute[props.slug as SlugKey]?.(props.id) ?? `/store/${props.id}/${props.slug}`)
+  const to = computed(() => {
+    if (props.directRoute) {
+      return slugToRoute[props.slug as SlugKey](props.id)
+    }
+    return (
+      slugToRoute[props.slug as SlugKey]?.(props.id) ??
+      `/store/${props.id}/${props.slug}`
+    )
+  })
 </script>
 
 <template>

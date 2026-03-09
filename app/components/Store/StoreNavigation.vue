@@ -15,7 +15,7 @@
 </script>
 
 <template>
-  <div class="p-6">
+  <div class="StoreNavigation p-6">
     <NuxtLink
       :to="$routes.home()"
       class="flex items-center gap-4 transition-opacity hover:opacity-80"
@@ -54,6 +54,12 @@
         slug="settings"
         title="Settings"
         :icon="['fas', 'gear']"
+      />
+      <StoreLink
+        :id="id"
+        slug="chats"
+        title="Chats"
+        :icon="['fas', 'comments']"
       />
     </nav>
   </div>
