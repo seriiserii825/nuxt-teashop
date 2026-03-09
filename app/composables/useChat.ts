@@ -14,11 +14,12 @@ interface Message {
 export const useChat = () => {
   const messages = ref<Message[]>([])
   const isConnected = ref(false)
-  const socket = ref<Socket | null>(null)
-  const token = localStorage.getItem('token')
+  const socket = shallowRef<Socket | null>(null)
 
   const connect = () => {
-    socket.value = io(useRuntimeConfig().public.serverUrl, {
+    const token = localStorage.getItem('token')
+    const serverUrl = useRuntimeConfig().public.serverUrl.replace(/\/api$/, '')
+    socket.value = io(serverUrl, {
       auth: {
         token: token ?? null,
       },
@@ -49,9 +50,7 @@ export const useChat = () => {
   }
 
   const sendMessage = (text: string) => {
-    console.log(text, 'text')
     if (!socket.value || !text.trim()) return
-    console.log(text, 'text')
     socket.value.emit('sendMessage', text)
   }
 
