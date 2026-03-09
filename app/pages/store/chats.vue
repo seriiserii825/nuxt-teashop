@@ -2,10 +2,270 @@
   definePageMeta({
     layout: 'store',
   })
+
+  interface IMessage {
+    id: number
+    text: string
+    sender: 'user' | 'admin'
+    time: string
+  }
+
+  interface IChat {
+    id: number
+    name: string
+    avatar: string
+    lastMessage: string
+    lastTime: string
+    unread: number
+    online: boolean
+    messages: IMessage[]
+  }
+
+  const chats = ref<IChat[]>([
+    {
+      id: 1,
+      name: 'Anna Kovaleva',
+      avatar: 'AK',
+      lastMessage: 'Is the oolong still available?',
+      lastTime: '14:32',
+      unread: 2,
+      online: true,
+      messages: [
+        { id: 1, text: 'Hello! I want to ask about your oolong tea.', sender: 'user', time: '14:28' },
+        { id: 2, text: 'Hi! Of course, what would you like to know?', sender: 'admin', time: '14:29' },
+        { id: 3, text: 'Is the oolong still available?', sender: 'user', time: '14:32' },
+      ],
+    },
+    {
+      id: 2,
+      name: 'Dmitry Sorokin',
+      avatar: 'DS',
+      lastMessage: 'Thank you, I will place an order!',
+      lastTime: '13:15',
+      unread: 0,
+      online: false,
+      messages: [
+        { id: 1, text: 'Hi, do you have any green teas from Japan?', sender: 'user', time: '13:00' },
+        { id: 2, text: 'Yes! We have Sencha and Gyokuro.', sender: 'admin', time: '13:05' },
+        { id: 3, text: 'Great, what is the price for 100g?', sender: 'user', time: '13:10' },
+        { id: 4, text: 'Sencha — $8, Gyokuro — $15 per 100g.', sender: 'admin', time: '13:12' },
+        { id: 5, text: 'Thank you, I will place an order!', sender: 'user', time: '13:15' },
+      ],
+    },
+    {
+      id: 3,
+      name: 'Maria Ivanova',
+      avatar: 'MI',
+      lastMessage: 'When will puerh be restocked?',
+      lastTime: '11:47',
+      unread: 1,
+      online: true,
+      messages: [
+        { id: 1, text: 'When will puerh be restocked?', sender: 'user', time: '11:47' },
+      ],
+    },
+    {
+      id: 4,
+      name: 'Ivan Petrov',
+      avatar: 'IP',
+      lastMessage: 'Got it, thanks!',
+      lastTime: 'Yesterday',
+      unread: 0,
+      online: false,
+      messages: [
+        { id: 1, text: 'Is there free shipping on orders over $50?', sender: 'user', time: '10:00' },
+        { id: 2, text: 'Yes, free shipping on orders over $50!', sender: 'admin', time: '10:05' },
+        { id: 3, text: 'Got it, thanks!', sender: 'user', time: '10:06' },
+      ],
+    },
+    {
+      id: 5,
+      name: 'Elena Smirnova',
+      avatar: 'ES',
+      lastMessage: 'Can I pick up the order myself?',
+      lastTime: 'Yesterday',
+      unread: 0,
+      online: false,
+      messages: [
+        { id: 1, text: 'Can I pick up the order myself?', sender: 'user', time: '16:30' },
+        { id: 2, text: 'Unfortunately, we only deliver at the moment.', sender: 'admin', time: '16:35' },
+      ],
+    },
+  ])
+
+  const selectedChatId = ref<number>(1)
+  const messageInput = ref('')
+
+  const selectedChat = computed(() => chats.value.find((c) => c.id === selectedChatId.value) ?? null)
+
+  function selectChat(id: number) {
+    selectedChatId.value = id
+    const chat = chats.value.find((c) => c.id === id)
+    if (chat) chat.unread = 0
+  }
+
+  function sendMessage() {
+    const text = messageInput.value.trim()
+    if (!text || !selectedChat.value) return
+    selectedChat.value.messages.push({
+      id: Date.now(),
+      text,
+      sender: 'admin',
+      time: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false }),
+    })
+    selectedChat.value.lastMessage = text
+    selectedChat.value.lastTime = 'Now'
+    messageInput.value = ''
+  }
+
+  function onKeydown(e: KeyboardEvent) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault()
+      sendMessage()
+    }
+  }
 </script>
 
 <template>
-  <div class="Chats">
-    <h1 class="text-2xl font-bold">Chats</h1>
+  <div class="flex h-[calc(100vh-64px)] overflow-hidden">
+    <!-- Sidebar: user list -->
+    <aside class="flex w-80 flex-shrink-0 flex-col border-r border-gray-200 bg-white lg:w-64">
+      <!-- Sidebar header -->
+      <div class="border-b border-gray-200 px-4 py-4">
+        <h2 class="text-lg font-semibold text-[var(--text-color)]">Chats</h2>
+        <div class="mt-3 flex items-center gap-2 rounded-lg bg-gray-100 px-3 py-2">
+          <font-awesome-icon :icon="['fas', 'magnifying-glass']" class="text-sm text-gray-400" />
+          <input
+            type="text"
+            placeholder="Search..."
+            class="w-full bg-transparent text-sm text-[var(--text-color)] outline-none placeholder:text-gray-400"
+          />
+        </div>
+      </div>
+
+      <!-- Chat list -->
+      <ul class="flex-1 overflow-y-auto">
+        <li
+          v-for="chat in chats"
+          :key="chat.id"
+          class="flex cursor-pointer items-center gap-3 px-4 py-3 transition-colors hover:bg-gray-50"
+          :class="{ 'bg-blue-50': selectedChatId === chat.id }"
+          @click="selectChat(chat.id)"
+        >
+          <!-- Avatar -->
+          <div class="relative flex-shrink-0">
+            <div
+              class="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--accent-color)] text-sm font-semibold text-white"
+            >
+              {{ chat.avatar }}
+            </div>
+            <span
+              v-if="chat.online"
+              class="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full border-2 border-white bg-green-500"
+            ></span>
+          </div>
+
+          <!-- Info -->
+          <div class="min-w-0 flex-1">
+            <div class="flex items-center justify-between">
+              <span class="truncate text-sm font-medium text-[var(--text-color)]">{{ chat.name }}</span>
+              <span class="ml-2 flex-shrink-0 text-xs text-gray-400">{{ chat.lastTime }}</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="truncate text-xs text-gray-400">{{ chat.lastMessage }}</span>
+              <span
+                v-if="chat.unread > 0"
+                class="ml-2 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full bg-[var(--accent-color)] text-[10px] font-bold text-white"
+              >
+                {{ chat.unread }}
+              </span>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Main: messages -->
+    <div class="flex flex-1 flex-col overflow-hidden">
+      <template v-if="selectedChat">
+        <!-- Chat header -->
+        <div class="flex items-center gap-3 border-b border-gray-200 bg-white px-6 py-4">
+          <div class="relative flex-shrink-0">
+            <div
+              class="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--accent-color)] text-sm font-semibold text-white"
+            >
+              {{ selectedChat.avatar }}
+            </div>
+            <span
+              v-if="selectedChat.online"
+              class="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full border-2 border-white bg-green-500"
+            ></span>
+          </div>
+          <div>
+            <p class="text-sm font-semibold text-[var(--text-color)]">{{ selectedChat.name }}</p>
+            <p class="text-xs" :class="selectedChat.online ? 'text-green-500' : 'text-gray-400'">
+              {{ selectedChat.online ? 'Online' : 'Offline' }}
+            </p>
+          </div>
+        </div>
+
+        <!-- Messages -->
+        <div class="flex-1 overflow-y-auto bg-gray-50 px-6 py-4">
+          <div class="flex flex-col gap-3">
+            <div
+              v-for="msg in selectedChat.messages"
+              :key="msg.id"
+              class="flex"
+              :class="msg.sender === 'admin' ? 'justify-end' : 'justify-start'"
+            >
+              <div
+                class="max-w-[65%] rounded-2xl px-4 py-2.5 text-sm shadow-sm"
+                :class="
+                  msg.sender === 'admin'
+                    ? 'rounded-br-sm bg-[var(--accent-color)] text-white'
+                    : 'rounded-bl-sm bg-white text-[var(--text-color)]'
+                "
+              >
+                <p>{{ msg.text }}</p>
+                <p
+                  class="mt-1 text-right text-[10px]"
+                  :class="msg.sender === 'admin' ? 'text-blue-200' : 'text-gray-400'"
+                >
+                  {{ msg.time }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Input -->
+        <div class="border-t border-gray-200 bg-white px-6 py-4">
+          <div class="flex items-end gap-3">
+            <textarea
+              v-model="messageInput"
+              rows="1"
+              placeholder="Type a message..."
+              class="flex-1 resize-none rounded-xl border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm text-[var(--text-color)] outline-none transition-colors focus:border-[var(--accent-color)] focus:bg-white placeholder:text-gray-400"
+              @keydown="onKeydown"
+            ></textarea>
+            <button
+              class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-[var(--accent-color)] text-white transition-colors hover:bg-[var(--accent-color-dark)] disabled:opacity-50"
+              :disabled="!messageInput.trim()"
+              @click="sendMessage"
+            >
+              <font-awesome-icon :icon="['fas', 'paper-plane']" class="text-sm" />
+            </button>
+          </div>
+        </div>
+      </template>
+
+      <!-- Empty state -->
+      <div v-else class="flex flex-1 items-center justify-center bg-gray-50">
+        <div class="text-center text-gray-400">
+          <font-awesome-icon :icon="['fas', 'comments']" class="mb-3 text-5xl" />
+          <p class="text-sm">Select a chat to start messaging</p>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
