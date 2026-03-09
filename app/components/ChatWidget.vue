@@ -43,7 +43,10 @@
   })
 </script>
 <template>
-  <div ref="chatRef" class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+  <div
+    ref="chatRef"
+    class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3"
+  >
     <!-- Окно чата -->
     <div
       v-show="isOpen"
@@ -94,7 +97,7 @@
             }}</span>
           </span>
           <div
-            class="max-w-[85%] rounded-xl px-3 py-2 text-sm"
+            class="max-w-[85%] break-words rounded-xl px-3 py-2 text-sm"
             :class="
               message.isFromAdmin
                 ? 'rounded-tl-none bg-gray-100 text-gray-800'

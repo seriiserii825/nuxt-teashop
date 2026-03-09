@@ -77,7 +77,7 @@
     <aside
       class="flex w-80 flex-shrink-0 flex-col border-r border-gray-200 bg-white lg:w-64"
     >
-      <ChatSidebarSearch />
+      <!-- <ChatSidebarSearch /> -->
       <ul class="flex-1 overflow-y-auto">
         <ChatSidebarItem
           v-for="chat in chats"

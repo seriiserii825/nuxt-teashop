@@ -20,7 +20,6 @@
     <div class="flex items-end gap-3">
       <textarea
         v-model="messageInput"
-        rows="1"
         placeholder="Type a message..."
         class="flex-1 resize-none rounded-xl border border-gray-200 bg-gray-50 px-4 py-2.5 text-sm text-[var(--text-color)] outline-none transition-colors placeholder:text-gray-400 focus:border-[var(--accent-color)] focus:bg-white"
         @keydown="onKeydown"
