@@ -23,7 +23,7 @@ export const useChat = () => {
     const token = getAccessToken()
     const serverUrl = useRuntimeConfig().public.serverUrl.replace(/\/api$/, '')
 
-    const savedConversationId = localStorage.getItem(CONVERSATION_ID_KEY)
+    const savedConversationId = token ? null : sessionStorage.getItem(CONVERSATION_ID_KEY)
 
     socket.value = io(serverUrl, {
       auth: { token: token ?? null },
@@ -45,7 +45,7 @@ export const useChat = () => {
       messages.value = data.messages
       // Сохраняем id для анонимных пользователей чтобы восстановить историю
       if (!token) {
-        localStorage.setItem(CONVERSATION_ID_KEY, data.conversationId)
+        sessionStorage.setItem(CONVERSATION_ID_KEY, data.conversationId)
       }
     })
 
