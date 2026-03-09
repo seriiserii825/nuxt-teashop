@@ -44,6 +44,6 @@
     </Drawer>
     <FrontFooter />
     <StStyleButton v-if="useIsAdmin()" />
-    <ChatWidget />
+    <ChatWidget v-if="!useIsAdmin()" />
   </div>
 </template>

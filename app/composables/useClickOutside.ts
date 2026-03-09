@@ -1,4 +1,3 @@
-// composables/useClickOutside.ts
 export function useClickOutside(
   elementRef: Ref<HTMLElement | null>,
   callback: () => void

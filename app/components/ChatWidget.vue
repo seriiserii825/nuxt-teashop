@@ -1,6 +1,7 @@
 <script setup lang="ts">
   const { messages, isConnected, connect, disconnect, sendMessage } = useChat()
 
+  const chatRef = ref<HTMLElement | null>(null)
   const isOpen = ref(false)
   const inputText = ref('')
   const messagesContainer = ref<HTMLElement | null>(null)
@@ -37,12 +38,15 @@
       minute: '2-digit',
     })
   }
+  useClickOutside(chatRef, () => {
+    isOpen.value = false
+  })
 </script>
 <template>
-  <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+  <div ref="chatRef" class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
     <!-- Окно чата -->
     <div
-      v-if="isOpen"
+      v-show="isOpen"
       class="flex h-[480px] w-80 flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-2xl"
     >
       <!-- Шапка -->
@@ -80,15 +84,22 @@
           class="flex flex-col gap-1"
           :class="message.isFromAdmin ? 'items-start' : 'items-end'"
         >
-          <span class="text-xs font-semibold" :class="message.isFromAdmin ? 'text-indigo-600' : 'text-gray-500'">
+          <span
+            class="text-xs font-semibold"
+            :class="message.isFromAdmin ? 'text-indigo-600' : 'text-gray-500'"
+          >
             {{ message.isFromAdmin ? 'Поддержка' : 'Вы' }}
-            <span class="ml-1 font-normal text-gray-400">{{ formatTime(message.createdAt) }}</span>
+            <span class="ml-1 font-normal text-gray-400">{{
+              formatTime(message.createdAt)
+            }}</span>
           </span>
           <div
             class="max-w-[85%] rounded-xl px-3 py-2 text-sm"
-            :class="message.isFromAdmin
-              ? 'rounded-tl-none bg-gray-100 text-gray-800'
-              : 'rounded-tr-none bg-indigo-600 text-white'"
+            :class="
+              message.isFromAdmin
+                ? 'rounded-tl-none bg-gray-100 text-gray-800'
+                : 'rounded-tr-none bg-indigo-600 text-white'
+            "
           >
             {{ message.text }}
           </div>
