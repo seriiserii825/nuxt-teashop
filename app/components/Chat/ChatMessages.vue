@@ -13,7 +13,7 @@
 
 <template>
   <div class="chat-messages">
-    <div class="flex-1 overflow-y-auto bg-gray-50 px-6 py-4">
+    <div class="flex-1 overflow-y-scroll bg-gray-50 px-6 py-4">
       <div class="flex flex-col gap-3">
         <div
           v-for="msg in selectedChat.messages"

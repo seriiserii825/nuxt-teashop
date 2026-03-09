@@ -54,8 +54,7 @@
 </script>
 
 <template>
-  <div class="flex h-[calc(100vh-64px)] overflow-hidden">
-    <!-- Sidebar: user list -->
+  <div class="flex h-[calc(100vh-64px)]">
     <aside
       class="flex w-80 flex-shrink-0 flex-col border-r border-gray-200 bg-white lg:w-64"
     >
@@ -71,18 +70,15 @@
       </ul>
     </aside>
 
-    <!-- Main: messages -->
-    <div class="flex h-full flex-1 flex-col overflow-hidden">
+    <div class="flex flex-1 flex-col">
       <template v-if="selectedChat">
-        <div class="relative h-full">
+        <div class="relative pb-6">
           <ChatHeaderSelected :selected-chat="selectedChat" />
           <ChatMessages :selected-chat="selectedChat" />
-          <div class="absolute bottom-0 left-0 w-full">
-            <ChatSendAdminMessage
-              v-model:message-input="messageInput"
-              @send="sendMessage"
-            />
-          </div>
+          <ChatSendAdminMessage
+            v-model:message-input="messageInput"
+            @send="sendMessage"
+          />
         </div>
       </template>
 
