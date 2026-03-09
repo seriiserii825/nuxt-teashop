@@ -6,61 +6,20 @@
     layout: 'store',
   })
 
-  interface IMessage {
-    id: number
-    text: string
-    sender: 'user' | 'admin'
-    time: string
-  }
+  const chats = ref<IConversation[]>([])
 
-  interface IChat {
-    id: number
-    name: string
-    avatar: string
-    lastMessage: string
-    lastTime: string
-    unread: number
-    online: boolean
-    messages: IMessage[]
-  }
-
-  const chats = ref<IChat[]>([])
-
-  const selectedChatId = ref<number>(1)
+  const selectedChatId = ref<string>('1')
   const messageInput = ref('')
 
   const selectedChat = computed(
     () => chats.value.find((c) => c.id === selectedChatId.value) ?? null
   )
 
-  function selectChat(id: number) {
+  function selectChat(id: string) {
     selectedChatId.value = id
     const chat = chats.value.find((c) => c.id === id)
-    if (chat) chat.unread = 0
-  }
-
-  function sendMessage() {
-    const text = messageInput.value.trim()
-    if (!text || !selectedChat.value) return
-    selectedChat.value.messages.push({
-      id: Date.now(),
-      text,
-      sender: 'admin',
-      time: new Date().toLocaleTimeString('en-US', {
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false,
-      }),
-    })
-    selectedChat.value.lastMessage = text
-    selectedChat.value.lastTime = 'Now'
-    messageInput.value = ''
-  }
-
-  function onKeydown(e: KeyboardEvent) {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault()
-      sendMessage()
+    if (chat) {
+      console.log(chat, 'chat')
     }
   }
 
@@ -70,8 +29,31 @@
 
   watch(conversations, (newConversations) => {
     if (!newConversations) return
-    console.log(conversations.value, 'conversations.value')
+    chats.value = newConversations
   })
+
+  function onKeydown(e: KeyboardEvent) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault()
+      sendMessage()
+    }
+  }
+
+  function sendMessage() {
+    if (!messageInput.value.trim() || !selectedChat.value) return
+
+    // Here you would typically send the message to the server
+    // For this example, we'll just add it to the local state
+    const newMessage = {
+      id: Date.now().toString(),
+      text: messageInput.value,
+      isFromAdmin: true,
+      createdAt: new Date().toISOString(),
+    }
+
+    selectedChat.value.messages.push(newMessage)
+    messageInput.value = ''
+  }
 </script>
 
 <template>
@@ -112,10 +94,10 @@
             <div
               class="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--accent-color)] text-sm font-semibold text-white"
             >
-              {{ chat.avatar }}
+              {{ chat.guestName }}
             </div>
             <span
-              v-if="chat.online"
+              v-if="chat"
               class="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full border-2 border-white bg-green-500"
             ></span>
           </div>
@@ -125,22 +107,19 @@
             <div class="flex items-center justify-between">
               <span
                 class="truncate text-sm font-medium text-[var(--text-color)]"
-                >{{ chat.name }}</span
+                >{{ chat.guestName }}</span
               >
               <span class="ml-2 flex-shrink-0 text-xs text-gray-400">{{
-                chat.lastTime
+                useFormatDate(chat.updatedAt)
               }}</span>
             </div>
             <div class="flex items-center justify-between">
-              <span class="truncate text-xs text-gray-400">{{
-                chat.lastMessage
-              }}</span>
-              <span
-                v-if="chat.unread > 0"
-                class="ml-2 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full bg-[var(--accent-color)] text-[10px] font-bold text-white"
-              >
-                {{ chat.unread }}
-              </span>
+              <!-- <span -->
+              <!--   v-if="chat.unread > 0" -->
+              <!--   class="ml-2 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full bg-[var(--accent-color)] text-[10px] font-bold text-white" -->
+              <!-- > -->
+              <!--   {{ chat.unread }} -->
+              <!-- </span> -->
             </div>
           </div>
         </li>
@@ -158,23 +137,8 @@
             <div
               class="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--accent-color)] text-sm font-semibold text-white"
             >
-              {{ selectedChat.avatar }}
+              {{ selectedChat.guestName }}
             </div>
-            <span
-              v-if="selectedChat.online"
-              class="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full border-2 border-white bg-green-500"
-            ></span>
-          </div>
-          <div>
-            <p class="text-sm font-semibold text-[var(--text-color)]">
-              {{ selectedChat.name }}
-            </p>
-            <p
-              class="text-xs"
-              :class="selectedChat.online ? 'text-green-500' : 'text-gray-400'"
-            >
-              {{ selectedChat.online ? 'Online' : 'Offline' }}
-            </p>
           </div>
         </div>
 
@@ -185,12 +149,12 @@
               v-for="msg in selectedChat.messages"
               :key="msg.id"
               class="flex"
-              :class="msg.sender === 'admin' ? 'justify-end' : 'justify-start'"
+              :class="msg.isFromAdmin ? 'justify-end' : 'justify-start'"
             >
               <div
                 class="max-w-[65%] rounded-2xl px-4 py-2.5 text-sm shadow-sm"
                 :class="
-                  msg.sender === 'admin'
+                  msg.isFromAdmin
                     ? 'rounded-br-sm bg-[var(--accent-color)] text-white'
                     : 'rounded-bl-sm bg-white text-[var(--text-color)]'
                 "
@@ -198,11 +162,9 @@
                 <p>{{ msg.text }}</p>
                 <p
                   class="mt-1 text-right text-[10px]"
-                  :class="
-                    msg.sender === 'admin' ? 'text-blue-200' : 'text-gray-400'
-                  "
+                  :class="msg.isFromAdmin ? 'text-blue-200' : 'text-gray-400'"
                 >
-                  {{ msg.time }}
+                  {{ useFormatDate(msg.createdAt) }}
                 </p>
               </div>
             </div>

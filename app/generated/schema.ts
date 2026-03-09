@@ -1266,6 +1266,28 @@ export interface components {
              */
             quantity: number;
         };
+        ConversationMessageDto: {
+            /**
+             * @description Message ID
+             * @example uuid-v4
+             */
+            id: string;
+            /**
+             * @description Message text
+             * @example Hello, I need help
+             */
+            text: string;
+            /**
+             * @description True if the message was sent by admin
+             * @example false
+             */
+            isFromAdmin: boolean;
+            /**
+             * Format: date-time
+             * @example 2024-01-01T00:00:00.000Z
+             */
+            createdAt: string;
+        };
         ConversationDto: {
             /**
              * @description Conversation ID
@@ -1289,6 +1311,7 @@ export interface components {
              * @example false
              */
             isAnonymous: boolean;
+            messages: components["schemas"]["ConversationMessageDto"][];
             /**
              * Format: date-time
              * @example 2024-01-01T00:00:00.000Z
@@ -1299,28 +1322,6 @@ export interface components {
              * @example 2024-01-01T00:00:00.000Z
              */
             updatedAt: string;
-        };
-        ConversationMessageDto: {
-            /**
-             * @description Message ID
-             * @example uuid-v4
-             */
-            id: string;
-            /**
-             * @description Message text
-             * @example Hello, I need help
-             */
-            text: string;
-            /**
-             * @description True if the message was sent by admin
-             * @example false
-             */
-            isFromAdmin: boolean;
-            /**
-             * Format: date-time
-             * @example 2024-01-01T00:00:00.000Z
-             */
-            createdAt: string;
         };
     };
     responses: never;
