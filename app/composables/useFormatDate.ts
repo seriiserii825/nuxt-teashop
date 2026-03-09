@@ -1,5 +1,6 @@
 export default function useFormatDate(dateString: string) {
-  const date = new Date(dateString)
+  const normalized = dateString.endsWith('Z') || dateString.includes('+') ? dateString : dateString + 'Z'
+  const date = new Date(normalized)
 
   const second = date.getSeconds().toString().padStart(2, '0')
   const minute = date.getMinutes().toString().padStart(2, '0')
