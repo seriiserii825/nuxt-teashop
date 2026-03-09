@@ -9,13 +9,11 @@
     isOpen.value = !isOpen.value
   }
 
-  // Подключаемся при открытии, отключаемся при закрытии
   watch(isOpen, (val) => {
     if (val) connect()
     else disconnect()
   })
 
-  // Автоскролл вниз при новом сообщении
   watch(
     messages,
     async () => {
@@ -80,17 +78,17 @@
           v-for="message in messages"
           :key="message.id"
           class="flex flex-col gap-1"
+          :class="message.isFromAdmin ? 'items-start' : 'items-end'"
         >
-          <div class="flex items-center gap-2">
-            <span class="text-xs font-semibold text-indigo-600">
-              {{ message.isAnonymous ? 'Аноним' : message.authorName }}
-            </span>
-            <span class="text-xs text-gray-400">
-              {{ formatTime(message.createdAt) }}
-            </span>
-          </div>
+          <span class="text-xs font-semibold" :class="message.isFromAdmin ? 'text-indigo-600' : 'text-gray-500'">
+            {{ message.isFromAdmin ? 'Поддержка' : 'Вы' }}
+            <span class="ml-1 font-normal text-gray-400">{{ formatTime(message.createdAt) }}</span>
+          </span>
           <div
-            class="max-w-[90%] rounded-xl rounded-tl-none bg-gray-100 px-3 py-2 text-sm text-gray-800"
+            class="max-w-[85%] rounded-xl px-3 py-2 text-sm"
+            :class="message.isFromAdmin
+              ? 'rounded-tl-none bg-gray-100 text-gray-800'
+              : 'rounded-tr-none bg-indigo-600 text-white'"
           >
             {{ message.text }}
           </div>

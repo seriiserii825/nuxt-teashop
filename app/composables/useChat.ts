@@ -4,26 +4,31 @@ import { io } from 'socket.io-client'
 
 import { getAccessToken } from '~/api/api_tokens'
 
-interface Message {
+export interface ChatMessage {
   id: string
   text: string
-  authorName: string
-  authorEmail: string | undefined
-  isAnonymous: boolean
+  isFromAdmin: boolean
   createdAt: string
 }
 
+const CONVERSATION_ID_KEY = 'support_conversation_id'
+
 export const useChat = () => {
-  const messages = ref<Message[]>([])
+  const messages = ref<ChatMessage[]>([])
   const isConnected = ref(false)
+  const conversationId = ref<string | null>(null)
   const socket = shallowRef<Socket | null>(null)
 
   const connect = () => {
     const token = getAccessToken()
     const serverUrl = useRuntimeConfig().public.serverUrl.replace(/\/api$/, '')
+
+    const savedConversationId = localStorage.getItem(CONVERSATION_ID_KEY)
+
     socket.value = io(serverUrl, {
-      auth: {
-        token: token ?? null,
+      auth: { token: token ?? null },
+      query: {
+        ...(savedConversationId ? { conversationId: savedConversationId } : {}),
       },
     })
 
@@ -35,14 +40,19 @@ export const useChat = () => {
       isConnected.value = false
     })
 
-    // Получаем историю сообщений при подключении
-    socket.value.on('history', (data: Message[]) => {
-      messages.value = data
+    socket.value.on('history', (data: { conversationId: string; messages: ChatMessage[] }) => {
+      conversationId.value = data.conversationId
+      messages.value = data.messages
+      // Сохраняем id для анонимных пользователей чтобы восстановить историю
+      if (!token) {
+        localStorage.setItem(CONVERSATION_ID_KEY, data.conversationId)
+      }
     })
 
-    // Получаем новые сообщения в реальном времени
-    socket.value.on('newMessage', (message: Message) => {
-      messages.value.push(message)
+    socket.value.on('newMessage', (data: { conversationId: string; message: ChatMessage }) => {
+      if (data.conversationId === conversationId.value) {
+        messages.value.push(data.message)
+      }
     })
   }
 
@@ -59,6 +69,7 @@ export const useChat = () => {
   return {
     messages,
     isConnected,
+    conversationId,
     connect,
     disconnect,
     sendMessage,
