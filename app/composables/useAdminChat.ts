@@ -10,6 +10,7 @@ export const useAdminChat = (
 ) => {
   const socket = shallowRef<Socket | null>(null)
   const isConnected = ref(false)
+  const unreadCounts = ref<Record<string, number>>({})
 
   const connect = () => {
     const token = getAccessToken()
@@ -33,7 +34,6 @@ export const useAdminChat = (
         const index = conversations.value.findIndex((c) => c.id === data.conversationId)
 
         if (index === -1) {
-          // Новый чат которого ещё нет в списке — перезапрашиваем
           refetch()
           return
         }
@@ -42,11 +42,17 @@ export const useAdminChat = (
         if (!conv) return
         conv.messages = [...(conv.messages ?? []), data.message]
 
-        // Перемещаем чат с новым сообщением наверх
         if (index !== 0) {
           conversations.value.splice(index, 1)
           conversations.value.unshift(conv)
         }
+      },
+    )
+
+    socket.value.on(
+      'unreadCount',
+      (data: { conversationId: string; unreadCount: number }) => {
+        unreadCounts.value = { ...unreadCounts.value, [data.conversationId]: data.unreadCount }
       },
     )
   }
@@ -61,10 +67,17 @@ export const useAdminChat = (
     socket.value.emit('adminReply', { conversationId, text })
   }
 
+  const markRead = (conversationId: string) => {
+    if (!socket.value) return
+    socket.value.emit('markRead', conversationId)
+  }
+
   return {
     isConnected,
+    unreadCounts,
     connect,
     disconnect,
     sendReply,
+    markRead,
   }
 }

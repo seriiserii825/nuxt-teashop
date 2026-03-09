@@ -1313,6 +1313,11 @@ export interface components {
             isAnonymous: boolean;
             messages: components["schemas"]["ConversationMessageDto"][];
             /**
+             * @description Number of unread messages from user
+             * @example 3
+             */
+            unreadCount: number;
+            /**
              * Format: date-time
              * @example 2024-01-01T00:00:00.000Z
              */

@@ -11,6 +11,10 @@
       type: Object as PropType<IConversation>,
       required: true,
     },
+    unreadCount: {
+      type: Number,
+      default: 0,
+    },
   })
 
   function selectChat(id: string) {
@@ -49,12 +53,12 @@
           }}</span>
         </div>
         <div class="flex items-center justify-between">
-          <!-- <span -->
-          <!--   v-if="chat.unread > 0" -->
-          <!--   class="ml-2 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full bg-[var(--accent-color)] text-[10px] font-bold text-white" -->
-          <!-- > -->
-          <!--   {{ chat.unread }} -->
-          <!-- </span> -->
+          <span
+            v-if="unreadCount > 0"
+            class="ml-2 flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full bg-[var(--accent-color)] text-[10px] font-bold text-white"
+          >
+            {{ unreadCount }}
+          </span>
         </div>
       </div>
     </li>

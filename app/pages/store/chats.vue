@@ -14,37 +14,56 @@
     () => chats.value.find((c) => c.id === selectedChatId.value) ?? null
   )
 
-  function selectChat(id: string) {
-    selectedChatId.value = id
-  }
-
   const { data: conversations, refetch } = useQuery<IConversation[]>(() =>
     conversationService.getAll()
   )
 
+  const { connect, disconnect, sendReply, markRead, unreadCounts } =
+    useAdminChat(chats, refetch)
+
   watch(conversations, (newConversations) => {
     if (!newConversations) return
+
+    // Seed initial unread counts from REST (don't overwrite socket-updated ones)
+    const initial: Record<string, number> = {}
+    for (const conv of newConversations) {
+      if (unreadCounts.value[conv.id] === undefined) {
+        initial[conv.id] = conv.unreadCount ?? 0
+      }
+    }
+    unreadCounts.value = { ...initial, ...unreadCounts.value }
 
     const prevIds = new Set(chats.value.map((c) => c.id))
     chats.value = newConversations
 
-    // Первая загрузка — выбираем первый чат
+    // First load — select first chat and mark it read
     if (!selectedChatId.value) {
-      selectedChatId.value = newConversations[0]?.id ?? null
+      const first = newConversations[0]
+      if (first) {
+        selectedChatId.value = first.id
+        markRead(first.id)
+        unreadCounts.value = { ...unreadCounts.value, [first.id]: 0 }
+      }
       return
     }
 
-    // После refetch — если появился новый чат, выбираем его
+    // After refetch — if a new chat appeared, select it
     const newChat = newConversations.find((c) => !prevIds.has(c.id))
     if (newChat) {
       selectedChatId.value = newChat.id
+      markRead(newChat.id)
+      unreadCounts.value = { ...unreadCounts.value, [newChat.id]: 0 }
     }
   })
 
-  const { connect, disconnect, sendReply } = useAdminChat(chats, refetch)
-
   onMounted(() => connect())
   onUnmounted(() => disconnect())
+
+  function selectChat(id: string) {
+    selectedChatId.value = id
+    markRead(id)
+    unreadCounts.value = { ...unreadCounts.value, [id]: 0 }
+  }
 
   function sendMessage() {
     if (!selectedChatId.value || !messageInput.value.trim()) return
@@ -65,6 +84,7 @@
           :key="chat.id"
           :chat="chat"
           :selected-chat-id="selectedChatId ?? ''"
+          :unread-count="unreadCounts[chat.id] ?? 0"
           @select-chat="selectChat"
         />
       </ul>
