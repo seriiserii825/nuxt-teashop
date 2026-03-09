@@ -548,6 +548,38 @@ export interface paths {
         patch: operations["CartController_updateItem"];
         trace?: never;
     };
+    "/api/support-chat/conversations": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["SupportChatController_getAllConversations"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/support-chat/conversations/{id}/messages": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["SupportChatController_getMessages"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -1233,6 +1265,62 @@ export interface components {
              * @example 3
              */
             quantity: number;
+        };
+        ConversationDto: {
+            /**
+             * @description Conversation ID
+             * @example uuid-v4
+             */
+            id: string;
+            /** @description Authenticated user (null for guests) */
+            user?: components["schemas"]["UserBasicDto"] | null;
+            /**
+             * @description Guest display name (anonymous only)
+             * @example John
+             */
+            guestName?: Record<string, never> | null;
+            /**
+             * @description Guest email (anonymous only)
+             * @example john@example.com
+             */
+            guestEmail?: Record<string, never> | null;
+            /**
+             * @description True if the user is anonymous
+             * @example false
+             */
+            isAnonymous: boolean;
+            /**
+             * Format: date-time
+             * @example 2024-01-01T00:00:00.000Z
+             */
+            createdAt: string;
+            /**
+             * Format: date-time
+             * @example 2024-01-01T00:00:00.000Z
+             */
+            updatedAt: string;
+        };
+        ConversationMessageDto: {
+            /**
+             * @description Message ID
+             * @example uuid-v4
+             */
+            id: string;
+            /**
+             * @description Message text
+             * @example Hello, I need help
+             */
+            text: string;
+            /**
+             * @description True if the message was sent by admin
+             * @example false
+             */
+            isFromAdmin: boolean;
+            /**
+             * Format: date-time
+             * @example 2024-01-01T00:00:00.000Z
+             */
+            createdAt: string;
         };
     };
     responses: never;
@@ -2570,6 +2658,63 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["CartItemDto"];
                 };
+            };
+        };
+    };
+    SupportChatController_getAllConversations: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description List of all conversations */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ConversationDto"][];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    SupportChatController_getMessages: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Conversation ID */
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Messages in a conversation */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ConversationMessageDto"][];
+                };
+            };
+            /** @description Unauthorized */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
         };
     };
