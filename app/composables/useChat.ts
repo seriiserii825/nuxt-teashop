@@ -49,7 +49,9 @@ export const useChat = () => {
   }
 
   const sendMessage = (text: string) => {
+    console.log(text, 'text')
     if (!socket.value || !text.trim()) return
+    console.log(text, 'text')
     socket.value.emit('sendMessage', text)
   }
 
