@@ -32,12 +32,6 @@
     inputText.value = ''
   }
 
-  const formatTime = (dateStr: string) => {
-    return new Date(dateStr).toLocaleTimeString('ru-RU', {
-      hour: '2-digit',
-      minute: '2-digit',
-    })
-  }
   useClickOutside(chatRef, () => {
     isOpen.value = false
   })
@@ -47,19 +41,19 @@
     ref="chatRef"
     class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3"
   >
-    <!-- Окно чата -->
+    <!-- Chat window -->
     <div
       v-show="isOpen"
       class="flex h-[480px] w-80 flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-2xl"
     >
-      <!-- Шапка -->
+      <!-- Header -->
       <div class="flex items-center justify-between bg-indigo-600 px-4 py-3">
         <div class="flex items-center gap-2">
           <div
             class="h-2 w-2 rounded-full"
             :class="isConnected ? 'bg-green-400' : 'bg-gray-400'"
           ></div>
-          <span class="text-sm font-medium text-white">Онлайн чат</span>
+          <span class="text-sm font-medium text-white">Online chat</span>
         </div>
         <button
           class="text-white/70 transition-colors hover:text-white"
@@ -68,8 +62,7 @@
           ✕
         </button>
       </div>
-
-      <!-- Сообщения -->
+      <!-- Messages -->
       <div
         ref="messagesContainer"
         class="flex flex-1 flex-col gap-3 overflow-y-auto px-4 py-3"
@@ -78,9 +71,8 @@
           v-if="messages.length === 0"
           class="mt-8 text-center text-sm text-gray-400"
         >
-          Начните диалог 👋
+          Start a conversation 👋
         </div>
-
         <div
           v-for="message in messages"
           :key="message.id"
@@ -91,9 +83,9 @@
             class="text-xs font-semibold"
             :class="message.isFromAdmin ? 'text-indigo-600' : 'text-gray-500'"
           >
-            {{ message.isFromAdmin ? 'Поддержка' : 'Вы' }}
+            {{ message.isFromAdmin ? 'Support' : 'You' }}
             <span class="ml-1 font-normal text-gray-400">{{
-              formatTime(message.createdAt)
+              useFormatDate(message.createdAt)
             }}</span>
           </span>
           <div
@@ -108,13 +100,12 @@
           </div>
         </div>
       </div>
-
-      <!-- Поле ввода -->
+      <!-- Input field -->
       <div class="flex gap-2 border-t border-gray-100 px-3 py-3">
         <input
           v-model="inputText"
           type="text"
-          placeholder="Напишите сообщение..."
+          placeholder="Type a message..."
           class="flex-1 rounded-xl bg-gray-100 px-3 py-2 text-sm outline-none transition focus:ring-2 focus:ring-indigo-300"
           @keydown.enter="send"
         />
@@ -127,11 +118,9 @@
         </button>
       </div>
     </div>
-
-    <!-- Уведомление для незалогиненных -->
+    <!-- Notification for non-logged-in users -->
     <ChatNotification />
-
-    <!-- Кнопка открытия -->
+    <!-- Toggle button -->
     <button
       class="flex h-14 w-14 items-center justify-center rounded-full bg-indigo-600 text-2xl text-white shadow-lg transition-all hover:scale-110 hover:bg-indigo-700 active:scale-95"
       @click="toggleChat"
