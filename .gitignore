@@ -24,3 +24,4 @@ logs
 .env.*
 !.env.example
 !.env.gpg
+.env.sha256
